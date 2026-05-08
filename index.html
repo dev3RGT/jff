@@ -13,18 +13,17 @@
 
     <style>
         :root {
-            /* Monochromatic Deep Green Palette */
-            --green-900: #070e09; /* Darkest, footer/hero bg */
-            --green-800: #0d1a11; /* Main section alternative bg */
-            --green-700: #142919; /* Secondary section bg */
-            --green-600: #1a3320; /* Card bg */
-            --green-500: #2e5c35; /* Borders, subtle accents */
-            --green-400: #4a7d52; /* Buttons, highlights */
-            --green-300: #7aab6e; /* Highlight text */
-            --green-200: #c8dbbf; /* Muted text */
-            --green-100: #e3eedd; /* Main text */
-            --gold: #c9a84c;      /* Keeping gold for stars/badges */
+            --forest: #1a3320;
+            --moss: #2e5c35;
+            --sage: #7aab6e;
+            --mist: #c8dbbf;
+            --cream: #f5f0e8;
+            --parchment: #ede8da;
+            --bark: #5c4a2a;
+            --gold: #c9a84c;
             --white: #ffffff;
+            --text: #1a1a1a;
+            --text-soft: #6b6b6b;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -33,10 +32,9 @@
 
         body {
             font-family: 'DM Sans', sans-serif;
-            background-color: var(--green-900);
-            color: var(--green-100);
-            /* overflow-x: clip is used instead of hidden so position:sticky doesn't break */
-            overflow-x: clip; 
+            background-color: var(--cream);
+            color: var(--text);
+            overflow-x: hidden;
             cursor: auto;
         }
 
@@ -44,7 +42,7 @@
         .loader {
             position: fixed;
             inset: 0;
-            background: var(--green-900);
+            background: var(--forest);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -59,7 +57,7 @@
 
         .loader-content {
             text-align: center;
-            color: var(--white);
+            color: var(--cream);
         }
 
         .loader-leaf {
@@ -67,7 +65,6 @@
             animation: loaderSpin 1.5s ease-in-out infinite;
             display: block;
             margin-bottom: 1rem;
-            color: var(--green-300);
         }
 
         @keyframes loaderSpin {
@@ -93,7 +90,7 @@
         header {
             position: fixed;
             top: 0; width: 100%;
-            z-index: 2000;
+            z-index: 1000;
             padding: 1.5rem 3rem;
             display: flex;
             justify-content: space-between;
@@ -102,10 +99,10 @@
         }
 
         header.scrolled {
-            background: rgba(7, 14, 9, 0.95);
+            background: rgba(245, 240, 232, 0.95);
             backdrop-filter: blur(20px);
             padding: 1rem 3rem;
-            box-shadow: 0 1px 0 rgba(255,255,255,0.05);
+            box-shadow: 0 1px 0 rgba(0,0,0,0.06);
         }
 
         .logo {
@@ -117,6 +114,8 @@
             transition: color 0.5s ease;
             z-index: 2;
         }
+
+        header.scrolled .logo { color: var(--forest); }
 
         .nav-links {
             display: flex;
@@ -131,26 +130,29 @@
             letter-spacing: 0.12em;
             text-transform: uppercase;
             text-decoration: none;
-            color: var(--green-200);
+            color: rgba(255,255,255,0.85);
             transition: color 0.3s ease;
             position: relative;
         }
+
+        header.scrolled .nav-links a { color: var(--text-soft); }
 
         .nav-links a::after {
             content: '';
             position: absolute;
             bottom: -3px; left: 0;
             width: 0; height: 1px;
-            background: var(--green-300);
+            background: var(--sage);
             transition: width 0.3s ease;
         }
 
         .nav-links a:hover::after { width: 100%; }
-        .nav-links a:hover, header.scrolled .nav-links a:hover { color: var(--white); }
+        .nav-links a:hover { color: var(--white); }
+        header.scrolled .nav-links a:hover { color: var(--moss); }
 
         .nav-cta {
             background: transparent;
-            border: 1px solid rgba(255,255,255,0.3);
+            border: 1px solid rgba(255,255,255,0.5);
             color: var(--white) !important;
             padding: 0.55rem 1.4rem;
             border-radius: 100px;
@@ -164,22 +166,19 @@
 
         .nav-cta:hover {
             background: var(--white);
-            color: var(--green-900) !important;
+            color: var(--forest) !important;
             border-color: var(--white);
         }
 
-        /* ============ STACKING SECTIONS LOGIC ============ */
-        /* This magic CSS dynamically calculates the height of the block and allows it to stick properly regardless of viewport size */
-        .stacked-section {
-            position: sticky;
-            top: min(0px, 100dvh - 100%);
-            width: 100%;
-            background-color: var(--section-bg);
-            z-index: var(--z-index);
-            box-shadow: 0 -25px 50px rgba(0,0,0,0.6);
-            margin: 0;
+        header.scrolled .nav-cta {
+            border-color: var(--moss);
+            color: var(--moss) !important;
         }
-        .stacked-section:first-child { box-shadow: none; }
+
+        header.scrolled .nav-cta:hover {
+            background: var(--moss);
+            color: var(--white) !important;
+        }
 
         /* ============ HERO ============ */
         .hero {
@@ -208,9 +207,9 @@
             inset: 0;
             background: linear-gradient(
                 to bottom,
-                rgba(7, 14, 9, 0.65) 0%,
-                rgba(7, 14, 9, 0.45) 50%,
-                rgba(7, 14, 9, 0.9) 100%
+                rgba(18, 40, 20, 0.55) 0%,
+                rgba(18, 40, 20, 0.35) 50%,
+                rgba(18, 40, 20, 0.7) 100%
             );
         }
 
@@ -229,7 +228,7 @@
             font-weight: 500;
             letter-spacing: 0.3em;
             text-transform: uppercase;
-            color: var(--green-300);
+            color: var(--mist);
             margin-bottom: 1.5rem;
             opacity: 0;
             transform: translateY(20px);
@@ -250,13 +249,13 @@
 
         .hero h1 em {
             font-style: italic;
-            color: var(--green-200);
+            color: var(--mist);
         }
 
         .hero-sub {
             font-size: clamp(0.95rem, 3vw, 1.05rem);
             font-weight: 300;
-            color: var(--green-100);
+            color: rgba(255,255,255,0.8);
             line-height: 1.7;
             max-width: 560px;
             margin: 0 auto 2.5rem;
@@ -289,27 +288,26 @@
         }
 
         .btn-primary {
-            background: var(--green-400);
+            background: var(--sage);
             color: var(--white);
         }
 
         .btn-primary:hover {
             background: var(--white);
-            color: var(--green-900);
+            color: var(--forest);
             transform: translateY(-2px);
-            box-shadow: 0 12px 30px rgba(0,0,0,0.4);
+            box-shadow: 0 12px 30px rgba(0,0,0,0.2);
         }
 
         .btn-ghost {
             background: transparent;
-            color: var(--green-200);
-            border: 1px solid var(--green-400);
+            color: var(--white);
+            border: 1px solid rgba(255,255,255,0.4);
         }
 
         .btn-ghost:hover {
-            border-color: var(--green-400);
-            background: var(--green-400);
-            color: var(--white);
+            border-color: rgba(255,255,255,0.9);
+            background: rgba(255,255,255,0.1);
             transform: translateY(-2px);
         }
 
@@ -323,7 +321,7 @@
             flex-direction: column;
             align-items: center;
             gap: 0.5rem;
-            color: var(--green-300);
+            color: rgba(255,255,255,0.6);
             font-size: 0.72rem;
             letter-spacing: 0.25em;
             text-transform: uppercase;
@@ -333,7 +331,7 @@
         .scroll-line {
             width: 1px;
             height: 40px;
-            background: rgba(255,255,255,0.1);
+            background: rgba(255,255,255,0.3);
             position: relative;
             overflow: hidden;
         }
@@ -344,7 +342,7 @@
             top: -100%;
             width: 100%;
             height: 100%;
-            background: var(--green-400);
+            background: var(--mist);
             animation: scrollDrop 1.8s ease-in-out infinite 2.5s;
         }
 
@@ -367,7 +365,9 @@
             align-items: center;
         }
 
-        .about-media { position: relative; }
+        .about-media {
+            position: relative;
+        }
 
         .about-main-img {
             width: 100%;
@@ -385,16 +385,16 @@
             aspect-ratio: 1;
             object-fit: cover;
             border-radius: 4px;
-            border: 6px solid var(--green-800);
-            box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+            border: 6px solid var(--cream);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.15);
         }
 
         .about-badge {
             position: absolute;
             top: 2rem;
             left: -2.5rem;
-            background: var(--green-400);
-            color: var(--white);
+            background: var(--gold);
+            color: var(--forest);
             width: 90px;
             height: 90px;
             border-radius: 50%;
@@ -408,7 +408,7 @@
             letter-spacing: 0.05em;
             text-transform: uppercase;
             line-height: 1.3;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.4);
+            box-shadow: 0 8px 25px rgba(201, 168, 76, 0.35);
             animation: badgeSpin 8s linear infinite;
         }
 
@@ -429,7 +429,7 @@
             font-weight: 500;
             letter-spacing: 0.25em;
             text-transform: uppercase;
-            color: var(--green-300);
+            color: var(--sage);
             margin-bottom: 1rem;
         }
 
@@ -438,25 +438,25 @@
             font-size: clamp(2.2rem, 8vw, 3.5rem);
             font-weight: 300;
             line-height: 1.15;
-            color: var(--white);
+            color: var(--forest);
             margin-bottom: 1.5rem;
         }
 
         .section-heading em {
             font-style: italic;
-            color: var(--green-300);
+            color: var(--moss);
         }
 
         .body-text {
             font-size: 1rem;
             line-height: 1.85;
-            color: var(--green-200);
+            color: var(--text-soft);
             margin-bottom: 1.2rem;
             font-weight: 300;
         }
 
         .blockquote {
-            border-left: 2px solid var(--green-400);
+            border-left: 2px solid var(--sage);
             padding-left: 1.5rem;
             margin: 2rem 0;
         }
@@ -466,15 +466,14 @@
             font-size: clamp(1.1rem, 4vw, 1.3rem);
             font-style: italic;
             font-weight: 300;
-            color: var(--green-300);
+            color: var(--forest);
             line-height: 1.6;
         }
 
         /* ============ STATS STRIP ============ */
         .stats-strip {
-            background: var(--green-900);
+            background: var(--forest);
             padding: 4rem 3rem;
-            border-top: 1px solid rgba(255,255,255,0.03);
         }
 
         .stats-inner {
@@ -488,7 +487,7 @@
 
         .stat-item {
             padding: 1.5rem;
-            border-right: 1px solid rgba(255,255,255,0.05);
+            border-right: 1px solid rgba(255,255,255,0.1);
         }
 
         .stat-item:last-child { border-right: none; }
@@ -497,7 +496,7 @@
             font-family: 'Cormorant Garamond', serif;
             font-size: clamp(2.5rem, 8vw, 3.5rem);
             font-weight: 300;
-            color: var(--green-200);
+            color: var(--mist);
             line-height: 1;
             margin-bottom: 0.5rem;
         }
@@ -507,13 +506,19 @@
             font-weight: 500;
             letter-spacing: 0.2em;
             text-transform: uppercase;
-            color: var(--green-300);
+            color: rgba(255,255,255,0.5);
         }
 
         /* ============ SERVICES ============ */
-        .services-section { padding: 7rem 3rem; }
+        .services-section {
+            background: var(--parchment);
+            padding: 7rem 3rem;
+        }
 
-        .services-inner { max-width: 1300px; margin: 0 auto; }
+        .services-inner {
+            max-width: 1300px;
+            margin: 0 auto;
+        }
 
         .services-header {
             display: flex;
@@ -528,7 +533,7 @@
             max-width: 380px;
             font-size: 0.95rem;
             line-height: 1.75;
-            color: var(--green-200);
+            color: var(--text-soft);
             font-weight: 300;
         }
 
@@ -539,18 +544,17 @@
         }
 
         .service-card {
-            background: var(--green-800);
+            background: var(--white);
             border-radius: 6px;
             overflow: hidden;
             position: relative;
             transition: transform 0.45s cubic-bezier(0.23, 1, 0.32, 1), box-shadow 0.45s ease;
             will-change: transform;
-            border: 1px solid rgba(255,255,255,0.03);
         }
 
         .service-card:hover {
             transform: translateY(-8px);
-            box-shadow: 0 30px 60px rgba(0,0,0,0.4);
+            box-shadow: 0 30px 60px rgba(0,0,0,0.12);
         }
 
         .card-img {
@@ -561,7 +565,9 @@
             transition: transform 0.7s cubic-bezier(0.23, 1, 0.32, 1);
         }
 
-        .service-card:hover .card-img { transform: scale(1.05); }
+        .service-card:hover .card-img {
+            transform: scale(1.05);
+        }
 
         .card-img-wrapper { overflow: hidden; }
 
@@ -570,8 +576,8 @@
         .card-icon {
             width: 44px;
             height: 44px;
-            background: var(--green-900);
-            color: var(--green-300);
+            background: var(--forest);
+            color: var(--mist);
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -584,14 +590,14 @@
             font-family: 'Cormorant Garamond', serif;
             font-size: 1.4rem;
             font-weight: 400;
-            color: var(--white);
+            color: var(--forest);
             margin-bottom: 0.8rem;
         }
 
         .card-text {
             font-size: 0.9rem;
             line-height: 1.75;
-            color: var(--green-200);
+            color: var(--text-soft);
             font-weight: 300;
         }
 
@@ -604,17 +610,17 @@
             font-weight: 500;
             letter-spacing: 0.1em;
             text-transform: uppercase;
-            color: var(--green-300);
+            color: var(--moss);
             text-decoration: none;
             transition: gap 0.3s ease;
             will-change: transform;
         }
 
-        .card-link:hover { gap: 0.8rem; color: var(--white); }
+        .card-link:hover { gap: 0.8rem; }
 
         /* ============ MARQUEE ============ */
         .marquee-section {
-            background: var(--green-600);
+            background: var(--moss);
             padding: 1.5rem 0;
             overflow: hidden;
             width: 100vw;
@@ -631,7 +637,7 @@
             display: flex;
             align-items: center;
             gap: 1rem;
-            color: var(--green-100);
+            color: var(--mist);
             font-size: 0.82rem;
             font-weight: 500;
             letter-spacing: 0.2em;
@@ -640,7 +646,7 @@
         }
 
         .marquee-item i {
-            color: var(--green-400);
+            color: rgba(255,255,255,0.4);
             font-size: 0.5rem;
         }
 
@@ -666,10 +672,9 @@
         .review-score-block {
             text-align: center;
             padding: 3rem;
-            background: var(--green-900);
+            background: var(--forest);
             border-radius: 8px;
             color: var(--white);
-            border: 1px solid rgba(255,255,255,0.03);
         }
 
         .score-number {
@@ -677,7 +682,7 @@
             font-size: clamp(4rem, 10vw, 6rem);
             font-weight: 300;
             line-height: 1;
-            color: var(--green-200);
+            color: var(--mist);
             margin-bottom: 0.5rem;
         }
 
@@ -693,7 +698,7 @@
             font-weight: 500;
             letter-spacing: 0.2em;
             text-transform: uppercase;
-            color: var(--green-300);
+            color: rgba(255,255,255,0.5);
         }
 
         .reviews-grid {
@@ -703,17 +708,17 @@
         }
 
         .review-card {
-            background: var(--green-700);
+            background: var(--white);
             padding: 1.8rem;
             border-radius: 6px;
-            border: 1px solid rgba(255,255,255,0.03);
+            border: 1px solid rgba(0,0,0,0.04);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
             will-change: transform;
         }
 
         .review-card:hover {
             transform: translateY(-4px);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.08);
         }
 
         .review-stars {
@@ -727,7 +732,7 @@
             font-family: 'Cormorant Garamond', serif;
             font-size: 1.05rem;
             font-style: italic;
-            color: var(--white);
+            color: var(--forest);
             line-height: 1.65;
             margin-bottom: 1rem;
         }
@@ -737,13 +742,19 @@
             font-weight: 500;
             letter-spacing: 0.1em;
             text-transform: uppercase;
-            color: var(--green-300);
+            color: var(--text-soft);
         }
 
         /* ============ CONTACT / MAP ============ */
-        .contact-section { padding: 7rem 3rem 4rem; }
+        .contact-section {
+            background: var(--parchment);
+            padding: 7rem 3rem;
+        }
 
-        .contact-inner { max-width: 1300px; margin: 0 auto; }
+        .contact-inner {
+            max-width: 1300px;
+            margin: 0 auto;
+        }
 
         .contact-layout {
             display: grid;
@@ -753,18 +764,21 @@
             margin-top: 4rem;
         }
 
-        .info-blocks { display: flex; flex-direction: column; gap: 2rem; }
+        .info-blocks {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
 
         .info-block {
             display: flex;
             gap: 1.2rem;
             align-items: flex-start;
             padding: 1.5rem;
-            background: var(--green-800);
+            background: var(--white);
             border-radius: 6px;
             transition: transform 0.3s ease;
             will-change: transform;
-            border: 1px solid rgba(255,255,255,0.03);
         }
 
         .info-block:hover { transform: translateX(6px); }
@@ -772,8 +786,8 @@
         .info-block-icon {
             width: 42px;
             height: 42px;
-            background: var(--green-700);
-            color: var(--green-300);
+            background: var(--forest);
+            color: var(--mist);
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -787,29 +801,29 @@
             font-weight: 600;
             letter-spacing: 0.2em;
             text-transform: uppercase;
-            color: var(--green-200);
+            color: var(--text-soft);
             margin-bottom: 0.4rem;
         }
 
         .info-block-value {
             font-family: 'Cormorant Garamond', serif;
             font-size: 1.15rem;
-            color: var(--white);
+            color: var(--forest);
             line-height: 1.5;
         }
 
         .info-block-value a {
             text-decoration: none;
-            color: var(--white);
+            color: var(--forest);
             transition: color 0.3s;
         }
 
-        .info-block-value a:hover { color: var(--green-300); }
+        .info-block-value a:hover { color: var(--moss); }
 
         .hours-note {
             margin-top: 0.6rem;
             font-size: 0.83rem;
-            color: var(--green-400);
+            color: var(--sage);
             font-weight: 500;
             font-family: 'DM Sans', sans-serif;
         }
@@ -817,7 +831,7 @@
         .map-wrapper {
             border-radius: 8px;
             overflow: hidden;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.1);
             position: relative;
         }
 
@@ -825,7 +839,7 @@
             content: '';
             position: absolute;
             inset: 0;
-            border: 1px solid rgba(255,255,255,0.1);
+            border: 1px solid rgba(0,0,0,0.06);
             border-radius: 8px;
             z-index: 1;
             pointer-events: none;
@@ -836,12 +850,14 @@
             width: 100%;
             height: 460px;
             border: none;
-            /* Invert map colors for dark mode */
-            filter: invert(90%) hue-rotate(180deg) brightness(0.8) contrast(1.1);
+            filter: saturate(0.8);
         }
 
         /* ============ INSTAGRAM / GALLERY STRIP ============ */
-        .gallery-section { padding: 0; overflow: hidden; }
+        .gallery-section {
+            padding: 0;
+            overflow: hidden;
+        }
 
         .gallery-strip {
             display: grid;
@@ -867,7 +883,7 @@
         .gallery-overlay {
             position: absolute;
             inset: 0;
-            background: rgba(7, 14, 9, 0.6);
+            background: rgba(26, 51, 32, 0.5);
             opacity: 0;
             transition: opacity 0.45s ease;
             display: flex;
@@ -881,7 +897,9 @@
 
         /* ============ FOOTER ============ */
         footer {
-            padding: 2rem 3rem 4rem;
+            background: var(--forest);
+            color: rgba(255,255,255,0.7);
+            padding: 4rem 3rem 2rem;
         }
 
         .footer-inner {
@@ -894,7 +912,7 @@
             grid-template-columns: 1.5fr 1fr 1fr;
             gap: 4rem;
             padding-bottom: 3rem;
-            border-bottom: 1px solid rgba(255,255,255,0.05);
+            border-bottom: 1px solid rgba(255,255,255,0.1);
             margin-bottom: 2rem;
         }
 
@@ -902,7 +920,7 @@
             font-family: 'Cormorant Garamond', serif;
             font-size: 2rem;
             font-weight: 300;
-            color: var(--white);
+            color: var(--mist);
             margin-bottom: 1rem;
         }
 
@@ -910,7 +928,6 @@
             font-size: 0.9rem;
             line-height: 1.75;
             font-weight: 300;
-            color: var(--green-200);
         }
 
         .footer-heading {
@@ -918,7 +935,7 @@
             font-weight: 600;
             letter-spacing: 0.2em;
             text-transform: uppercase;
-            color: var(--green-300);
+            color: var(--mist);
             margin-bottom: 1.2rem;
         }
 
@@ -931,20 +948,21 @@
 
         .footer-links a {
             text-decoration: none;
-            color: var(--green-200);
+            color: rgba(255,255,255,0.6);
             font-size: 0.9rem;
             font-weight: 300;
             transition: color 0.3s ease;
+            will-change: transform;
         }
 
-        .footer-links a:hover { color: var(--white); }
+        .footer-links a:hover { color: var(--mist); }
 
         .footer-bottom {
             display: flex;
             justify-content: space-between;
             align-items: center;
             font-size: 0.8rem;
-            color: var(--green-300);
+            color: rgba(255,255,255,0.35);
         }
 
         /* ============ SCROLL ANIMATIONS ============ */
@@ -980,7 +998,7 @@
             background: none;
             border: none;
             padding: 4px;
-            z-index: 2100;
+            z-index: 1100;
             transition: transform 0.3s ease;
         }
 
@@ -994,16 +1012,18 @@
             transform-origin: center;
         }
 
-        .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+        header.scrolled .hamburger span { background: var(--forest); }
+
+        .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); background: var(--white); }
         .hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
-        .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+        .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); background: var(--white); }
 
         .mobile-nav {
             display: none;
             position: fixed;
             inset: 0;
-            background: var(--green-900);
-            z-index: 2050;
+            background: var(--forest);
+            z-index: 1050;
             flex-direction: column;
             align-items: center;
             justify-content: center;
@@ -1022,7 +1042,7 @@
             font-family: 'Cormorant Garamond', serif;
             font-size: 2.8rem;
             font-weight: 300;
-            color: var(--green-200);
+            color: var(--mist);
             text-decoration: none;
             letter-spacing: 0.04em;
             padding: 0.6rem 2rem;
@@ -1050,7 +1070,7 @@
             border: 1px solid rgba(255,255,255,0.3);
             border-radius: 100px;
             padding: 0.8rem 2.5rem;
-            color: var(--white) !important;
+            color: rgba(255,255,255,0.9) !important;
         }
 
         /* ============ RESPONSIVE (1024px) ============ */
@@ -1078,11 +1098,14 @@
             .section-wrapper, .services-section, .contact-section, .reviews-section {
                 padding: 4.5rem 1.5rem; 
             }
+            
             .stats-strip { padding: 3.5rem 1.5rem; }
 
+            /* Buttons */
             .hero-actions { flex-direction: column; align-items: stretch; gap: 0.8rem; width: 100%; max-width: 320px; margin: 0 auto; }
             .btn-primary, .btn-ghost { text-align: center; width: 100%; }
 
+            /* About Layout - Keeps both images visible */
             .about-layout { gap: 2.5rem; }
             .about-media { padding-bottom: 2rem; }
             .about-main-img { border-radius: 8px; }
@@ -1100,6 +1123,7 @@
             }
             .about-badge span { font-size: 1.2rem; }
 
+            /* Stats Grid Optimization */
             .stats-inner {
                 grid-template-columns: 1fr 1fr;
                 gap: 1.5rem 0;
@@ -1117,32 +1141,37 @@
                 padding-bottom: 0;
             }
 
+            /* Services & Reviews */
             .cards-grid { grid-template-columns: 1fr; }
             .reviews-layout { gap: 1.5rem; }
             .reviews-grid { grid-template-columns: 1fr; }
             .review-score-block { padding: 2.5rem 1.5rem; }
+
+            /* Maps */
             .contact-layout { gap: 2rem; }
             .map-wrapper iframe { height: 300px; }
 
+            /* Mobile Horizontal Scroll Gallery */
             .gallery-strip {
                 display: flex;
                 overflow-x: auto;
                 scroll-snap-type: x mandatory;
-                scrollbar-width: none;
-                -ms-overflow-style: none;
+                scrollbar-width: none; /* Firefox */
+                -ms-overflow-style: none; /* IE/Edge */
             }
-            .gallery-strip::-webkit-scrollbar { display: none; }
+            .gallery-strip::-webkit-scrollbar { display: none; /* Chrome/Safari */ }
+            
             .gallery-item {
-                flex: 0 0 75%;
+                flex: 0 0 75%; /* Shows 75% of one image, hinting there are more */
                 scroll-snap-align: center;
-                border-right: 2px solid var(--green-900);
+                border-right: 2px solid var(--cream);
             }
             .gallery-item:last-child { border-right: none; }
 
             .footer-top { grid-template-columns: 1fr; gap: 2.5rem; padding-bottom: 2.5rem; }
-            footer { padding: 2rem 1.5rem 2rem; }
+            footer { padding: 4rem 1.5rem 2rem; }
             .footer-bottom { flex-direction: column; gap: 0.8rem; text-align: center; }
-            .services-header { gap: 0.8rem; flex-direction: column; align-items: flex-start; }
+            .services-header { gap: 0.8rem; }
             .services-desc { max-width: 100%; }
         }
 
@@ -1150,7 +1179,7 @@
         @media (max-width: 400px) {
             .hero-actions { max-width: 100%; }
             .about-accent-img {
-                width: 65%;
+                width: 65%; /* Adjusts overlap gracefully */
                 right: 0;
             }
             .stats-inner { grid-template-columns: 1fr; }
@@ -1197,276 +1226,265 @@
         <a href="tel:0817684827" class="mobile-nav-cta">Call Now</a>
     </nav>
 
-    <!-- MAIN CONTAINER FOR STACKED SECTIONS -->
-    <main>
-        
-        <!-- SECTION 1: HERO -->
-        <div class="stacked-section" style="--section-bg: var(--green-900); --z-index: 1;">
-            <section id="home" class="hero">
-                <div class="hero-bg"></div>
-                <div class="hero-overlay"></div>
-                <div class="hero-content">
-                    <span class="hero-eyebrow">Mokopane, South Africa</span>
-                    <h1>More Than <em>Just</em><br>a Store</h1>
-                    <p class="hero-sub">A boutique plant sanctuary, café, and horticultural destination nestled in the heart of Mokopane.</p>
-                    <div class="hero-actions">
-                        <a href="#about" class="btn-primary">Discover Our Space</a>
-                        <a href="#contact" class="btn-ghost">Find Us</a>
-                    </div>
-                </div>
-                <div class="hero-scroll">
-                    <div class="scroll-line"></div>
-                    <span>Scroll</span>
-                </div>
-            </section>
+    <!-- Hero -->
+    <section id="home" class="hero">
+        <div class="hero-bg"></div>
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <span class="hero-eyebrow">Mokopane, South Africa</span>
+            <h1>More Than <em>Just</em><br>a Store</h1>
+            <p class="hero-sub">A boutique plant sanctuary, café, and horticultural destination nestled in the heart of Mokopane.</p>
+            <div class="hero-actions">
+                <a href="#about" class="btn-primary">Discover Our Space</a>
+                <a href="#contact" class="btn-ghost">Find Us</a>
+            </div>
         </div>
+        <div class="hero-scroll">
+            <div class="scroll-line"></div>
+            <span>Scroll</span>
+        </div>
+    </section>
 
-        <!-- SECTION 2: ABOUT + STATS -->
-        <div class="stacked-section" style="--section-bg: var(--green-800); --z-index: 2;">
-            <section id="about">
-                <div class="section-wrapper">
-                    <div class="about-layout">
-                        <div class="about-media reveal-left">
-                            <div class="about-badge"><span>5.0</span>Google<br>Rated</div>
-                            <img src="https://i.postimg.cc/J4jtTDmR/Save-Clip-App-574562820-18056798984540137-5997074684949744627-n.jpg" alt="JFF Plant Shop Interior" class="about-main-img" loading="lazy">
-                            <img src="https://i.postimg.cc/rsXtf7h7/Save-Clip-App-641755019-18068658878540137-1871984780433477788-n.jpg" alt="Plants Detail" class="about-accent-img" loading="lazy">
-                        </div>
-                        <div class="about-text reveal-right">
-                            <span class="eyebrow">Our Green Story</span>
-                            <h2 class="section-heading">A <em>sanctuary</em> where plants and people thrive</h2>
-                            <div class="blockquote">
-                                <p>"When we first imagined JFF Plant Shop, it was never just about opening a store. It was about creating a small green sanctuary."</p>
-                            </div>
-                            <p class="body-text">We are a boutique business with a strong focus on houseplants, indoor greenery, and creating a relaxed environment. Whether you're looking for the perfect monstera, expert horticultural advice, or just a great cup of coffee surrounded by nature — you'll find it here.</p>
-                            <p class="body-text">Every plant in our collection is handpicked and cared for with intention. We believe that living with plants changes how you feel at home, and we're here to help you find exactly the right one.</p>
-                        </div>
+    <!-- About -->
+    <section id="about">
+        <div class="section-wrapper">
+            <div class="about-layout">
+                <div class="about-media reveal-left">
+                    <div class="about-badge"><span>5.0</span>Google<br>Rated</div>
+                    <img src="https://i.postimg.cc/J4jtTDmR/Save-Clip-App-574562820-18056798984540137-5997074684949744627-n.jpg" alt="JFF Plant Shop Interior" class="about-main-img" loading="lazy">
+                    <img src="https://i.postimg.cc/rsXtf7h7/Save-Clip-App-641755019-18068658878540137-1871984780433477788-n.jpg" alt="Plants Detail" class="about-accent-img" loading="lazy">
+                </div>
+                <div class="about-text reveal-right">
+                    <span class="eyebrow">Our Green Story</span>
+                    <h2 class="section-heading">A <em>sanctuary</em> where plants and people thrive</h2>
+                    <div class="blockquote">
+                        <p>"When we first imagined JFF Plant Shop, it was never just about opening a store. It was about creating a small green sanctuary."</p>
+                    </div>
+                    <p class="body-text">We are a boutique business with a strong focus on houseplants, indoor greenery, and creating a relaxed environment. Whether you're looking for the perfect monstera, expert horticultural advice, or just a great cup of coffee surrounded by nature — you'll find it here.</p>
+                    <p class="body-text">Every plant in our collection is handpicked and cared for with intention. We believe that living with plants changes how you feel at home, and we're here to help you find exactly the right one.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Strip -->
+    <div class="stats-strip">
+        <div class="stats-inner">
+            <div class="stat-item reveal delay-1">
+                <div class="stat-num">5.0</div>
+                <div class="stat-label">Google Star Rating</div>
+            </div>
+            <div class="stat-item reveal delay-2">
+                <div class="stat-num">3</div>
+                <div class="stat-label">Unique Experiences</div>
+            </div>
+            <div class="stat-item reveal delay-3">
+                <div class="stat-num">∞</div>
+                <div class="stat-label">Reasons to Visit</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Services -->
+    <div id="services" class="services-section">
+        <div class="services-inner">
+            <div class="services-header">
+                <div>
+                    <span class="eyebrow">What We Offer</span>
+                    <h2 class="section-heading">Three ways to <em>experience</em> JFF</h2>
+                </div>
+                <p class="services-desc">From curated plants to artisan coffee and expert care — every visit to JFF is a different kind of delight.</p>
+            </div>
+            <div class="cards-grid">
+                <div class="service-card reveal delay-1">
+                    <div class="card-img-wrapper">
+                        <img src="https://i.postimg.cc/sfbRNs4Q/Save-Clip-App-474544344-18027894827540137-4472927896347318860-n.jpg" alt="Plant Retail" class="card-img" loading="lazy">
+                    </div>
+                    <div class="card-body">
+                        <div class="card-icon"><i class="fa-solid fa-leaf"></i></div>
+                        <h3 class="card-title">Boutique Plant Retail</h3>
+                        <p class="card-text">A curated selection of beautiful, healthy houseplants and indoor greenery to breathe life into your home or office.</p>
+                        <a href="#contact" class="card-link">Visit the shop <i class="fa-solid fa-arrow-right"></i></a>
                     </div>
                 </div>
-            </section>
-            
-            <div class="stats-strip">
-                <div class="stats-inner">
-                    <div class="stat-item reveal delay-1">
-                        <div class="stat-num">5.0</div>
-                        <div class="stat-label">Google Star Rating</div>
+                <div class="service-card reveal delay-2">
+                    <div class="card-img-wrapper">
+                        <img src="https://i.postimg.cc/qMCw7LTS/Save-Clip-App-601863212-18061045304540137-785892017756620310-n.jpg" alt="Café" class="card-img" loading="lazy">
                     </div>
-                    <div class="stat-item reveal delay-2">
-                        <div class="stat-num">3</div>
-                        <div class="stat-label">Unique Experiences</div>
+                    <div class="card-body">
+                        <div class="card-icon"><i class="fa-solid fa-mug-hot"></i></div>
+                        <h3 class="card-title">Relaxed Café</h3>
+                        <p class="card-text">Take a moment to unwind. Enjoy artisanal coffee, teas, and treats right in the middle of our indoor jungle.</p>
+                        <a href="#contact" class="card-link">See the menu <i class="fa-solid fa-arrow-right"></i></a>
                     </div>
-                    <div class="stat-item reveal delay-3">
-                        <div class="stat-num">∞</div>
-                        <div class="stat-label">Reasons to Visit</div>
+                </div>
+                <div class="service-card reveal delay-3">
+                    <div class="card-img-wrapper">
+                        <img src="https://i.postimg.cc/63LG1YDJ/Save-Clip-App-575170207-18056799170540137-8763752596037017876-n.jpg" alt="Horticultural Services" class="card-img" loading="lazy">
+                    </div>
+                    <div class="card-body">
+                        <div class="card-icon"><i class="fa-solid fa-seedling"></i></div>
+                        <h3 class="card-title">Horticultural Services</h3>
+                        <p class="card-text">Expert advice, plant care services, and tailored solutions to ensure your greenery thrives year-round.</p>
+                        <a href="#contact" class="card-link">Get advice <i class="fa-solid fa-arrow-right"></i></a>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
 
-        <!-- SECTION 3: SERVICES + MARQUEE -->
-        <div class="stacked-section" style="--section-bg: var(--green-700); --z-index: 3;">
-            <div id="services" class="services-section">
-                <div class="services-inner">
-                    <div class="services-header">
+    <!-- Marquee -->
+    <div class="marquee-section" aria-hidden="true">
+        <div class="marquee-track">
+            <div class="marquee-item">Boutique Plants <i class="fa-solid fa-circle"></i></div>
+            <div class="marquee-item">Artisan Coffee <i class="fa-solid fa-circle"></i></div>
+            <div class="marquee-item">Horticultural Advice <i class="fa-solid fa-circle"></i></div>
+            <div class="marquee-item">Indoor Greenery <i class="fa-solid fa-circle"></i></div>
+            <div class="marquee-item">Mokopane's Green Spot <i class="fa-solid fa-circle"></i></div>
+            <div class="marquee-item">5-Star Rated <i class="fa-solid fa-circle"></i></div>
+            <div class="marquee-item">Boutique Plants <i class="fa-solid fa-circle"></i></div>
+            <div class="marquee-item">Artisan Coffee <i class="fa-solid fa-circle"></i></div>
+            <div class="marquee-item">Horticultural Advice <i class="fa-solid fa-circle"></i></div>
+            <div class="marquee-item">Indoor Greenery <i class="fa-solid fa-circle"></i></div>
+            <div class="marquee-item">Mokopane's Green Spot <i class="fa-solid fa-circle"></i></div>
+            <div class="marquee-item">5-Star Rated <i class="fa-solid fa-circle"></i></div>
+        </div>
+    </div>
+
+    <!-- Reviews -->
+    <div class="reviews-section">
+        <div class="reviews-layout">
+            <div class="review-score-block reveal-left">
+                <div class="score-number">5.0</div>
+                <div class="score-stars">
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                </div>
+                <div class="score-label">Google Reviews<br>Top-Rated in Mokopane</div>
+            </div>
+            <div class="reviews-grid reveal-right">
+                <div class="review-card">
+                    <div class="review-stars">★★★★★</div>
+                    <p class="review-text">"Absolutely love this little sanctuary. The plants are gorgeous and the coffee is even better. My new favourite spot."</p>
+                    <div class="review-author">— Lerato M.</div>
+                </div>
+                <div class="review-card">
+                    <div class="review-stars">★★★★★</div>
+                    <p class="review-text">"Such a unique concept. I came for a plant and left with three and a great latte. Friendly, knowledgeable staff too."</p>
+                    <div class="review-author">— Johan V.</div>
+                </div>
+                <div class="review-card">
+                    <div class="review-stars">★★★★★</div>
+                    <p class="review-text">"The best plant shop in Limpopo, hands down. The care and curation put into every plant is evident."</p>
+                    <div class="review-author">— Nomsa D.</div>
+                </div>
+                <div class="review-card">
+                    <div class="review-stars">★★★★★</div>
+                    <p class="review-text">"A hidden gem in Mokopane. Whether you want plants or just a quiet coffee, this is the place to be."</p>
+                    <div class="review-author">— Chris B.</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Gallery Strip -->
+    <div class="gallery-section">
+        <div class="gallery-strip">
+            <div class="gallery-item">
+                <img src="https://i.postimg.cc/T3D14tb5/Save-Clip-App-573263792-18056799107540137-4815999829889085051-n.jpg" alt="Plants Gallery" loading="lazy">
+                <div class="gallery-overlay"><i class="fa-brands fa-instagram"></i></div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://i.postimg.cc/N0xg3SfJ/Save-Clip-App-654561026-18070907897540137-4062435620548818813-n.jpg" alt="Coffee Gallery" loading="lazy">
+                <div class="gallery-overlay"><i class="fa-brands fa-instagram"></i></div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://i.postimg.cc/266fP5t6/Save-Clip-App-589903778-18061045292540137-3615443657205864430-n.jpg" alt="Shop View Gallery" loading="lazy">
+                <div class="gallery-overlay"><i class="fa-brands fa-instagram"></i></div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://i.postimg.cc/sfbRNs4Q/Save-Clip-App-474544344-18027894827540137-4472927896347318860-n.jpg" alt="Greenery Gallery" loading="lazy">
+                <div class="gallery-overlay"><i class="fa-brands fa-instagram"></i></div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://i.postimg.cc/KcTZF1zD/Save-Clip-App-623658330-18122671588564178-5225924365465329856-n.jpg" alt="More Plants Gallery" loading="lazy">
+                <div class="gallery-overlay"><i class="fa-brands fa-instagram"></i></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Contact -->
+    <div id="contact" class="contact-section">
+        <div class="contact-inner">
+            <span class="eyebrow reveal">Visit Us</span>
+            <h2 class="section-heading reveal">Find your <em>green escape</em><br>in Mokopane</h2>
+            <div class="contact-layout">
+                <div class="info-blocks">
+                    <div class="info-block reveal delay-1">
+                        <div class="info-block-icon"><i class="fa-solid fa-location-dot"></i></div>
                         <div>
-                            <span class="eyebrow">What We Offer</span>
-                            <h2 class="section-heading">Three ways to <em>experience</em> JFF</h2>
+                            <div class="info-block-label">Address</div>
+                            <div class="info-block-value">46 Hooge St<br>Mokopane, 0601</div>
                         </div>
-                        <p class="services-desc">From curated plants to artisan coffee and expert care — every visit to JFF is a different kind of delight.</p>
                     </div>
-                    <div class="cards-grid">
-                        <div class="service-card reveal delay-1">
-                            <div class="card-img-wrapper">
-                                <img src="https://i.postimg.cc/sfbRNs4Q/Save-Clip-App-474544344-18027894827540137-4472927896347318860-n.jpg" alt="Plant Retail" class="card-img" loading="lazy">
-                            </div>
-                            <div class="card-body">
-                                <div class="card-icon"><i class="fa-solid fa-leaf"></i></div>
-                                <h3 class="card-title">Boutique Plant Retail</h3>
-                                <p class="card-text">A curated selection of beautiful, healthy houseplants and indoor greenery to breathe life into your home or office.</p>
-                                <a href="#contact" class="card-link">Visit the shop <i class="fa-solid fa-arrow-right"></i></a>
-                            </div>
+                    <div class="info-block reveal delay-2">
+                        <div class="info-block-icon"><i class="fa-solid fa-phone"></i></div>
+                        <div>
+                            <div class="info-block-label">Phone</div>
+                            <div class="info-block-value"><a href="tel:0817684827">081 768 4827</a></div>
                         </div>
-                        <div class="service-card reveal delay-2">
-                            <div class="card-img-wrapper">
-                                <img src="https://i.postimg.cc/qMCw7LTS/Save-Clip-App-601863212-18061045304540137-785892017756620310-n.jpg" alt="Café" class="card-img" loading="lazy">
-                            </div>
-                            <div class="card-body">
-                                <div class="card-icon"><i class="fa-solid fa-mug-hot"></i></div>
-                                <h3 class="card-title">Relaxed Café</h3>
-                                <p class="card-text">Take a moment to unwind. Enjoy artisanal coffee, teas, and treats right in the middle of our indoor jungle.</p>
-                                <a href="#contact" class="card-link">See the menu <i class="fa-solid fa-arrow-right"></i></a>
-                            </div>
-                        </div>
-                        <div class="service-card reveal delay-3">
-                            <div class="card-img-wrapper">
-                                <img src="https://i.postimg.cc/63LG1YDJ/Save-Clip-App-575170207-18056799170540137-8763752596037017876-n.jpg" alt="Horticultural Services" class="card-img" loading="lazy">
-                            </div>
-                            <div class="card-body">
-                                <div class="card-icon"><i class="fa-solid fa-seedling"></i></div>
-                                <h3 class="card-title">Horticultural Services</h3>
-                                <p class="card-text">Expert advice, plant care services, and tailored solutions to ensure your greenery thrives year-round.</p>
-                                <a href="#contact" class="card-link">Get advice <i class="fa-solid fa-arrow-right"></i></a>
-                            </div>
+                    </div>
+                    <div class="info-block reveal delay-3">
+                        <div class="info-block-icon"><i class="fa-solid fa-clock"></i></div>
+                        <div>
+                            <div class="info-block-label">Trading Hours</div>
+                            <div class="info-block-value">Monday – Sunday<br>Open until 5:00 PM</div>
+                            <div class="hours-note"><i class="fa-solid fa-circle-info"></i> Usually quiet around 3 PM</div>
                         </div>
                     </div>
                 </div>
-            </div>
-
-            <div class="marquee-section" aria-hidden="true">
-                <div class="marquee-track">
-                    <div class="marquee-item">Boutique Plants <i class="fa-solid fa-circle"></i></div>
-                    <div class="marquee-item">Artisan Coffee <i class="fa-solid fa-circle"></i></div>
-                    <div class="marquee-item">Horticultural Advice <i class="fa-solid fa-circle"></i></div>
-                    <div class="marquee-item">Indoor Greenery <i class="fa-solid fa-circle"></i></div>
-                    <div class="marquee-item">Mokopane's Green Spot <i class="fa-solid fa-circle"></i></div>
-                    <div class="marquee-item">5-Star Rated <i class="fa-solid fa-circle"></i></div>
-                    <div class="marquee-item">Boutique Plants <i class="fa-solid fa-circle"></i></div>
-                    <div class="marquee-item">Artisan Coffee <i class="fa-solid fa-circle"></i></div>
-                    <div class="marquee-item">Horticultural Advice <i class="fa-solid fa-circle"></i></div>
-                    <div class="marquee-item">Indoor Greenery <i class="fa-solid fa-circle"></i></div>
-                    <div class="marquee-item">Mokopane's Green Spot <i class="fa-solid fa-circle"></i></div>
-                    <div class="marquee-item">5-Star Rated <i class="fa-solid fa-circle"></i></div>
+                <div class="map-wrapper reveal-right">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3615.155700769947!2d29.0069!3d-24.185!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjTCsDExJzA2LjAiUyAyOcKwMDAnMjQuOCJF!5e0!3m2!1sen!2sza!4v1620000000000!5m2!1sen!2sza" allowfullscreen="" loading="lazy"></iframe>
                 </div>
             </div>
         </div>
+    </div>
 
-        <!-- SECTION 4: REVIEWS + GALLERY -->
-        <div class="stacked-section" style="--section-bg: var(--green-800); --z-index: 4;">
-            <div class="reviews-section">
-                <div class="reviews-layout">
-                    <div class="review-score-block reveal-left">
-                        <div class="score-number">5.0</div>
-                        <div class="score-stars">
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star"></i>
-                        </div>
-                        <div class="score-label">Google Reviews<br>Top-Rated in Mokopane</div>
-                    </div>
-                    <div class="reviews-grid reveal-right">
-                        <div class="review-card">
-                            <div class="review-stars">★★★★★</div>
-                            <p class="review-text">"Absolutely love this little sanctuary. The plants are gorgeous and the coffee is even better. My new favourite spot."</p>
-                            <div class="review-author">— Lerato M.</div>
-                        </div>
-                        <div class="review-card">
-                            <div class="review-stars">★★★★★</div>
-                            <p class="review-text">"Such a unique concept. I came for a plant and left with three and a great latte. Friendly, knowledgeable staff too."</p>
-                            <div class="review-author">— Johan V.</div>
-                        </div>
-                        <div class="review-card">
-                            <div class="review-stars">★★★★★</div>
-                            <p class="review-text">"The best plant shop in Limpopo, hands down. The care and curation put into every plant is evident."</p>
-                            <div class="review-author">— Nomsa D.</div>
-                        </div>
-                        <div class="review-card">
-                            <div class="review-stars">★★★★★</div>
-                            <p class="review-text">"A hidden gem in Mokopane. Whether you want plants or just a quiet coffee, this is the place to be."</p>
-                            <div class="review-author">— Chris B.</div>
-                        </div>
-                    </div>
+    <!-- Footer -->
+    <footer>
+        <div class="footer-inner">
+            <div class="footer-top">
+                <div>
+                    <div class="footer-logo">JFF Plant Shop</div>
+                    <p class="footer-about">A boutique plant sanctuary, café, and horticultural destination in the heart of Mokopane. Where green things grow and good coffee flows.</p>
+                </div>
+                <div>
+                    <div class="footer-heading">Navigate</div>
+                    <ul class="footer-links">
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#about">Our Story</a></li>
+                        <li><a href="#services">Services</a></li>
+                        <li><a href="#contact">Visit Us</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <div class="footer-heading">Contact</div>
+                    <ul class="footer-links">
+                        <li><a href="tel:0817684827">081 768 4827</a></li>
+                        <li><a href="#">46 Hooge St, Mokopane</a></li>
+                        <li><a href="#">Mon–Sun, Until 5 PM</a></li>
+                    </ul>
                 </div>
             </div>
-
-            <div class="gallery-section">
-                <div class="gallery-strip">
-                    <div class="gallery-item">
-                        <img src="https://i.postimg.cc/T3D14tb5/Save-Clip-App-573263792-18056799107540137-4815999829889085051-n.jpg" alt="Plants Gallery" loading="lazy">
-                        <div class="gallery-overlay"><i class="fa-brands fa-instagram"></i></div>
-                    </div>
-                    <div class="gallery-item">
-                        <img src="https://i.postimg.cc/N0xg3SfJ/Save-Clip-App-654561026-18070907897540137-4062435620548818813-n.jpg" alt="Coffee Gallery" loading="lazy">
-                        <div class="gallery-overlay"><i class="fa-brands fa-instagram"></i></div>
-                    </div>
-                    <div class="gallery-item">
-                        <img src="https://i.postimg.cc/266fP5t6/Save-Clip-App-589903778-18061045292540137-3615443657205864430-n.jpg" alt="Shop View Gallery" loading="lazy">
-                        <div class="gallery-overlay"><i class="fa-brands fa-instagram"></i></div>
-                    </div>
-                    <div class="gallery-item">
-                        <img src="https://i.postimg.cc/sfbRNs4Q/Save-Clip-App-474544344-18027894827540137-4472927896347318860-n.jpg" alt="Greenery Gallery" loading="lazy">
-                        <div class="gallery-overlay"><i class="fa-brands fa-instagram"></i></div>
-                    </div>
-                    <div class="gallery-item">
-                        <img src="https://i.postimg.cc/KcTZF1zD/Save-Clip-App-623658330-18122671588564178-5225924365465329856-n.jpg" alt="More Plants Gallery" loading="lazy">
-                        <div class="gallery-overlay"><i class="fa-brands fa-instagram"></i></div>
-                    </div>
-                </div>
+            <div class="footer-bottom">
+                <span>&copy; 2026 JFF Plant Shop. All Rights Reserved.</span>
+                <span>46 Hooge St, Mokopane, 0601</span>
             </div>
         </div>
-
-        <!-- SECTION 5: CONTACT + FOOTER -->
-        <div class="stacked-section" style="--section-bg: var(--green-900); --z-index: 5;">
-            <div id="contact" class="contact-section">
-                <div class="contact-inner">
-                    <span class="eyebrow reveal">Visit Us</span>
-                    <h2 class="section-heading reveal">Find your <em>green escape</em><br>in Mokopane</h2>
-                    <div class="contact-layout">
-                        <div class="info-blocks">
-                            <div class="info-block reveal delay-1">
-                                <div class="info-block-icon"><i class="fa-solid fa-location-dot"></i></div>
-                                <div>
-                                    <div class="info-block-label">Address</div>
-                                    <div class="info-block-value">46 Hooge St<br>Mokopane, 0601</div>
-                                </div>
-                            </div>
-                            <div class="info-block reveal delay-2">
-                                <div class="info-block-icon"><i class="fa-solid fa-phone"></i></div>
-                                <div>
-                                    <div class="info-block-label">Phone</div>
-                                    <div class="info-block-value"><a href="tel:0817684827">081 768 4827</a></div>
-                                </div>
-                            </div>
-                            <div class="info-block reveal delay-3">
-                                <div class="info-block-icon"><i class="fa-solid fa-clock"></i></div>
-                                <div>
-                                    <div class="info-block-label">Trading Hours</div>
-                                    <div class="info-block-value">Monday – Sunday<br>Open until 5:00 PM</div>
-                                    <div class="hours-note"><i class="fa-solid fa-circle-info"></i> Usually quiet around 3 PM</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="map-wrapper reveal-right">
-                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3615.155700769947!2d29.0069!3d-24.185!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjTCsDExJzA2LjAiUyAyOcKwMDAnMjQuOCJF!5e0!3m2!1sen!2sza!4v1620000000000!5m2!1sen!2sza" allowfullscreen="" loading="lazy"></iframe>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <footer>
-                <div class="footer-inner">
-                    <div class="footer-top">
-                        <div>
-                            <div class="footer-logo">JFF Plant Shop</div>
-                            <p class="footer-about">A boutique plant sanctuary, café, and horticultural destination in the heart of Mokopane. Where green things grow and good coffee flows.</p>
-                        </div>
-                        <div>
-                            <div class="footer-heading">Navigate</div>
-                            <ul class="footer-links">
-                                <li><a href="#home">Home</a></li>
-                                <li><a href="#about">Our Story</a></li>
-                                <li><a href="#services">Services</a></li>
-                                <li><a href="#contact">Visit Us</a></li>
-                            </ul>
-                        </div>
-                        <div>
-                            <div class="footer-heading">Contact</div>
-                            <ul class="footer-links">
-                                <li><a href="tel:0817684827">081 768 4827</a></li>
-                                <li><a href="#">46 Hooge St, Mokopane</a></li>
-                                <li><a href="#">Mon–Sun, Until 5 PM</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="footer-bottom">
-                        <span>&copy; 2026 JFF Plant Shop. All Rights Reserved.</span>
-                        <span>46 Hooge St, Mokopane, 0601</span>
-                    </div>
-                </div>
-            </footer>
-        </div>
-
-    </main>
+    </footer>
 
     <script>
         // ── Loader ──
@@ -1515,6 +1533,7 @@
 
         // ── Parallax Hero ──
         window.addEventListener('scroll', () => {
+            // Only trigger parallax heavily on larger screens to save mobile battery and avoid jank
             if(window.innerWidth > 768) {
                 const scrolled = window.scrollY;
                 const heroBg = document.querySelector('.hero-bg');
