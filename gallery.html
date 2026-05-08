@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Explore the visual journey of JFF Plant Shop in Mokopane. See our beautifully curated houseplants and relaxed café atmosphere.">
+    <title>Gallery | JFF Plant Shop Mokopane</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --forest: #1a3320;
+            --moss: #2e5c35;
+            --sage: #7aab6e;
+            --mist: #c8dbbf;
+            --cream: #f5f0e8;
+            --parchment: #ede8da;
+            --bark: #5c4a2a;
+            --gold: #c9a84c;
+            --white: #ffffff;
+            --text: #1a1a1a;
+            --text-soft: #6b6b6b;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background-color: var(--cream);
+            color: var(--text);
+            overflow-x: hidden;
+            cursor: auto;
+        }
+
+        /* Loading Screen */
+        .loader {
+            position: fixed;
+            inset: 0;
+            background: var(--forest);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10000;
+            transition: opacity 0.8s ease, visibility 0.8s ease;
+        }
+
+        .loader.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .loader-content {
+            text-align: center;
+            color: var(--cream);
+        }
+
+        .loader-leaf {
+            font-size: 3rem;
+            animation: loaderSpin 1.5s ease-in-out infinite;
+            display: block;
+            margin-bottom: 1rem;
+        }
+
+        @keyframes loaderSpin {
+            0%, 100% { transform: rotate(-15deg) scale(1); }
+            50% { transform: rotate(15deg) scale(1.1); }
+        }
+
+        .loader-text {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.8rem;
+            font-weight: 300;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            animation: loaderFade 1.5s ease-in-out infinite;
+        }
+
+        @keyframes loaderFade {
+            0%, 100% { opacity: 0.4; }
+            50% { opacity: 1; }
+        }
+
+        /* Navigation */
+        header {
+            position: fixed;
+            top: 0; width: 100%;
+            z-index: 1000;
+            padding: 1.5rem 3rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.5s ease;
+        }
+
+        header.scrolled {
+            background: rgba(245, 240, 232, 0.95);
+            backdrop-filter: blur(20px);
+            padding: 1rem 3rem;
+            box-shadow: 0 1px 0 rgba(0,0,0,0.06);
+        }
+
+        .logo {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.6rem;
+            font-weight: 600;
+            color: var(--white);
+            letter-spacing: 0.05em;
+            transition: color 0.5s ease;
+            z-index: 2;
+            text-decoration: none;
+        }
+
+        header.scrolled .logo { color: var(--forest); }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+            align-items: center;
+        }
+
+        .nav-links a {
+            font-size: 0.85rem;
+            font-weight: 500;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            text-decoration: none;
+            color: rgba(255,255,255,0.85);
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a.active {
+            color: var(--white);
+        }
+        
+        .nav-links a.active::after {
+            width: 100%;
+        }
+
+        header.scrolled .nav-links a { color: var(--text-soft); }
+        header.scrolled .nav-links a.active { color: var(--forest); }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -3px; left: 0;
+            width: 0; height: 1px;
+            background: var(--sage);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after { width: 100%; }
+        .nav-links a:hover { color: var(--white); }
+        header.scrolled .nav-links a:hover { color: var(--moss); }
+
+        .nav-cta {
+            background: transparent;
+            border: 1px solid rgba(255,255,255,0.5);
+            color: var(--white) !important;
+            padding: 0.55rem 1.4rem;
+            border-radius: 100px;
+            font-size: 0.82rem;
+            font-weight: 500;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .nav-cta:hover {
+            background: var(--white);
+            color: var(--forest) !important;
+            border-color: var(--white);
+        }
+
+        header.scrolled .nav-cta {
+            border-color: var(--moss);
+            color: var(--moss) !important;
+        }
+
+        header.scrolled .nav-cta:hover {
+            background: var(--moss);
+            color: var(--white) !important;
+        }
+
+        /* ============ HERO ============ */
+        .hero {
+            height: 70vh; /* Slightly shorter for the gallery page */
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .hero-bg {
+            position: absolute;
+            inset: 0;
+            /* Using one of the provided images for the gallery hero background */
+            background: url('https://i.postimg.cc/pLHQ6g6r/Save-Clip-App-447779439-18350073271105523-7973900572393859399-n.jpg') center/cover;
+            transform: scale(1.08);
+            animation: heroZoom 12s ease-out forwards;
+        }
+
+        @keyframes heroZoom {
+            to { transform: scale(1); }
+        }
+
+        .hero-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(
+                to bottom,
+                rgba(18, 40, 20, 0.65) 0%,
+                rgba(18, 40, 20, 0.45) 50%,
+                rgba(18, 40, 20, 0.8) 100%
+            );
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            padding: 0 1.5rem;
+            max-width: 900px;
+            width: 100%;
+            margin-top: 4rem; /* Offset for header */
+        }
+
+        .hero-eyebrow {
+            display: inline-block;
+            font-size: 0.78rem;
+            font-weight: 500;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: var(--mist);
+            margin-bottom: 1.5rem;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeUp 0.9s ease 1.2s forwards;
+        }
+
+        .hero h1 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(3rem, 8vw, 6rem);
+            font-weight: 300;
+            line-height: 1.05;
+            color: var(--white);
+            margin-bottom: 1.5rem;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeUp 1s ease 1.4s forwards;
+        }
+
+        .hero h1 em {
+            font-style: italic;
+            color: var(--mist);
+        }
+
+        .hero-sub {
+            font-size: clamp(0.95rem, 3vw, 1.05rem);
+            font-weight: 300;
+            color: rgba(255,255,255,0.8);
+            line-height: 1.7;
+            max-width: 560px;
+            margin: 0 auto 2.5rem;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeUp 0.9s ease 1.7s forwards;
+        }
+
+        /* ============ GALLERY GRID ============ */
+        .gallery-page-section {
+            padding: 6rem 3rem 8rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 1.5rem;
+            auto-rows: 350px;
+        }
+
+        .gallery-card {
+            border-radius: 8px;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            will-change: transform;
+            transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1), box-shadow 0.4s ease;
+        }
+
+        .gallery-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+            z-index: 2;
+        }
+
+        .gallery-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        .gallery-card:hover img {
+            transform: scale(1.06);
+        }
+
+        /* Masonry/Bento Layout Spans */
+        .item-1 { grid-column: span 8; grid-row: span 2; } /* Large feature image */
+        .item-2 { grid-column: span 4; grid-row: span 1; } /* Top right */
+        .item-3 { grid-column: span 4; grid-row: span 1; } /* Bottom right */
+        .item-4 { grid-column: span 6; grid-row: span 1; } /* Bottom left half */
+        .item-5 { grid-column: span 6; grid-row: span 1; } /* Bottom right half */
+
+        /* ============ FOOTER ============ */
+        footer {
+            background: var(--forest);
+            color: rgba(255,255,255,0.7);
+            padding: 4rem 3rem 2rem;
+        }
+
+        .footer-inner {
+            max-width: 1300px;
+            margin: 0 auto;
+        }
+
+        .footer-top {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr 1fr;
+            gap: 4rem;
+            padding-bottom: 3rem;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            margin-bottom: 2rem;
+        }
+
+        .footer-logo {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2rem;
+            font-weight: 300;
+            color: var(--mist);
+            margin-bottom: 1rem;
+        }
+
+        .footer-about {
+            font-size: 0.9rem;
+            line-height: 1.75;
+            font-weight: 300;
+        }
+
+        .footer-heading {
+            font-size: 0.72rem;
+            font-weight: 600;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--mist);
+            margin-bottom: 1.2rem;
+        }
+
+        .footer-links {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0.6rem;
+        }
+
+        .footer-links a {
+            text-decoration: none;
+            color: rgba(255,255,255,0.6);
+            font-size: 0.9rem;
+            font-weight: 300;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover { color: var(--mist); }
+
+        .footer-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.8rem;
+            color: rgba(255,255,255,0.35);
+        }
+
+        /* ============ SCROLL ANIMATIONS ============ */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.9s cubic-bezier(0.23, 1, 0.32, 1), transform 0.9s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translate(0);
+        }
+
+        .delay-1 { transition-delay: 0.1s; }
+        .delay-2 { transition-delay: 0.2s; }
+        .delay-3 { transition-delay: 0.3s; }
+        .delay-4 { transition-delay: 0.4s; }
+
+        @keyframes fadeUp {
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ============ HAMBURGER MENU ============ */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            background: none;
+            border: none;
+            padding: 4px;
+            z-index: 1100;
+            transition: transform 0.3s ease;
+        }
+
+        .hamburger span {
+            display: block;
+            width: 24px;
+            height: 2px;
+            background: var(--white);
+            border-radius: 2px;
+            transition: all 0.35s cubic-bezier(0.23, 1, 0.32, 1);
+            transform-origin: center;
+        }
+
+        header.scrolled .hamburger span { background: var(--forest); }
+
+        .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); background: var(--white); }
+        .hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+        .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); background: var(--white); }
+
+        .mobile-nav {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: var(--forest);
+            z-index: 1050;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 0;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.4s ease, visibility 0.4s ease;
+        }
+
+        .mobile-nav.open {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .mobile-nav a {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2.8rem;
+            font-weight: 300;
+            color: var(--mist);
+            text-decoration: none;
+            letter-spacing: 0.04em;
+            padding: 0.6rem 2rem;
+            display: block;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: color 0.3s ease, opacity 0.4s ease, transform 0.4s ease;
+        }
+
+        .mobile-nav.open a { opacity: 1; transform: translateY(0); }
+        .mobile-nav.open a:nth-child(1) { transition-delay: 0.05s; }
+        .mobile-nav.open a:nth-child(2) { transition-delay: 0.1s; }
+        .mobile-nav.open a:nth-child(3) { transition-delay: 0.15s; }
+        .mobile-nav.open a:nth-child(4) { transition-delay: 0.2s; }
+        .mobile-nav.open a:nth-child(5) { transition-delay: 0.25s; }
+        .mobile-nav a:hover { color: var(--white); }
+
+        .mobile-nav .mobile-nav-cta {
+            margin-top: 1.5rem;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 0.9rem !important;
+            font-weight: 500;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            border: 1px solid rgba(255,255,255,0.3);
+            border-radius: 100px;
+            padding: 0.8rem 2.5rem;
+            color: rgba(255,255,255,0.9) !important;
+        }
+
+        /* ============ RESPONSIVE ============ */
+        @media (max-width: 1024px) {
+            .gallery-grid {
+                grid-template-columns: repeat(2, 1fr);
+                auto-rows: 300px;
+            }
+            .item-1 { grid-column: span 2; grid-row: span 2; }
+            .item-2, .item-3, .item-4, .item-5 { grid-column: span 1; grid-row: span 1; }
+            .footer-top { grid-template-columns: 1fr; gap: 2rem; }
+        }
+
+        @media (max-width: 768px) {
+            header { padding: 1.1rem 1.5rem; }
+            header.scrolled { padding: 0.8rem 1.5rem; }
+            .nav-links { display: none; }
+            .hamburger { display: flex; }
+            .mobile-nav { display: flex; }
+
+            .gallery-page-section { padding: 4rem 1.5rem 5rem; }
+            
+            .gallery-grid {
+                grid-template-columns: 1fr;
+                auto-rows: 350px;
+                gap: 1.2rem;
+            }
+            .item-1, .item-2, .item-3, .item-4, .item-5 {
+                grid-column: span 1;
+                grid-row: span 1;
+            }
+
+            .footer-top { grid-template-columns: 1fr; gap: 2.5rem; padding-bottom: 2.5rem; }
+            footer { padding: 4rem 1.5rem 2rem; }
+            .footer-bottom { flex-direction: column; gap: 0.8rem; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Loader -->
+    <div class="loader" id="loader">
+        <div class="loader-content">
+            <span class="loader-leaf">🌿</span>
+            <div class="loader-text">JFF Gallery</div>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <header id="header">
+        <a href="index.html" class="logo">JFF Plant Shop</a>
+        <ul class="nav-links">
+            <li><a href="index.html#home">Home</a></li>
+            <li><a href="index.html#about">Our Story</a></li>
+            <li><a href="index.html#services">Services</a></li>
+            <li><a href="gallery.html" class="active">Gallery</a></li>
+            <li><a href="index.html#contact">Visit Us</a></li>
+            <li><a href="tel:0817684827" class="nav-cta">Call Now</a></li>
+        </ul>
+        <button class="hamburger" id="hamburger" aria-label="Open menu">
+            <span></span><span></span><span></span>
+        </button>
+    </header>
+
+    <!-- Mobile Nav Overlay -->
+    <nav class="mobile-nav" id="mobileNav">
+        <a href="index.html#home" class="mobile-nav-link">Home</a>
+        <a href="index.html#about" class="mobile-nav-link">Our Story</a>
+        <a href="index.html#services" class="mobile-nav-link">Services</a>
+        <a href="gallery.html" class="mobile-nav-link">Gallery</a>
+        <a href="index.html#contact" class="mobile-nav-link">Visit Us</a>
+        <a href="tel:0817684827" class="mobile-nav-cta">Call Now</a>
+    </nav>
+
+    <!-- Hero -->
+    <section class="hero">
+        <div class="hero-bg"></div>
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <span class="hero-eyebrow">Visual Inspiration</span>
+            <h1>Our <em>Plant</em> Gallery</h1>
+            <p class="hero-sub">Take a visual journey through our indoor sanctuary. Handpicked foliage, perfectly pulled espresso, and moments of calm.</p>
+        </div>
+    </section>
+
+    <!-- Gallery Grid Section -->
+    <section class="gallery-page-section">
+        <div class="gallery-grid">
+            <!-- Large Feature Image -->
+            <div class="gallery-card item-1 reveal">
+                <img src="https://i.postimg.cc/VN4J4hxc/Save-Clip-App-623228108-18077836442461146-2365620870107115860-n.jpg" alt="JFF Plant Feature 1" loading="lazy">
+            </div>
+            
+            <!-- Side Image 1 -->
+            <div class="gallery-card item-2 reveal delay-1">
+                <img src="https://i.postimg.cc/PxRPnwrJ/Save-Clip-App-656480680-18156972784433985-1441685769377046678-n.jpg" alt="JFF Plant Feature 2" loading="lazy">
+            </div>
+            
+            <!-- Side Image 2 -->
+            <div class="gallery-card item-3 reveal delay-2">
+                <img src="https://i.postimg.cc/FFYxdbSd/Save-Clip-App-470195392-18378881890105523-7021980228457658653-n.jpg" alt="JFF Plant Feature 3" loading="lazy">
+            </div>
+            
+            <!-- Bottom Row Image 1 -->
+            <div class="gallery-card item-4 reveal delay-1">
+                <img src="https://i.postimg.cc/bY49QG04/Save-Clip-App-470223885-18378884071105523-4925259925794421590-n.jpg" alt="JFF Plant Feature 4" loading="lazy">
+            </div>
+            
+            <!-- Bottom Row Image 2 -->
+            <div class="gallery-card item-5 reveal delay-2">
+                <img src="https://i.postimg.cc/pLHQ6g6r/Save-Clip-App-447779439-18350073271105523-7973900572393859399-n.jpg" alt="JFF Plant Feature 5" loading="lazy">
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-inner">
+            <div class="footer-top">
+                <div>
+                    <div class="footer-logo">JFF Plant Shop</div>
+                    <p class="footer-about">A boutique plant sanctuary, café, and horticultural destination in the heart of Mokopane. Where green things grow and good coffee flows.</p>
+                </div>
+                <div>
+                    <div class="footer-heading">Navigate</div>
+                    <ul class="footer-links">
+                        <li><a href="index.html#home">Home</a></li>
+                        <li><a href="index.html#about">Our Story</a></li>
+                        <li><a href="index.html#services">Services</a></li>
+                        <li><a href="index.html#contact">Visit Us</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <div class="footer-heading">Contact</div>
+                    <ul class="footer-links">
+                        <li><a href="tel:0817684827">081 768 4827</a></li>
+                        <li><a href="#">46 Hooge St, Mokopane</a></li>
+                        <li><a href="#">Mon–Sun, Until 5 PM</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <span>&copy; 2026 JFF Plant Shop. All Rights Reserved.</span>
+                <span>46 Hooge St, Mokopane, 0601</span>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // ── Loader ──
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                document.getElementById('loader').classList.add('hidden');
+            }, 1000); // slightly faster load on subpages
+        });
+
+        // ── Sticky Header ──
+        const header = document.getElementById('header');
+        window.addEventListener('scroll', () => {
+            header.classList.toggle('scrolled', window.scrollY > 60);
+        });
+
+        // ── Hamburger / Mobile Nav ──
+        const hamburger = document.getElementById('hamburger');
+        const mobileNav = document.getElementById('mobileNav');
+
+        function toggleMenu(open) {
+            hamburger.classList.toggle('open', open);
+            mobileNav.classList.toggle('open', open);
+            document.body.style.overflow = open ? 'hidden' : '';
+        }
+
+        hamburger.addEventListener('click', () => {
+            const isOpen = mobileNav.classList.contains('open');
+            toggleMenu(!isOpen);
+        });
+
+        mobileNav.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => toggleMenu(false));
+        });
+
+        // ── Scroll Reveal ──
+        const reveals = document.querySelectorAll('.reveal');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        reveals.forEach(el => observer.observe(el));
+
+        // ── Parallax Hero ──
+        window.addEventListener('scroll', () => {
+            if(window.innerWidth > 768) {
+                const scrolled = window.scrollY;
+                const heroBg = document.querySelector('.hero-bg');
+                if (heroBg) {
+                    heroBg.style.transform = `translateY(${scrolled * 0.35}px) scale(1)`;
+                }
+            }
+        });
+    </script>
+</body>
+</html>
