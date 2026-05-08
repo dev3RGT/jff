@@ -228,6 +228,11 @@
             width: 100%;
         }
 
+        /* Shared animation logic for hero elements */
+        .hero-eyebrow, .hero h1, .hero-sub, .hero-actions {
+            animation: fadeUp 1s var(--smooth) both; /* 'both' ensures it starts hidden and stays visible */
+        }
+
         .hero-eyebrow {
             display: inline-block;
             font-size: 0.78rem;
@@ -236,21 +241,18 @@
             text-transform: uppercase;
             color: var(--primary-light);
             margin-bottom: 1.5rem;
-            opacity: 0;
-            transform: translateY(20px);
-            animation: fadeUp 1s var(--smooth) 0.5s forwards;
+            animation-delay: 0.2s;
         }
 
         .hero h1 {
             font-family: 'Cormorant Garamond', serif;
-            font-size: clamp(3rem, 10vw, 7rem);
+            font-size: clamp(3rem, 10vw, 6.5rem);
             font-weight: 300;
-            line-height: 1.05;
+            line-height: 1.1;
             color: var(--white);
             margin-bottom: 1.5rem;
-            opacity: 0;
-            transform: translateY(30px);
-            animation: fadeUp 1s var(--smooth) 0.7s forwards;
+            text-shadow: 0 10px 30px rgba(0,0,0,0.5); /* Added for readability */
+            animation-delay: 0.4s;
         }
 
         .hero h1 em {
@@ -261,15 +263,13 @@
         }
 
         .hero-sub {
-            font-size: clamp(0.95rem, 3vw, 1.05rem);
+            font-size: clamp(0.95rem, 3vw, 1.15rem);
             font-weight: 300;
             color: var(--text-soft);
             line-height: 1.7;
-            max-width: 560px;
+            max-width: 650px;
             margin: 0 auto 2.5rem;
-            opacity: 0;
-            transform: translateY(20px);
-            animation: fadeUp 1s var(--smooth) 0.9s forwards;
+            animation-delay: 0.6s;
         }
 
         .hero-actions {
@@ -277,11 +277,9 @@
             gap: 1rem;
             justify-content: center;
             flex-wrap: wrap;
-            opacity: 0;
-            transform: translateY(20px);
             position: relative;
-            z-index: 10; /* Added explicit visibility stacking */
-            animation: fadeUp 1s var(--smooth) 1.1s forwards; /* Reduced delay dramatically */
+            z-index: 10;
+            animation-delay: 0.8s;
         }
 
         .btn-primary, .btn-ghost {
@@ -338,7 +336,7 @@
             font-size: 0.72rem;
             letter-spacing: 0.25em;
             text-transform: uppercase;
-            animation: fadeUp 1s var(--smooth) 1.5s both;
+            animation: fadeUp 1s var(--smooth) 1.2s both;
         }
 
         .scroll-line {
@@ -362,6 +360,12 @@
         @keyframes scrollDrop {
             0% { top: -100%; }
             100% { top: 100%; }
+        }
+
+        /* Robust fadeUp animation */
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         /* ============ ABOUT ============ */
@@ -1081,10 +1085,6 @@
         .delay-2 { transition-delay: 0.2s; }
         .delay-3 { transition-delay: 0.3s; }
 
-        @keyframes fadeUp {
-            to { opacity: 1; transform: translateY(0); }
-        }
-
         /* ============ HAMBURGER MENU ============ */
         .hamburger {
             display: none;
@@ -1316,8 +1316,11 @@
         <div class="hero-overlay"></div>
         <div class="hero-content">
             <span class="hero-eyebrow">Mokopane, South Africa</span>
-            <h1>More Than <em>Just</em><br>a Store</h1>
-            <p class="hero-sub">A boutique plant sanctuary, café, and horticultural destination nestled in the heart of Mokopane.</p>
+            
+            <!-- Updated Heading and Subheading -->
+            <h1>Welcome to <br><em>JFF Plant Shop</em></h1>
+            <p class="hero-sub">Your local sanctuary for boutique plants, artisan coffee, and expert horticultural advice.</p>
+            
             <div class="hero-actions">
                 <a href="#about" class="btn-primary">Discover Our Space</a>
                 <a href="#contact" class="btn-ghost">Find Us</a>
@@ -1575,7 +1578,7 @@
         window.addEventListener('load', () => {
             setTimeout(() => {
                 document.getElementById('loader').classList.add('hidden');
-            }, 1000); // slightly faster for a snappier feel
+            }, 1000); 
         });
 
         // ── Sticky Header ──
@@ -1609,8 +1612,6 @@
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     entry.target.classList.add('visible');
-                    // Optional: Unobserve after reveal for better performance
-                    // observer.unobserve(entry.target); 
                 }
             });
         }, { threshold: 0.15, rootMargin: "0px 0px -50px 0px" });
@@ -1623,7 +1624,6 @@
                 const scrolled = window.scrollY;
                 const heroBg = document.querySelector('.hero-bg');
                 if (heroBg && scrolled < window.innerHeight) {
-                    // Smoother parallax equation
                     heroBg.style.transform = `translateY(${scrolled * 0.4}px) scale(1.05)`;
                 }
             }
