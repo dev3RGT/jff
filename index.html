@@ -99,7 +99,7 @@
         }
 
         header.scrolled {
-            background: rgba(245, 240, 232, 0.92);
+            background: rgba(245, 240, 232, 0.95);
             backdrop-filter: blur(20px);
             padding: 1rem 3rem;
             box-shadow: 0 1px 0 rgba(0,0,0,0.06);
@@ -217,8 +217,9 @@
             position: relative;
             z-index: 2;
             text-align: center;
-            padding: 0 2rem;
+            padding: 0 1.5rem;
             max-width: 900px;
+            width: 100%;
         }
 
         .hero-eyebrow {
@@ -236,7 +237,7 @@
 
         .hero h1 {
             font-family: 'Cormorant Garamond', serif;
-            font-size: clamp(3.5rem, 8vw, 7rem);
+            font-size: clamp(3rem, 10vw, 7rem);
             font-weight: 300;
             line-height: 1.05;
             color: var(--white);
@@ -252,7 +253,7 @@
         }
 
         .hero-sub {
-            font-size: 1.05rem;
+            font-size: clamp(0.95rem, 3vw, 1.05rem);
             font-weight: 300;
             color: rgba(255,255,255,0.8);
             line-height: 1.7;
@@ -273,9 +274,7 @@
             animation: fadeUp 0.9s ease 2s forwards;
         }
 
-        .btn-primary {
-            background: var(--sage);
-            color: var(--white);
+        .btn-primary, .btn-ghost {
             padding: 0.9rem 2.2rem;
             border-radius: 100px;
             font-size: 0.88rem;
@@ -283,8 +282,14 @@
             letter-spacing: 0.08em;
             text-decoration: none;
             text-transform: uppercase;
-            transition: all 0.3s ease;
+            transition: all 0.35s cubic-bezier(0.23, 1, 0.32, 1);
             display: inline-block;
+            will-change: transform;
+        }
+
+        .btn-primary {
+            background: var(--sage);
+            color: var(--white);
         }
 
         .btn-primary:hover {
@@ -297,16 +302,7 @@
         .btn-ghost {
             background: transparent;
             color: var(--white);
-            padding: 0.9rem 2.2rem;
-            border-radius: 100px;
-            font-size: 0.88rem;
-            font-weight: 500;
-            letter-spacing: 0.08em;
-            text-decoration: none;
-            text-transform: uppercase;
             border: 1px solid rgba(255,255,255,0.4);
-            transition: all 0.3s ease;
-            display: inline-block;
         }
 
         .btn-ghost:hover {
@@ -439,7 +435,7 @@
 
         .section-heading {
             font-family: 'Cormorant Garamond', serif;
-            font-size: clamp(2.2rem, 4vw, 3.5rem);
+            font-size: clamp(2.2rem, 8vw, 3.5rem);
             font-weight: 300;
             line-height: 1.15;
             color: var(--forest);
@@ -467,7 +463,7 @@
 
         .blockquote p {
             font-family: 'Cormorant Garamond', serif;
-            font-size: 1.3rem;
+            font-size: clamp(1.1rem, 4vw, 1.3rem);
             font-style: italic;
             font-weight: 300;
             color: var(--forest);
@@ -498,7 +494,7 @@
 
         .stat-num {
             font-family: 'Cormorant Garamond', serif;
-            font-size: 3.5rem;
+            font-size: clamp(2.5rem, 8vw, 3.5rem);
             font-weight: 300;
             color: var(--mist);
             line-height: 1;
@@ -552,7 +548,8 @@
             border-radius: 6px;
             overflow: hidden;
             position: relative;
-            transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.4s ease;
+            transition: transform 0.45s cubic-bezier(0.23, 1, 0.32, 1), box-shadow 0.45s ease;
+            will-change: transform;
         }
 
         .service-card:hover {
@@ -565,20 +562,16 @@
             height: 240px;
             object-fit: cover;
             display: block;
-            transition: transform 0.6s ease;
+            transition: transform 0.7s cubic-bezier(0.23, 1, 0.32, 1);
         }
 
         .service-card:hover .card-img {
             transform: scale(1.05);
         }
 
-        .card-img-wrapper {
-            overflow: hidden;
-        }
+        .card-img-wrapper { overflow: hidden; }
 
-        .card-body {
-            padding: 2rem;
-        }
+        .card-body { padding: 2rem; }
 
         .card-icon {
             width: 44px;
@@ -620,6 +613,7 @@
             color: var(--moss);
             text-decoration: none;
             transition: gap 0.3s ease;
+            will-change: transform;
         }
 
         .card-link:hover { gap: 0.8rem; }
@@ -629,6 +623,7 @@
             background: var(--moss);
             padding: 1.5rem 0;
             overflow: hidden;
+            width: 100vw;
         }
 
         .marquee-track {
@@ -684,7 +679,7 @@
 
         .score-number {
             font-family: 'Cormorant Garamond', serif;
-            font-size: 6rem;
+            font-size: clamp(4rem, 10vw, 6rem);
             font-weight: 300;
             line-height: 1;
             color: var(--mist);
@@ -718,6 +713,7 @@
             border-radius: 6px;
             border: 1px solid rgba(0,0,0,0.04);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
+            will-change: transform;
         }
 
         .review-card:hover {
@@ -782,6 +778,7 @@
             background: var(--white);
             border-radius: 6px;
             transition: transform 0.3s ease;
+            will-change: transform;
         }
 
         .info-block:hover { transform: translateX(6px); }
@@ -877,7 +874,7 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: transform 0.6s ease;
+            transition: transform 0.7s cubic-bezier(0.23, 1, 0.32, 1);
             display: block;
         }
 
@@ -888,7 +885,7 @@
             inset: 0;
             background: rgba(26, 51, 32, 0.5);
             opacity: 0;
-            transition: opacity 0.4s ease;
+            transition: opacity 0.45s ease;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -955,6 +952,7 @@
             font-size: 0.9rem;
             font-weight: 300;
             transition: color 0.3s ease;
+            will-change: transform;
         }
 
         .footer-links a:hover { color: var(--mist); }
@@ -968,37 +966,18 @@
         }
 
         /* ============ SCROLL ANIMATIONS ============ */
-        .reveal {
+        .reveal, .reveal-left, .reveal-right {
             opacity: 0;
-            transform: translateY(30px);
-            transition: opacity 0.8s ease, transform 0.8s ease;
+            transition: opacity 0.9s cubic-bezier(0.23, 1, 0.32, 1), transform 0.9s cubic-bezier(0.23, 1, 0.32, 1);
         }
 
-        .reveal.visible {
+        .reveal { transform: translateY(30px); }
+        .reveal-left { transform: translateX(-30px); }
+        .reveal-right { transform: translateX(30px); }
+
+        .reveal.visible, .reveal-left.visible, .reveal-right.visible {
             opacity: 1;
-            transform: translateY(0);
-        }
-
-        .reveal-left {
-            opacity: 0;
-            transform: translateX(-30px);
-            transition: opacity 0.8s ease, transform 0.8s ease;
-        }
-
-        .reveal-left.visible {
-            opacity: 1;
-            transform: translateX(0);
-        }
-
-        .reveal-right {
-            opacity: 0;
-            transform: translateX(30px);
-            transition: opacity 0.8s ease, transform 0.8s ease;
-        }
-
-        .reveal-right.visible {
-            opacity: 1;
-            transform: translateX(0);
+            transform: translate(0);
         }
 
         .delay-1 { transition-delay: 0.1s; }
@@ -1035,9 +1014,9 @@
 
         header.scrolled .hamburger span { background: var(--forest); }
 
-        .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+        .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); background: var(--white); }
         .hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
-        .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+        .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); background: var(--white); }
 
         .mobile-nav {
             display: none;
@@ -1073,75 +1052,28 @@
             transition: color 0.3s ease, opacity 0.4s ease, transform 0.4s ease;
         }
 
-        .mobile-nav.open a {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
+        .mobile-nav.open a { opacity: 1; transform: translateY(0); }
         .mobile-nav.open a:nth-child(1) { transition-delay: 0.05s; }
         .mobile-nav.open a:nth-child(2) { transition-delay: 0.1s; }
         .mobile-nav.open a:nth-child(3) { transition-delay: 0.15s; }
         .mobile-nav.open a:nth-child(4) { transition-delay: 0.2s; }
         .mobile-nav.open a:nth-child(5) { transition-delay: 0.25s; }
-
         .mobile-nav a:hover { color: var(--white); }
 
         .mobile-nav .mobile-nav-cta {
-            margin-top: 1rem;
+            margin-top: 1.5rem;
             font-family: 'DM Sans', sans-serif;
-            font-size: 0.9rem;
+            font-size: 0.9rem !important;
             font-weight: 500;
             letter-spacing: 0.15em;
             text-transform: uppercase;
             border: 1px solid rgba(255,255,255,0.3);
             border-radius: 100px;
-            padding: 0.8rem 2rem;
-            color: rgba(255,255,255,0.8) !important;
-            font-size: 0.9rem !important;
+            padding: 0.8rem 2.5rem;
+            color: rgba(255,255,255,0.9) !important;
         }
 
-        /* ============ SMOOTH ANIMATIONS ENHANCEMENTS ============ */
-        .btn-primary, .btn-ghost, .nav-cta, .card-link, .info-block, .service-card, .review-card, .footer-links a {
-            will-change: transform;
-        }
-
-        .btn-primary {
-            transition: all 0.35s cubic-bezier(0.23, 1, 0.32, 1);
-        }
-
-        .btn-ghost {
-            transition: all 0.35s cubic-bezier(0.23, 1, 0.32, 1);
-        }
-
-        .service-card {
-            transition: transform 0.45s cubic-bezier(0.23, 1, 0.32, 1), box-shadow 0.45s ease;
-        }
-
-        .card-img {
-            transition: transform 0.7s cubic-bezier(0.23, 1, 0.32, 1);
-        }
-
-        .gallery-item img {
-            transition: transform 0.7s cubic-bezier(0.23, 1, 0.32, 1);
-        }
-
-        .gallery-overlay {
-            transition: opacity 0.45s ease;
-        }
-
-        .reveal {
-            transition: opacity 0.9s cubic-bezier(0.23, 1, 0.32, 1), transform 0.9s cubic-bezier(0.23, 1, 0.32, 1);
-        }
-
-        .reveal-left {
-            transition: opacity 0.9s cubic-bezier(0.23, 1, 0.32, 1), transform 0.9s cubic-bezier(0.23, 1, 0.32, 1);
-        }
-
-        .reveal-right {
-            transition: opacity 0.9s cubic-bezier(0.23, 1, 0.32, 1), transform 0.9s cubic-bezier(0.23, 1, 0.32, 1);
-        }
-
-        /* ============ RESPONSIVE ============ */
+        /* ============ RESPONSIVE (1024px) ============ */
         @media (max-width: 1024px) {
             .about-layout { grid-template-columns: 1fr; gap: 3rem; }
             .about-badge { left: 1rem; }
@@ -1152,65 +1084,111 @@
             .reviews-grid { grid-template-columns: 1fr 1fr; }
             .contact-layout { grid-template-columns: 1fr; }
             .footer-top { grid-template-columns: 1fr; gap: 2rem; }
-            .gallery-strip { grid-template-columns: repeat(3, 1fr); }
-            .stats-inner { grid-template-columns: 1fr; }
-            .stat-item { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.1); }
-            .stat-item:last-child { border-bottom: none; }
         }
 
+        /* ============ RESPONSIVE (768px Mobile Core) ============ */
         @media (max-width: 768px) {
-            header { padding: 1.1rem 1.2rem; }
-            header.scrolled { padding: 0.8rem 1.2rem; }
+            header { padding: 1.1rem 1.5rem; }
+            header.scrolled { padding: 0.8rem 1.5rem; }
 
             .nav-links { display: none; }
             .hamburger { display: flex; }
             .mobile-nav { display: flex; }
 
-            .section-wrapper { padding: 4rem 1.2rem; }
-            .services-section { padding: 4rem 1.2rem; }
-            .contact-section { padding: 4rem 1.2rem; }
-            .reviews-section { padding: 4rem 1.2rem; max-width: 100%; }
-            .stats-strip { padding: 2.5rem 1.2rem; }
+            .section-wrapper, .services-section, .contact-section, .reviews-section {
+                padding: 4.5rem 1.5rem; 
+            }
+            
+            .stats-strip { padding: 3.5rem 1.5rem; }
 
-            .hero h1 { font-size: clamp(2.8rem, 11vw, 4.5rem); }
-            .hero-sub { font-size: 0.95rem; }
-            .hero-actions { flex-direction: column; align-items: center; gap: 0.8rem; }
-            .btn-primary, .btn-ghost { width: 100%; max-width: 280px; text-align: center; }
+            /* Buttons */
+            .hero-actions { flex-direction: column; align-items: stretch; gap: 0.8rem; width: 100%; max-width: 320px; margin: 0 auto; }
+            .btn-primary, .btn-ghost { text-align: center; width: 100%; }
 
-            .about-layout { grid-template-columns: 1fr; gap: 2rem; }
-            .about-media { padding-bottom: 3rem; }
-            .about-badge { left: 0.5rem; top: 1rem; width: 75px; height: 75px; font-size: 0.62rem; }
+            /* About Layout - Keeps both images visible */
+            .about-layout { gap: 2.5rem; }
+            .about-media { padding-bottom: 2rem; }
+            .about-main-img { border-radius: 8px; }
+            .about-accent-img {
+                width: 60%;
+                bottom: -1.5rem;
+                right: -0.5rem;
+                border-width: 4px;
+                border-radius: 8px;
+            }
+            .about-badge {
+                left: 0.5rem; top: 1rem;
+                width: 75px; height: 75px;
+                font-size: 0.62rem;
+            }
             .about-badge span { font-size: 1.2rem; }
-            .about-accent-img { right: 0; bottom: -1rem; width: 48%; }
 
+            /* Stats Grid Optimization */
+            .stats-inner {
+                grid-template-columns: 1fr 1fr;
+                gap: 1.5rem 0;
+            }
+            .stat-item {
+                border-right: 1px solid rgba(255,255,255,0.1);
+                border-bottom: 1px solid rgba(255,255,255,0.1);
+                padding: 1rem;
+            }
+            .stat-item:nth-child(2) { border-right: none; }
+            .stat-item:last-child {
+                grid-column: span 2;
+                border-bottom: none;
+                border-right: none;
+                padding-bottom: 0;
+            }
+
+            /* Services & Reviews */
             .cards-grid { grid-template-columns: 1fr; }
-
-            .reviews-layout { grid-template-columns: 1fr; gap: 1.5rem; }
+            .reviews-layout { gap: 1.5rem; }
             .reviews-grid { grid-template-columns: 1fr; }
-            .review-score-block { padding: 2rem; }
-            .score-number { font-size: 4.5rem; }
+            .review-score-block { padding: 2.5rem 1.5rem; }
 
-            .contact-layout { grid-template-columns: 1fr; gap: 2rem; }
-            .map-wrapper iframe { height: 260px; }
+            /* Maps */
+            .contact-layout { gap: 2rem; }
+            .map-wrapper iframe { height: 300px; }
 
-            .gallery-strip { grid-template-columns: repeat(2, 1fr); }
+            /* Mobile Horizontal Scroll Gallery */
+            .gallery-strip {
+                display: flex;
+                overflow-x: auto;
+                scroll-snap-type: x mandatory;
+                scrollbar-width: none; /* Firefox */
+                -ms-overflow-style: none; /* IE/Edge */
+            }
+            .gallery-strip::-webkit-scrollbar { display: none; /* Chrome/Safari */ }
+            
+            .gallery-item {
+                flex: 0 0 75%; /* Shows 75% of one image, hinting there are more */
+                scroll-snap-align: center;
+                border-right: 2px solid var(--cream);
+            }
+            .gallery-item:last-child { border-right: none; }
 
-            .footer-top { grid-template-columns: 1fr; gap: 2rem; padding-bottom: 2rem; }
-            footer { padding: 3rem 1.2rem 1.5rem; }
-            .footer-bottom { flex-direction: column; gap: 0.5rem; text-align: center; }
-
-            .section-heading { font-size: clamp(1.8rem, 6vw, 2.5rem); }
-
+            .footer-top { grid-template-columns: 1fr; gap: 2.5rem; padding-bottom: 2.5rem; }
+            footer { padding: 4rem 1.5rem 2rem; }
+            .footer-bottom { flex-direction: column; gap: 0.8rem; text-align: center; }
             .services-header { gap: 0.8rem; }
             .services-desc { max-width: 100%; }
-
-            .marquee-item { font-size: 0.75rem; }
         }
 
+        /* ============ RESPONSIVE (Smallest Phones) ============ */
         @media (max-width: 400px) {
-            .hero h1 { font-size: 2.5rem; }
-            .score-number { font-size: 3.8rem; }
-            .about-accent-img { display: none; }
+            .hero-actions { max-width: 100%; }
+            .about-accent-img {
+                width: 65%; /* Adjusts overlap gracefully */
+                right: 0;
+            }
+            .stats-inner { grid-template-columns: 1fr; }
+            .stat-item {
+                border-right: none !important;
+                grid-column: span 1 !important;
+            }
+            .stat-item:last-child { padding: 1rem; }
+            .gallery-item { flex: 0 0 85%; }
         }
     </style>
 </head>
@@ -1273,8 +1251,8 @@
             <div class="about-layout">
                 <div class="about-media reveal-left">
                     <div class="about-badge"><span>5.0</span>Google<br>Rated</div>
-                    <img src="https://i.postimg.cc/J4jtTDmR/Save-Clip-App-574562820-18056798984540137-5997074684949744627-n.jpg" alt="JFF Plant Shop Interior" class="about-main-img">
-                    <img src="https://i.postimg.cc/rsXtf7h7/Save-Clip-App-641755019-18068658878540137-1871984780433477788-n.jpg" alt="Plants" class="about-accent-img">
+                    <img src="https://i.postimg.cc/J4jtTDmR/Save-Clip-App-574562820-18056798984540137-5997074684949744627-n.jpg" alt="JFF Plant Shop Interior" class="about-main-img" loading="lazy">
+                    <img src="https://i.postimg.cc/rsXtf7h7/Save-Clip-App-641755019-18068658878540137-1871984780433477788-n.jpg" alt="Plants Detail" class="about-accent-img" loading="lazy">
                 </div>
                 <div class="about-text reveal-right">
                     <span class="eyebrow">Our Green Story</span>
@@ -1320,7 +1298,7 @@
             <div class="cards-grid">
                 <div class="service-card reveal delay-1">
                     <div class="card-img-wrapper">
-                        <img src="https://i.postimg.cc/sfbRNs4Q/Save-Clip-App-474544344-18027894827540137-4472927896347318860-n.jpg" alt="Plant Retail" class="card-img">
+                        <img src="https://i.postimg.cc/sfbRNs4Q/Save-Clip-App-474544344-18027894827540137-4472927896347318860-n.jpg" alt="Plant Retail" class="card-img" loading="lazy">
                     </div>
                     <div class="card-body">
                         <div class="card-icon"><i class="fa-solid fa-leaf"></i></div>
@@ -1331,7 +1309,7 @@
                 </div>
                 <div class="service-card reveal delay-2">
                     <div class="card-img-wrapper">
-                        <img src="https://i.postimg.cc/qMCw7LTS/Save-Clip-App-601863212-18061045304540137-785892017756620310-n.jpg" alt="Café" class="card-img">
+                        <img src="https://i.postimg.cc/qMCw7LTS/Save-Clip-App-601863212-18061045304540137-785892017756620310-n.jpg" alt="Café" class="card-img" loading="lazy">
                     </div>
                     <div class="card-body">
                         <div class="card-icon"><i class="fa-solid fa-mug-hot"></i></div>
@@ -1342,7 +1320,7 @@
                 </div>
                 <div class="service-card reveal delay-3">
                     <div class="card-img-wrapper">
-                        <img src="https://i.postimg.cc/63LG1YDJ/Save-Clip-App-575170207-18056799170540137-8763752596037017876-n.jpg" alt="Horticultural Services" class="card-img">
+                        <img src="https://i.postimg.cc/63LG1YDJ/Save-Clip-App-575170207-18056799170540137-8763752596037017876-n.jpg" alt="Horticultural Services" class="card-img" loading="lazy">
                     </div>
                     <div class="card-body">
                         <div class="card-icon"><i class="fa-solid fa-seedling"></i></div>
@@ -1416,23 +1394,23 @@
     <div class="gallery-section">
         <div class="gallery-strip">
             <div class="gallery-item">
-                <img src="https://i.postimg.cc/T3D14tb5/Save-Clip-App-573263792-18056799107540137-4815999829889085051-n.jpg" alt="Plants">
+                <img src="https://i.postimg.cc/T3D14tb5/Save-Clip-App-573263792-18056799107540137-4815999829889085051-n.jpg" alt="Plants Gallery" loading="lazy">
                 <div class="gallery-overlay"><i class="fa-brands fa-instagram"></i></div>
             </div>
             <div class="gallery-item">
-                <img src="https://i.postimg.cc/N0xg3SfJ/Save-Clip-App-654561026-18070907897540137-4062435620548818813-n.jpg" alt="Coffee">
+                <img src="https://i.postimg.cc/N0xg3SfJ/Save-Clip-App-654561026-18070907897540137-4062435620548818813-n.jpg" alt="Coffee Gallery" loading="lazy">
                 <div class="gallery-overlay"><i class="fa-brands fa-instagram"></i></div>
             </div>
             <div class="gallery-item">
-                <img src="https://i.postimg.cc/266fP5t6/Save-Clip-App-589903778-18061045292540137-3615443657205864430-n.jpg" alt="Shop">
+                <img src="https://i.postimg.cc/266fP5t6/Save-Clip-App-589903778-18061045292540137-3615443657205864430-n.jpg" alt="Shop View Gallery" loading="lazy">
                 <div class="gallery-overlay"><i class="fa-brands fa-instagram"></i></div>
             </div>
             <div class="gallery-item">
-                <img src="https://i.postimg.cc/sfbRNs4Q/Save-Clip-App-474544344-18027894827540137-4472927896347318860-n.jpg" alt="Greenery">
+                <img src="https://i.postimg.cc/sfbRNs4Q/Save-Clip-App-474544344-18027894827540137-4472927896347318860-n.jpg" alt="Greenery Gallery" loading="lazy">
                 <div class="gallery-overlay"><i class="fa-brands fa-instagram"></i></div>
             </div>
             <div class="gallery-item">
-                <img src="https://i.postimg.cc/KcTZF1zD/Save-Clip-App-623658330-18122671588564178-5225924365465329856-n.jpg" alt="Plants">
+                <img src="https://i.postimg.cc/KcTZF1zD/Save-Clip-App-623658330-18122671588564178-5225924365465329856-n.jpg" alt="More Plants Gallery" loading="lazy">
                 <div class="gallery-overlay"><i class="fa-brands fa-instagram"></i></div>
             </div>
         </div>
@@ -1555,10 +1533,13 @@
 
         // ── Parallax Hero ──
         window.addEventListener('scroll', () => {
-            const scrolled = window.scrollY;
-            const heroBg = document.querySelector('.hero-bg');
-            if (heroBg) {
-                heroBg.style.transform = `translateY(${scrolled * 0.35}px) scale(1)`;
+            // Only trigger parallax heavily on larger screens to save mobile battery and avoid jank
+            if(window.innerWidth > 768) {
+                const scrolled = window.scrollY;
+                const heroBg = document.querySelector('.hero-bg');
+                if (heroBg) {
+                    heroBg.style.transform = `translateY(${scrolled * 0.35}px) scale(1)`;
+                }
             }
         });
     </script>
