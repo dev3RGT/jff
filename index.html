@@ -382,11 +382,15 @@
             align-items: center;
         }
 
-        .about-media { position: relative; }
+        .about-media {
+            position: relative;
+            padding-bottom: 4rem; /* space for the accent image overhang */
+        }
 
         .about-main-img {
             width: 100%;
-            aspect-ratio: 3/4;
+            aspect-ratio: 4/3;
+            max-height: 420px;
             object-fit: cover;
             border-radius: 12px;
             display: block;
@@ -400,9 +404,9 @@
 
         .about-accent-img {
             position: absolute;
-            bottom: -3rem;
-            right: -3rem;
-            width: 55%;
+            bottom: 0;
+            right: -2rem;
+            width: 48%;
             aspect-ratio: 1;
             object-fit: cover;
             border-radius: 12px;
@@ -412,7 +416,7 @@
         }
 
         .about-media:hover .about-accent-img {
-            transform: translate(-10px, -10px) scale(1.05);
+            transform: translate(-8px, -8px) scale(1.05);
         }
 
         .about-badge {
@@ -1178,8 +1182,9 @@
         /* ============ RESPONSIVE (1024px) ============ */
         @media (max-width: 1024px) {
             .about-layout { grid-template-columns: 1fr; gap: 4rem; }
+            .about-media { padding-bottom: 3.5rem; }
             .about-badge { left: 1rem; }
-            .about-accent-img { right: 0; }
+            .about-accent-img { right: 0; width: 44%; }
             .services-header { flex-direction: column; align-items: flex-start; gap: 1.5rem; }
             .cards-grid { grid-template-columns: 1fr 1fr; }
             .reviews-layout { grid-template-columns: 1fr; gap: 3rem; }
@@ -1207,11 +1212,11 @@
             .btn-primary, .btn-ghost { text-align: center; width: 100%; }
 
             .about-layout { gap: 3rem; }
-            .about-media { padding-bottom: 2rem; }
+            .about-media { padding-bottom: 3rem; }
             .about-accent-img {
-                width: 60%;
-                bottom: -1.5rem;
-                right: -0.5rem;
+                width: 50%;
+                bottom: 0;
+                right: 0;
                 border-width: 4px;
             }
             .about-badge {
@@ -1266,7 +1271,7 @@
 
         /* ============ RESPONSIVE (Smallest Phones) ============ */
         @media (max-width: 400px) {
-            .about-accent-img { width: 65%; right: 0; }
+            .about-accent-img { width: 52%; right: 0; }
             .stats-inner { grid-template-columns: 1fr; }
             .stat-item {
                 border-right: none !important;
