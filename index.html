@@ -121,20 +121,35 @@
         }
 
         .logo {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 1.6rem;
-            font-weight: 600;
-            color: var(--white);
-            letter-spacing: 0.05em;
             transition: var(--snappy);
             z-index: 2;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
         }
 
-        header.scrolled .logo {
-            background: var(--gradient-primary);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+        /* Logo image styles */
+        .logo-img {
+            height: 36px;
+            width: auto;
+            display: block;
+            filter: brightness(0) invert(1);
+            transition: var(--snappy);
         }
+
+        header.scrolled .logo-img {
+            filter: brightness(0) saturate(100%) invert(64%) sepia(58%) saturate(460%) hue-rotate(87deg) brightness(99%) contrast(91%);
+        }
+
+        .footer-logo-img {
+            height: 44px;
+            width: auto;
+            display: block;
+            filter: brightness(0) invert(1);
+            margin-bottom: 1.2rem;
+            opacity: 0.92;
+        }
+
 
         .nav-links {
             display: flex;
@@ -1009,11 +1024,7 @@
         }
 
         .footer-logo {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 2.2rem;
-            font-weight: 400;
-            color: var(--white);
-            margin-bottom: 1.2rem;
+            display: block;
         }
 
         .footer-about {
@@ -1293,7 +1304,7 @@
 
     <!-- Navigation -->
     <header id="header">
-        <div class="logo">JFF Plant Shop</div>
+        <a href="index.html" class="logo"><img src="https://i.postimg.cc/tC4FN7Tf/Adobe-Express-file(1).png" alt="JFF Plant Shop" class="logo-img"></a>
         <ul class="nav-links">
             <li><a href="#home">Home</a></li>
             <li><a href="#about">Our Story</a></li>
@@ -1550,7 +1561,7 @@
         <div class="footer-inner">
             <div class="footer-top">
                 <div>
-                    <div class="footer-logo">JFF Plant Shop</div>
+                    <div class="footer-logo"><img src="https://i.postimg.cc/tC4FN7Tf/Adobe-Express-file(1).png" alt="JFF Plant Shop" class="footer-logo-img"></div>
                     <p class="footer-about">A boutique plant sanctuary, café, and horticultural destination in the heart of Mokopane. Where green things grow and good coffee flows.</p>
                 </div>
                 <div>
