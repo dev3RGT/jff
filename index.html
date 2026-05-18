@@ -13,13 +13,19 @@
                 extend: {
                     colors: {
                         brandYellow: '#FBBF24',
-                        brandDark: '#111827',
+                        brandDark: '#0B0F19',
+                    },
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'Inter', 'sans-serif'],
                     }
                 }
             }
         }
     </script>
 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
@@ -27,35 +33,51 @@
         /* ─── CSS Variables ─── */
         :root {
             --yellow: #FBBF24;
-            --dark: #111827;
+            --dark: #0B0F19;
             --nav-h: 80px;
         }
 
-        /* ─── Base ─── */
+        /* ─── Base Styles ─── */
         *, *::before, *::after { box-sizing: border-box; }
-        html { scroll-behavior: smooth; }
-        body { overflow-x: hidden; }
+        body { 
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            overflow-x: hidden;
+            background-color: #0B0F19;
+        }
 
-        /* ─── Navbar ─── */
+        /* Modern Grid Mesh Background Overlay */
+        .grid-mesh {
+            background-image: linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                              linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+            background-size: 40px 40px;
+        }
+        .grid-mesh-light {
+            background-image: linear-gradient(rgba(0, 0, 0, 0.02) 1px, transparent 1px),
+                              linear-gradient(90deg, rgba(0, 0, 0, 0.02) 1px, transparent 1px);
+            background-size: 40px 40px;
+        }
+
+        /* ─── Modern Glassmorphism Navbar ─── */
         .glass-nav {
-            background: rgba(17, 24, 39, 0.88);
-            backdrop-filter: blur(14px);
-            -webkit-backdrop-filter: blur(14px);
-            border-bottom: 1px solid rgba(251,191,36,0.08);
-            transition: background 0.4s ease, box-shadow 0.4s ease;
+            background: rgba(11, 15, 25, 0.75);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
         .glass-nav.scrolled {
-            background: rgba(17, 24, 39, 0.98);
-            box-shadow: 0 4px 30px rgba(0,0,0,0.4);
+            background: rgba(11, 15, 25, 0.92);
+            border-bottom: 1px solid rgba(251, 191, 36, 0.15);
+            box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.7);
         }
 
-        /* ─── Nav link animated underline ─── */
+        /* Nav link animation */
         .nav-link {
             position: relative;
-            color: #d1d5db;
+            color: #9ca3af;
             padding: 6px 4px;
             font-size: 0.875rem;
-            font-weight: 500;
+            font-weight: 600;
             text-decoration: none;
             transition: color 0.3s ease;
         }
@@ -63,42 +85,36 @@
             content: '';
             position: absolute;
             bottom: -2px;
-            left: 0;
+            left: 50%;
             width: 0;
             height: 2px;
             background: var(--yellow);
             border-radius: 2px;
-            transition: width 0.35s cubic-bezier(0.4,0,0.2,1);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            transform: translateX(-50%);
         }
-        .nav-link:hover { color: var(--yellow); }
+        .nav-link:hover { color: #fff; }
         .nav-link:hover::after { width: 100%; }
 
         /* ─── CTA Nav Button ─── */
         .nav-cta {
-            background: var(--yellow);
+            background: linear-gradient(135deg, #FBBF24 0%, #F59E0B 100%);
             color: var(--dark);
             font-weight: 700;
-            padding: 8px 20px;
+            padding: 10px 24px;
             border-radius: 9999px;
             font-size: 0.875rem;
             text-decoration: none;
-            position: relative;
-            overflow: hidden;
-            display: inline-block;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 4px 14px rgba(251, 191, 36, 0.3);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
-        .nav-cta::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: rgba(255,255,255,0.2);
-            transform: translateX(-110%) skewX(-15deg);
-            transition: transform 0.5s ease;
+        .nav-cta:hover { 
+            transform: translateY(-2px); 
+            box-shadow: 0 8px 25px rgba(251, 191, 36, 0.5);
+            filter: brightness(1.05);
         }
-        .nav-cta:hover::before { transform: translateX(110%) skewX(-15deg); }
-        .nav-cta:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(251,191,36,0.5); }
 
-        /* ─── Hero ─── */
+        /* ─── Ultra-Modern Hero ─── */
         .hero-section {
             position: relative;
             min-height: 100vh;
@@ -112,297 +128,289 @@
             inset: 0;
             background-image: url('https://i.postimg.cc/q76Y6Jxz/Gemini-Generated-Image-vljf6evljf6evljf.png');
             background-size: cover;
-            background-position: center 40%;
-            transform: scale(1.08);
-            animation: heroZoom 12s ease-out forwards;
+            background-position: center 35%;
+            transform: scale(1.05);
+            animation: heroZoom 10s cubic-bezier(0.4, 0, 0.2, 1) forwards;
             will-change: transform;
         }
         @keyframes heroZoom {
-            from { transform: scale(1.08); }
-            to   { transform: scale(1.0); }
+            to { transform: scale(1.0); }
         }
         .hero-overlay {
             position: absolute;
             inset: 0;
             background: linear-gradient(
-                135deg,
-                rgba(17,24,39,0.88) 0%,
-                rgba(17,24,39,0.65) 50%,
-                rgba(17,24,39,0.80) 100%
+                to bottom,
+                rgba(11, 15, 25, 0.75) 0%,
+                rgba(11, 15, 25, 0.85) 60%,
+                rgba(11, 15, 25, 1) 100%
             );
         }
-        /* animated diagonal accent line */
-        .hero-accent {
+        .hero-glow {
             position: absolute;
-            bottom: 0; left: 0;
-            width: 100%; height: 6px;
-            background: linear-gradient(90deg, transparent, var(--yellow), transparent);
-            animation: accentSlide 3s ease-in-out infinite;
-        }
-        @keyframes accentSlide {
-            0%,100% { opacity: 0.4; transform: scaleX(0.6); }
-            50%      { opacity: 1;   transform: scaleX(1); }
+            top: 20%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(251, 191, 36, 0.1) 0%, transparent 70%);
+            z-index: 1;
+            pointer-events: none;
         }
         .hero-content { position: relative; z-index: 2; }
 
-        /* ─── Fade-up-stagger for hero text ─── */
+        /* Staggered entrance animation classes */
         .hero-line {
             opacity: 0;
-            transform: translateY(40px);
-            animation: heroFadeUp 0.9s cubic-bezier(0.22,1,0.36,1) forwards;
+            transform: translateY(30px);
+            animation: heroFadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
         @keyframes heroFadeUp {
             to { opacity: 1; transform: translateY(0); }
         }
-        .hero-line:nth-child(1) { animation-delay: 0.3s; }
-        .hero-line:nth-child(2) { animation-delay: 0.55s; }
-        .hero-line:nth-child(3) { animation-delay: 0.75s; }
-        .hero-line:nth-child(4) { animation-delay: 0.95s; }
+        .hero-line:nth-child(1) { animation-delay: 0.2s; }
+        .hero-line:nth-child(2) { animation-delay: 0.4s; }
+        .hero-line:nth-child(3) { animation-delay: 0.6s; }
+        .hero-line:nth-child(4) { animation-delay: 0.8s; }
 
-        /* ─── Hero buttons ─── */
+        /* Premium Buttons */
         .btn-primary {
-            background: var(--yellow);
+            background: linear-gradient(135deg, #FBBF24 0%, #F59E0B 100%);
             color: var(--dark);
             font-weight: 700;
-            font-size: 1.05rem;
-            padding: 14px 34px;
+            font-size: 1rem;
+            padding: 16px 36px;
             border-radius: 9999px;
             display: inline-flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
             text-decoration: none;
-            position: relative;
-            overflow: hidden;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 8px 30px rgba(251, 191, 36, 0.3);
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
         }
-        .btn-primary::after {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: rgba(0,0,0,0.12);
-            opacity: 0;
-            transition: opacity 0.3s;
+        .btn-primary:hover { 
+            transform: translateY(-3px); 
+            box-shadow: 0 15px 35px rgba(251, 191, 36, 0.45);
+            filter: brightness(1.05);
         }
-        .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 12px 28px rgba(251,191,36,0.45); }
-        .btn-primary:hover::after { opacity: 1; }
-        .btn-primary i { transition: transform 0.3s ease; }
-        .btn-primary:hover i { transform: translateX(4px); }
+        .btn-primary i { transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1); }
+        .btn-primary:hover i { transform: translateX(5px); }
 
         .btn-outline {
-            background: transparent;
-            border: 2px solid rgba(255,255,255,0.7);
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
             color: #fff;
-            font-weight: 700;
-            font-size: 1.05rem;
-            padding: 14px 34px;
+            font-weight: 600;
+            font-size: 1rem;
+            padding: 16px 36px;
             border-radius: 9999px;
             display: inline-flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
             text-decoration: none;
-            transition: background 0.3s ease, border-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
         }
         .btn-outline:hover {
-            background: rgba(255,255,255,0.12);
-            border-color: #fff;
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(255, 255, 255, 0.3);
             transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
         }
 
-        /* ─── Scroll indicator ─── */
+        /* Animated Scroll Indicator */
+        .scroll-indicator-wrap {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 10;
+        }
         .scroll-dot {
-            width: 6px; height: 6px;
-            border-radius: 50%;
+            width: 6px; height: 18px;
+            border-radius: 9999px;
             background: var(--yellow);
-            animation: scrollBounce 1.8s ease-in-out infinite;
+            animation: scrollBounce 2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
         }
         @keyframes scrollBounce {
-            0%,100% { transform: translateY(0); opacity: 1; }
-            50%      { transform: translateY(8px); opacity: 0.4; }
+            0%, 100% { transform: translateY(0); opacity: 0.3; }
+            50% { transform: translateY(10px); opacity: 1; }
         }
 
-        /* ─── Stat cards ─── */
+        /* ─── Premium Modern Cards ─── */
         .stat-card {
-            background: #fff;
-            border: 1px solid #f3f4f6;
-            border-radius: 16px;
-            padding: 32px 24px;
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(0, 0, 0, 0.04);
+            border-radius: 24px;
+            padding: 40px 32px;
             text-align: center;
-            transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease;
-            position: relative;
-            overflow: hidden;
+            box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.04);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
         }
-        .stat-card::before {
-            content: '';
-            position: absolute;
-            bottom: 0; left: 0; right: 0;
-            height: 3px;
-            background: var(--yellow);
-            transform: scaleX(0);
-            transition: transform 0.4s ease;
+        .stat-card:hover {
+            transform: translateY(-8px);
+            background: #fff;
+            box-shadow: 0 30px 60px -15px rgba(11, 15, 25, 0.1);
+            border-color: rgba(251, 191, 36, 0.4);
         }
-        .stat-card:hover { transform: translateY(-6px); box-shadow: 0 20px 40px rgba(0,0,0,0.1); border-color: rgba(251,191,36,0.3); }
-        .stat-card:hover::before { transform: scaleX(1); }
 
-        /* ─── Fleet / TLB section ─── */
         .section-label {
-            display: inline-block;
+            display: inline-flex;
+            align-items: center;
             font-size: 0.75rem;
             font-weight: 700;
             letter-spacing: 0.15em;
             text-transform: uppercase;
-            color: var(--yellow);
-            background: rgba(251,191,36,0.1);
-            padding: 4px 14px;
-            border-radius: 20px;
-            border: 1px solid rgba(251,191,36,0.25);
-            margin-bottom: 14px;
+            color: #D97706;
+            background: rgba(245, 158, 11, 0.08);
+            padding: 6px 16px;
+            border-radius: 9999px;
+            border: 1px solid rgba(245, 158, 11, 0.18);
+            margin-bottom: 20px;
         }
 
         .fleet-card {
             position: relative;
-            border-radius: 16px;
+            border-radius: 24px;
+            background: #fff;
             overflow: hidden;
-            cursor: default;
+            border: 1px solid #f1f5f9;
+            box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.05);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .fleet-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 30px 60px -20px rgba(11, 15, 25, 0.15);
+            border-color: rgba(251, 191, 36, 0.3);
         }
         .fleet-img-wrap {
             position: relative;
             width: 100%;
-            height: 220px;
+            height: 240px;
             overflow: hidden;
-            background: #1f2937;
+            background: #0B0F19;
         }
         .fleet-img-wrap img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            object-position: center;
-            transition: transform 0.6s cubic-bezier(0.4,0,0.2,1);
-            filter: brightness(0.9);
+            transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
         }
         .fleet-card:hover .fleet-img-wrap img {
-            transform: scale(1.08);
-            filter: brightness(1);
+            transform: scale(1.06);
         }
         .fleet-badge {
             position: absolute;
-            top: 12px; left: 12px;
-            background: var(--yellow);
-            color: var(--dark);
+            top: 16px; left: 16px;
+            background: rgba(11, 15, 25, 0.85);
+            backdrop-filter: blur(8px);
+            color: #fff;
             font-size: 0.7rem;
-            font-weight: 800;
-            letter-spacing: 0.08em;
+            font-weight: 700;
+            letter-spacing: 0.05em;
             text-transform: uppercase;
-            padding: 4px 10px;
-            border-radius: 4px;
+            padding: 6px 14px;
+            border-radius: 9999px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
             z-index: 2;
         }
         .fleet-body {
-            background: #fff;
-            padding: 20px;
-            border: 1px solid #f3f4f6;
-            border-top: none;
-            border-radius: 0 0 16px 16px;
-            transition: border-color 0.35s ease;
+            padding: 28px;
         }
-        .fleet-card:hover .fleet-body { border-color: rgba(251,191,36,0.4); }
-        .fleet-body h4 { font-size: 1rem; font-weight: 700; color: var(--dark); margin-bottom: 6px; }
-        .fleet-body p  { font-size: 0.82rem; color: #6b7280; line-height: 1.5; }
+        .fleet-body h4 { font-size: 1.25rem; font-weight: 700; color: #111827; margin-bottom: 10px; }
+        .fleet-body p  { font-size: 0.875rem; color: #4b5563; line-height: 1.6; }
         .fleet-specs {
             display: flex;
             flex-wrap: wrap;
-            gap: 6px;
-            margin-top: 12px;
+            gap: 8px;
+            margin-top: 20px;
+            border-top: 1px solid #f1f5f9;
+            padding-top: 16px;
         }
         .fleet-spec-tag {
-            font-size: 0.7rem;
+            font-size: 0.75rem;
             font-weight: 600;
-            background: #f9fafb;
-            border: 1px solid #e5e7eb;
-            color: #374151;
-            padding: 3px 9px;
-            border-radius: 4px;
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            color: #475569;
+            padding: 4px 12px;
+            border-radius: 9999px;
         }
 
-        /* ─── Section divider ─── */
         .divider-yellow {
-            width: 56px; height: 4px;
-            background: var(--yellow);
-            border-radius: 2px;
-            margin: 14px 0 28px;
+            width: 60px; height: 4px;
+            background: linear-gradient(90deg, #FBBF24, #F59E0B);
+            border-radius: 9999px;
+            margin: 18px 0 28px;
         }
 
-        /* ─── Form inputs ─── */
+        /* ─── Premium Glass Form Controls ─── */
         .form-input {
             width: 100%;
-            padding: 12px 16px;
-            border: 1.5px solid #e5e7eb;
-            border-radius: 8px;
-            background: #f9fafb;
-            font-size: 0.9rem;
-            transition: border-color 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+            padding: 14px 20px;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 14px;
+            background: rgba(255, 255, 255, 0.03);
+            color: #fff;
+            font-size: 0.95rem;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
             outline: none;
         }
         .form-input:focus {
             border-color: var(--yellow);
-            box-shadow: 0 0 0 3px rgba(251,191,36,0.18);
-            background: #fff;
+            box-shadow: 0 0 0 4px rgba(251, 191, 36, 0.15);
+            background: rgba(255, 255, 255, 0.06);
         }
+        .form-input::placeholder { color: #4b5563; }
 
-        /* ─── General button hover ─── */
-        .btn-hover {
-            transition: all 0.3s cubic-bezier(0.4,0,0.2,1);
-        }
-        .btn-hover:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 15px -3px rgba(251,191,36,0.4);
-        }
-
-        /* ─── Mobile nav toggle ─── */
+        /* Mobile Menu */
         .mobile-menu {
             max-height: 0;
             overflow: hidden;
-            transition: max-height 0.4s ease, padding 0.3s ease;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
         }
-        .mobile-menu.open { max-height: 400px; }
+        .mobile-menu.open { max-height: 450px; padding: 20px 0; }
 
-        /* ─── Pulse ring for icon circles ─── */
-        @keyframes pulseRing {
-            0%   { box-shadow: 0 0 0 0 rgba(251,191,36,0.4); }
-            70%  { box-shadow: 0 0 0 14px rgba(251,191,36,0); }
-            100% { box-shadow: 0 0 0 0 rgba(251,191,36,0); }
-        }
-        .icon-pulse:hover { animation: pulseRing 1.2s ease-out; }
-
-        /* ─── Footer social ─── */
+        /* Social Buttons */
         .social-btn {
-            width: 40px; height: 40px;
-            border-radius: 50%;
-            background: #1f2937;
+            width: 44px; height: 44px;
+            border-radius: 9999px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
             display: flex; align-items: center; justify-content: center;
             color: #9ca3af;
-            transition: background 0.3s ease, color 0.3s ease, transform 0.3s ease;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
             text-decoration: none;
         }
-        .social-btn:hover { background: var(--yellow); color: var(--dark); transform: translateY(-3px); }
-
-        /* ─── Truck icon float animation ─── */
-        @keyframes float {
-            0%,100% { transform: translateY(0); }
-            50%      { transform: translateY(-8px); }
+        .social-btn:hover { 
+            background: var(--yellow); 
+            color: var(--dark); 
+            transform: translateY(-3px); 
+            box-shadow: 0 10px 20px rgba(251, 191, 36, 0.25);
+            border-color: var(--yellow);
         }
-        .float-icon { animation: float 3s ease-in-out infinite; }
+
+        /* Float Animation */
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-6px); }
+        }
+        .float-icon { animation: float 4s ease-in-out infinite; }
     </style>
 </head>
-<body class="bg-gray-50 text-gray-800 antialiased overflow-x-hidden">
+<body class="antialiased text-gray-300">
 
     <nav class="glass-nav fixed w-full z-50" id="navbar">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-20">
 
-                <a href="#home" class="flex items-center gap-3" style="text-decoration:none;">
-                    <i class="fa-solid fa-truck-moving text-brandYellow text-3xl float-icon"></i>
-                    <span class="text-white font-bold text-xl tracking-wider leading-tight">
-                        MOKOPANE<br><span class="text-brandYellow text-sm font-semibold">TRUCK & PLANT HIRE</span>
+                <a href="#home" class="flex items-center gap-3 group" style="text-decoration:none;">
+                    <div class="w-10 h-10 bg-brandYellow/10 border border-brandYellow/30 rounded-xl flex items-center justify-center transition-all group-hover:bg-brandYellow/20">
+                        <i class="fa-solid fa-truck-moving text-brandYellow text-xl float-icon"></i>
+                    </div>
+                    <span class="text-white font-extrabold text-lg tracking-wider leading-tight">
+                        MOKOPANE<br><span class="text-brandYellow text-xs font-bold tracking-widest">TRUCK & PLANT HIRE</span>
                     </span>
                 </a>
 
@@ -414,127 +422,131 @@
                     <a href="#contact" class="nav-cta"><i class="fa-solid fa-phone mr-2"></i>078 487 0117</a>
                 </div>
 
-                <button id="menuBtn" class="md:hidden text-white focus:outline-none p-2" aria-label="Toggle menu">
-                    <i class="fa-solid fa-bars text-xl" id="menuIcon"></i>
+                <button id="menuBtn" class="md:hidden text-white focus:outline-none p-2 w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center" aria-label="Toggle menu">
+                    <i class="fa-solid fa-bars text-lg" id="menuIcon"></i>
                 </button>
             </div>
         </div>
 
-        <div class="mobile-menu md:hidden bg-gray-900 border-t border-gray-800" id="mobileMenu">
-            <div class="px-4 py-4 space-y-3">
-                <a href="#home"    class="block text-gray-300 hover:text-brandYellow transition-colors py-2">Home</a>
-                <a href="#about"   class="block text-gray-300 hover:text-brandYellow transition-colors py-2">About</a>
-                <a href="#fleet"   class="block text-gray-300 hover:text-brandYellow transition-colors py-2">Our Fleet</a>
-                <a href="#request" class="block text-gray-300 hover:text-brandYellow transition-colors py-2">Request Equipment</a>
-                <a href="tel:0784870117" class="block bg-brandYellow text-brandDark font-bold py-3 px-4 rounded-full text-center mt-2">
+        <div class="mobile-menu md:hidden bg-[#0F1422] border-t border-white/5 shadow-2xl" id="mobileMenu">
+            <div class="px-6 space-y-2">
+                <a href="#home"    class="block font-medium text-gray-300 hover:text-brandYellow transition-colors py-3 border-b border-white/5">Home</a>
+                <a href="#about"   class="block font-medium text-gray-300 hover:text-brandYellow transition-colors py-3 border-b border-white/5">About</a>
+                <a href="#fleet"   class="block font-medium text-gray-300 hover:text-brandYellow transition-colors py-3 border-b border-white/5">Our Fleet</a>
+                <a href="#request" class="block font-medium text-gray-300 hover:text-brandYellow transition-colors py-3 border-b border-white/5">Request Equipment</a>
+                <a href="tel:0784870117" class="block bg-brandYellow text-brandDark font-bold py-3.5 px-4 rounded-full text-center mt-6 shadow-xl shadow-brandYellow/10">
                     <i class="fa-solid fa-phone mr-2"></i>078 487 0117
                 </a>
             </div>
         </div>
     </nav>
 
-    <section id="home" class="hero-section pt-20">
+    <section id="home" class="hero-section">
         <div class="hero-bg-img"></div>
         <div class="hero-overlay"></div>
-        <div class="hero-accent"></div>
+        <div class="hero-glow"></div>
 
         <div class="hero-content text-center px-4 max-w-5xl mx-auto">
             <div class="hero-line">
-                <span class="inline-block text-brandYellow font-semibold text-sm tracking-widest uppercase mb-5 opacity-90">
-                    <i class="fa-solid fa-circle-check mr-2"></i>Mokopane's Premier Equipment Supplier
+                <span class="inline-flex items-center gap-2 text-brandYellow font-bold text-xs tracking-widest uppercase mb-6 bg-brandYellow/10 border border-brandYellow/20 px-4 py-2 rounded-full backdrop-blur-md">
+                    <span class="w-1.5 h-1.5 bg-brandYellow rounded-full animate-pulse"></span>
+                    Mokopane's Premier Equipment Supplier
                 </span>
             </div>
 
             <div class="hero-line">
-                <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold text-white tracking-tight leading-none mb-6">
-                    <br>
-                    <span class="text-brandYellow relative inline-block"></span>
+                <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-white tracking-tight leading-none mb-6">
+                    Heavy Duty Power For Your<br>
+                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-brandYellow to-amber-400">Construction Needs</span>
                 </h1>
             </div>
 
             <div class="hero-line">
-                <p class="text-lg sm:text-xl text-gray-300 mb-10 max-w-2xl mx-auto leading-relaxed">
-
+                <p class="text-base sm:text-lg md:text-xl text-gray-300 mb-12 max-w-2xl mx-auto leading-relaxed">
+                    Reliable, well-maintained trucks and plant equipment ready to tackle any project — from civil works to heavy haulage across Limpopo.
                 </p>
             </div>
 
-            <div class="hero-line flex flex-col sm:flex-row justify-center gap-4">
-                <a href="#request" class="btn-primary">
-                    Hire Equipment <i class="fa-solid fa-arrow-right"></i>
+            <div class="hero-line flex flex-col sm:flex-row justify-center items-center gap-5">
+                <a href="#request" class="btn-primary w-full sm:w-auto justify-center">
+                    Hire Equipment <i class="fa-solid fa-arrow-right text-sm"></i>
                 </a>
-                <a href="#fleet" class="btn-outline">
-                    View Our Fleet <i class="fa-solid fa-truck-ramp-box"></i>
+                <a href="#fleet" class="btn-outline w-full sm:w-auto justify-center">
+                    View Our Fleet <i class="fa-solid fa-truck-ramp-box text-sm"></i>
                 </a>
             </div>
 
-            <div class="hero-line mt-16 flex flex-wrap justify-center gap-8 border-t border-white/10 pt-8">
+            <div class="hero-line mt-20 flex flex-wrap justify-center gap-8 md:gap-16 border-t border-white/10 pt-10">
                 <div class="text-center">
-                    <div class="text-3xl font-extrabold text-white">10+</div>
-                    <div class="text-gray-400 text-sm mt-1">Equipment Units</div>
+                    <div class="text-3xl md:text-4xl font-extrabold text-white tracking-tight">10+</div>
+                    <div class="text-gray-400 text-xs md:text-sm font-medium mt-1">Equipment Units</div>
                 </div>
                 <div class="w-px bg-white/10 hidden sm:block"></div>
                 <div class="text-center">
-                    <div class="text-3xl font-extrabold text-white">24/7</div>
-                    <div class="text-gray-400 text-sm mt-1">Available Support</div>
+                    <div class="text-3xl md:text-4xl font-extrabold text-white tracking-tight">24/7</div>
+                    <div class="text-gray-400 text-xs md:text-sm font-medium mt-1">Available Support</div>
                 </div>
                 <div class="w-px bg-white/10 hidden sm:block"></div>
                 <div class="text-center">
-                    <div class="text-3xl font-extrabold text-white">Mokopane</div>
-                    <div class="text-gray-400 text-sm mt-1">& Surrounding Areas</div>
+                    <div class="text-3xl md:text-4xl font-extrabold text-white tracking-tight">Mokopane</div>
+                    <div class="text-gray-400 text-xs md:text-sm font-medium mt-1">& Surrounding Areas</div>
                 </div>
             </div>
         </div>
 
-        <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 z-10">
-            <span class="text-gray-400 text-xs tracking-widest uppercase">/span>
-            <div class="scroll-dot"></div>
+        <div class="scroll-indicator-wrap">
+            <div class="flex flex-col items-center gap-2">
+                <span class="text-gray-400 text-[10px] tracking-widest font-bold uppercase opacity-60">Scroll</span>
+                <div class="scroll-dot"></div>
+            </div>
         </div>
     </section>
 
-    <section id="about" class="py-20 bg-white">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-14" data-aos="fade-up">
+    <section id="about" class="py-24 bg-slate-50 relative overflow-hidden">
+        <div class="absolute inset-0 grid-mesh-light opacity-60 pointer-events-none"></div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="text-center mb-16" data-aos="fade-up">
                 <span class="section-label">Why Choose Us</span>
-                <h2 class="text-3xl sm:text-4xl font-extrabold text-gray-900">Trusted. Reliable. Ready.</h2>
+                <h2 class="text-3xl sm:text-4xl md:text-5xl font-black text-gray-900 tracking-tight">Trusted. Reliable. Ready.</h2>
                 <div class="divider-yellow mx-auto"></div>
-                <p class="text-gray-500 max-w-xl mx-auto">We keep our equipment in peak condition so your project never stops moving.</p>
+                <p class="text-gray-600 max-w-xl mx-auto font-medium">We keep our equipment in peak condition so your project never stops moving.</p>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                 <div class="stat-card" data-aos="fade-up" data-aos-delay="100">
-                    <div class="w-16 h-16 mx-auto bg-yellow-50 border-2 border-yellow-200 rounded-full flex items-center justify-center mb-5 text-2xl text-brandYellow icon-pulse">
+                    <div class="w-14 h-14 mx-auto bg-amber-500/10 border border-amber-500/20 rounded-2xl flex items-center justify-center mb-6 text-2xl text-amber-600 transition-colors">
                         <i class="fa-solid fa-star"></i>
                     </div>
-                    <h3 class="text-3xl font-extrabold text-gray-900">3.39<span class="text-brandYellow">★</span></h3>
-                    <p class="text-gray-500 mt-2 text-sm">Google Reviews Rating</p>
+                    <h3 class="text-3xl font-black text-gray-900 tracking-tight">3.39<span class="text-brandYellow">★</span></h3>
+                    <p class="text-gray-500 mt-2 text-sm font-medium">Google Reviews Rating</p>
                 </div>
                 <div class="stat-card" data-aos="fade-up" data-aos-delay="200">
-                    <div class="w-16 h-16 mx-auto bg-yellow-50 border-2 border-yellow-200 rounded-full flex items-center justify-center mb-5 text-2xl text-brandYellow icon-pulse">
+                    <div class="w-14 h-14 mx-auto bg-amber-500/10 border border-amber-500/20 rounded-2xl flex items-center justify-center mb-6 text-2xl text-amber-600 transition-colors">
                         <i class="fa-solid fa-clock"></i>
                     </div>
-                    <h3 class="text-3xl font-extrabold text-gray-900">Open Now</h3>
-                    <p class="text-gray-500 mt-2 text-sm">Ready to dispatch equipment immediately</p>
+                    <h3 class="text-3xl font-black text-gray-900 tracking-tight">Open Now</h3>
+                    <p class="text-gray-500 mt-2 text-sm font-medium">Ready to dispatch equipment immediately</p>
                 </div>
                 <div class="stat-card" data-aos="fade-up" data-aos-delay="300">
-                    <div class="w-16 h-16 mx-auto bg-yellow-50 border-2 border-yellow-200 rounded-full flex items-center justify-center mb-5 text-2xl text-brandYellow icon-pulse">
+                    <div class="w-14 h-14 mx-auto bg-amber-500/10 border border-amber-500/20 rounded-2xl flex items-center justify-center mb-6 text-2xl text-amber-600 transition-colors">
                         <i class="fa-solid fa-helmet-safety"></i>
                     </div>
-                    <h3 class="text-3xl font-extrabold text-gray-900">Expert</h3>
-                    <p class="text-gray-500 mt-2 text-sm">Trusted supplier in Mokopane, 0601</p>
+                    <h3 class="text-3xl font-black text-gray-900 tracking-tight">Expert</h3>
+                    <p class="text-gray-500 mt-2 text-sm font-medium">Trusted supplier in Mokopane, 0601</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="fleet" class="py-24 bg-gray-50">
+    <section id="fleet" class="py-24 bg-white relative">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
-            <div class="mb-20">
-                <div class="text-center mb-14" data-aos="fade-up">
+            <div class="mb-24">
+                <div class="text-center mb-16" data-aos="fade-up">
                     <span class="section-label"><i class="fa-solid fa-truck mr-2"></i>Trucks Available for Hire</span>
-                    <h2 class="text-3xl sm:text-4xl font-extrabold text-gray-900">Our Truck Fleet</h2>
+                    <h2 class="text-3xl sm:text-4xl md:text-5xl font-black text-gray-900 tracking-tight">Our Truck Fleet</h2>
                     <div class="divider-yellow mx-auto"></div>
-                    <p class="text-gray-500 max-w-xl mx-auto text-sm">From tipper trucks to flatbeds — we have the right vehicle for every job.</p>
+                    <p class="text-gray-600 max-w-xl mx-auto text-sm font-medium">From tipper trucks to flatbeds — we have the right vehicle for every job.</p>
                 </div>
 
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -590,19 +602,19 @@
                 </div>
             </div>
 
-            <div>
-                <div class="text-center mb-14" data-aos="fade-up">
+            <div class="mb-12">
+                <div class="text-center mb-16" data-aos="fade-up">
                     <span class="section-label"><i class="fa-solid fa-tractor mr-2"></i>TLB & Plant Equipment</span>
-                    <h2 class="text-3xl sm:text-4xl font-extrabold text-gray-900">TLB & Earthmoving Plant</h2>
+                    <h2 class="text-3xl sm:text-4xl md:text-5xl font-black text-gray-900 tracking-tight">TLB & Earthmoving Plant</h2>
                     <div class="divider-yellow mx-auto"></div>
-                    <p class="text-gray-500 max-w-xl mx-auto text-sm">Versatile, powerful TLBs and plant equipment for every earthmoving requirement.</p>
+                    <p class="text-gray-600 max-w-xl mx-auto text-sm font-medium">Versatile, powerful TLBs and plant equipment for every earthmoving requirement.</p>
                 </div>
 
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
 
                     <div class="fleet-card" data-aos="fade-up" data-aos-delay="100">
                         <div class="fleet-img-wrap">
-                            <div class="fleet-badge" style="background:#1d4ed8;color:#fff;">TLB</div>
+                            <div class="fleet-badge" style="background:#2563eb;color:#fff;">TLB</div>
                             <img src="https://i.postimg.cc/RZ0XfsdY/Gemini-Generated-Image-5d9fvw5d9fvw5d9f-(1).png" alt="Standard TLB (JCB 3CX)">
                         </div>
                         <div class="fleet-body">
@@ -618,7 +630,7 @@
 
                     <div class="fleet-card" data-aos="fade-up" data-aos-delay="200">
                         <div class="fleet-img-wrap">
-                            <div class="fleet-badge" style="background:#1d4ed8;color:#fff;">TLB</div>
+                            <div class="fleet-badge" style="background:#2563eb;color:#fff;">TLB</div>
                             <img src="https://i.postimg.cc/dt59qRFN/Gemini-Generated-Image-8ahyi68ahyi68ahy.png" alt="Midi Excavator">
                         </div>
                         <div class="fleet-body">
@@ -634,7 +646,7 @@
 
                     <div class="fleet-card" data-aos="fade-up" data-aos-delay="300">
                         <div class="fleet-img-wrap">
-                            <div class="fleet-badge" style="background:#1d4ed8;color:#fff;">TLB</div>
+                            <div class="fleet-badge" style="background:#2563eb;color:#fff;">TLB</div>
                             <img src="https://i.postimg.cc/D0gP4LXZ/Gemini-Generated-Image-8lcs9n8lcs9n8lcs.png" alt="Front-End Loader">
                         </div>
                         <div class="fleet-body">
@@ -651,70 +663,84 @@
                 </div>
             </div>
 
-            <div class="mt-16 rounded-2xl bg-brandDark p-10 flex flex-col md:flex-row items-center justify-between gap-6" data-aos="fade-up">
-                <div>
-                    <h3 class="text-2xl font-extrabold text-white mb-2">Don't see what you need?</h3>
-                    <p class="text-gray-400 text-sm">Contact us directly — we'll find the right equipment for your specific project.</p>
+            <div class="mt-20 rounded-3xl bg-gradient-to-br from-[#0F1422] to-[#0B0F19] p-8 md:p-12 flex flex-col md:flex-row items-center justify-between gap-8 border border-white/5 relative overflow-hidden shadow-2xl shadow-black/40" data-aos="fade-up">
+                <div class="absolute -right-24 -bottom-24 w-72 h-72 bg-brandYellow/5 rounded-full blur-3xl pointer-events-none"></div>
+                <div class="relative z-10 text-center md:text-left">
+                    <h3 class="text-2xl md:text-3xl font-black text-white tracking-tight mb-3">Don't see what you need?</h3>
+                    <p class="text-gray-400 max-w-xl text-sm font-medium">Contact us directly — we'll find the right equipment for your specific project.</p>
                 </div>
-                <a href="#request" class="btn-primary whitespace-nowrap">
-                    Get a Quote <i class="fa-solid fa-arrow-right"></i>
+                <a href="#request" class="btn-primary whitespace-nowrap relative z-10 w-full md:w-auto justify-center">
+                    Get a Quote <i class="fa-solid fa-arrow-right text-sm"></i>
                 </a>
             </div>
 
         </div>
     </section>
 
-    <section id="request" class="py-24 bg-white">
-        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="bg-white rounded-3xl shadow-2xl overflow-hidden border border-gray-100" data-aos="fade-up">
-                <div class="bg-brandDark px-8 py-8 relative overflow-hidden">
-                    <div class="absolute inset-0 opacity-5" style="background-image: repeating-linear-gradient(45deg, #FBBF24 0, #FBBF24 1px, transparent 0, transparent 50%); background-size: 12px 12px;"></div>
+    <section id="request" class="py-24 bg-slate-50 relative overflow-hidden">
+        <div class="absolute inset-0 grid-mesh-light opacity-60 pointer-events-none"></div>
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="bg-[#0F1422] rounded-3xl shadow-2xl overflow-hidden border border-white/5" data-aos="fade-up">
+                <div class="p-8 md:p-12 border-b border-white/5 relative overflow-hidden bg-gradient-to-r from-[#141B2D] to-[#0F1422]">
+                    <div class="absolute top-0 right-0 w-64 h-64 bg-brandYellow/5 rounded-full blur-3xl pointer-events-none"></div>
                     <div class="relative z-10">
-                        <span class="section-label mb-3">Get Started</span>
-                        <h2 class="text-3xl font-bold text-white">Request Equipment</h2>
-                        <p class="text-gray-400 mt-2 text-sm">Fill out the form below. Upload a reference image of what you need via our secure Cloudinary portal.</p>
+                        <span class="inline-flex items-center gap-2 text-brandYellow font-bold text-[10px] tracking-widest uppercase mb-3 bg-brandYellow/10 border border-brandYellow/20 px-3 py-1.5 rounded-full">
+                            Get Started
+                        </span>
+                        <h2 class="text-3xl md:text-4xl font-black text-white tracking-tight">Request Equipment</h2>
+                        <p class="text-gray-400 mt-3 text-sm font-medium leading-relaxed">Fill out the form below. Upload a reference image of what you need via our secure Cloudinary portal.</p>
                     </div>
                 </div>
-                <div class="p-8">
+                <div class="p-8 md:p-12 bg-gradient-to-b from-[#0F1422] to-[#0B0F19]">
                     <form id="hireForm" class="space-y-6">
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div>
-                                <label class="block text-sm font-semibold text-gray-700 mb-1">Full Name</label>
+                                <label class="block text-xs font-bold uppercase tracking-wider text-gray-400 mb-2">Full Name</label>
                                 <input type="text" id="name" required class="form-input" placeholder="Your full name">
                             </div>
                             <div>
-                                <label class="block text-sm font-semibold text-gray-700 mb-1">Phone Number</label>
+                                <label class="block text-xs font-bold uppercase tracking-wider text-gray-400 mb-2">Phone Number</label>
                                 <input type="tel" id="phone" required class="form-input" placeholder="e.g. 078 123 4567">
                             </div>
                         </div>
 
                         <div>
-                            <label class="block text-sm font-semibold text-gray-700 mb-1">Equipment Needed</label>
-                            <textarea id="equipment" rows="3" required class="form-input resize-none" placeholder="Describe the equipment or job you need done..."></textarea>
+                            <label class="block text-xs font-bold uppercase tracking-wider text-gray-400 mb-2">Equipment Needed</label>
+                            <textarea id="equipment" rows="4" required class="form-input resize-none" placeholder="Describe the equipment or job you need done..."></textarea>
                         </div>
 
-                        <div class="border-2 border-dashed border-gray-200 rounded-xl p-6 text-center bg-gray-50 hover:border-yellow-300 transition-colors">
-                            <i class="fa-solid fa-cloud-arrow-up text-4xl text-gray-300 mb-3"></i>
-                            <p class="text-sm text-gray-500 mb-4">Have a picture of the specific machinery you need?</p>
-                            <button type="button" id="uploadWidgetBtn" class="bg-gray-200 text-gray-700 hover:bg-gray-300 font-bold py-2 px-6 rounded-full transition-colors text-sm">
+                        <div class="border border-dashed border-white/10 rounded-2xl p-8 text-center bg-white/[0.01] hover:border-brandYellow/40 transition-all duration-300 group">
+                            <div class="w-12 h-12 rounded-xl bg-white/5 flex items-center justify-center mx-auto mb-4 border border-white/5 group-hover:bg-brandYellow/10 group-hover:border-brandYellow/20 transition-all">
+                                <i class="fa-solid fa-cloud-arrow-up text-xl text-gray-400 group-hover:text-brandYellow transition-colors"></i>
+                            </div>
+                            <p class="text-sm text-gray-300 font-semibold mb-1">Have a picture of the specific machinery?</p>
+                            <p class="text-xs text-gray-500 mb-5">Upload reference image to help us understand your job better</p>
+                            <button type="button" id="uploadWidgetBtn" class="bg-white/5 border border-white/10 text-white hover:bg-white/10 font-bold py-2.5 px-6 rounded-full transition-all text-xs tracking-wider uppercase">
                                 Upload Reference Image
                             </button>
                             <input type="hidden" id="imageUrl" value="">
-                            <div id="imagePreview" class="mt-4 hidden">
-                                <p class="text-green-600 text-sm font-bold mb-2"><i class="fa-solid fa-check-circle mr-1"></i>Image Uploaded Successfully!</p>
-                                <img id="previewImg" src="" alt="Preview" class="max-h-32 mx-auto rounded-lg shadow">
+                            <div id="imagePreview" class="mt-6 hidden">
+                                <div class="inline-flex items-center gap-2 bg-emerald-500/10 border border-emerald-500/20 px-4 py-2 rounded-full mb-4">
+                                    <span class="w-1.5 h-1.5 bg-emerald-500 rounded-full animate-ping"></span>
+                                    <p class="text-emerald-400 text-xs font-bold uppercase tracking-wider">Image Uploaded Successfully!</p>
+                                </div>
+                                <div class="p-2 bg-white/5 border border-white/10 rounded-xl inline-block">
+                                    <img id="previewImg" src="" alt="Preview" class="max-h-40 mx-auto rounded-lg shadow-xl">
+                                </div>
                             </div>
                         </div>
 
-                        <button type="submit" id="submitBtn" class="w-full bg-brandYellow text-brandDark font-bold text-lg py-4 rounded-full btn-hover flex items-center justify-center gap-3">
-                            Submit Request <i class="fa-solid fa-paper-plane"></i>
+                        <button type="submit" id="submitBtn" class="w-full bg-brandYellow text-brandDark font-extrabold text-base py-4.5 rounded-full btn-primary flex items-center justify-center gap-3 tracking-wider uppercase">
+                            Submit Request <i class="fa-solid fa-paper-plane text-xs"></i>
                         </button>
                     </form>
 
-                    <div id="successMsg" class="hidden mt-6 bg-green-50 border-l-4 border-green-500 p-4 rounded-r-xl">
-                        <div class="flex items-center gap-3">
-                            <i class="fa-solid fa-check-circle text-green-500 text-lg"></i>
-                            <p class="text-sm text-green-700 font-medium">Request received! We will contact you shortly on the number provided.</p>
+                    <div id="successMsg" class="hidden mt-6 bg-emerald-500/10 border border-emerald-500/20 p-5 rounded-2xl">
+                        <div class="flex items-center gap-3.5">
+                            <div class="w-8 h-8 rounded-full bg-emerald-500/20 flex items-center justify-center text-emerald-400">
+                                <i class="fa-solid fa-check text-sm"></i>
+                            </div>
+                            <p class="text-sm text-emerald-300 font-semibold">Request received! We will contact you shortly on the number provided.</p>
                         </div>
                     </div>
                 </div>
@@ -722,65 +748,72 @@
         </div>
     </section>
 
-    <footer id="contact" class="bg-brandDark text-gray-300 pt-20 pb-8">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-12 mb-14 border-b border-gray-800 pb-14">
+    <footer id="contact" class="bg-[#070A12] text-gray-400 pt-24 pb-10 relative overflow-hidden border-t border-white/5">
+        <div class="absolute inset-0 grid-mesh opacity-40 pointer-events-none"></div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-12 mb-16 border-b border-white/5 pb-16">
 
                 <div data-aos="fade-right">
-                    <div class="flex items-center gap-3 mb-5">
-                        <i class="fa-solid fa-truck-moving text-brandYellow text-2xl"></i>
-                        <span class="text-white font-bold text-xl">Mokopane Truck & Plant</span>
+                    <div class="flex items-center gap-3 mb-6">
+                        <div class="w-10 h-10 bg-brandYellow/10 border border-brandYellow/20 rounded-xl flex items-center justify-center">
+                            <i class="fa-solid fa-truck-moving text-brandYellow text-lg"></i>
+                        </div>
+                        <span class="text-white font-extrabold text-lg tracking-wider">Mokopane Truck & Plant</span>
                     </div>
-                    <p class="text-sm leading-relaxed mb-6 text-gray-400">Providing top-tier construction equipment and reliable service to Mokopane and surrounding areas of Limpopo.</p>
+                    <p class="text-sm leading-relaxed mb-8 text-gray-400 font-medium">Providing top-tier construction equipment and reliable service to Mokopane and surrounding areas of Limpopo.</p>
                     <div class="flex gap-3">
-                        <a href="#" class="social-btn"><i class="fa-brands fa-facebook-f text-sm"></i></a>
-                        <a href="#" class="social-btn"><i class="fa-brands fa-x-twitter text-sm"></i></a>
-                        <a href="#" class="social-btn"><i class="fa-brands fa-instagram text-sm"></i></a>
-                        <a href="#" class="social-btn"><i class="fa-brands fa-whatsapp text-sm"></i></a>
+                        <a href="#" class="social-btn" aria-label="Facebook"><i class="fa-brands fa-facebook-f text-sm"></i></a>
+                        <a href="#" class="social-btn" aria-label="X"><i class="fa-brands fa-x-twitter text-sm"></i></a>
+                        <a href="#" class="social-btn" aria-label="Instagram"><i class="fa-brands fa-instagram text-sm"></i></a>
+                        <a href="#" class="social-btn" aria-label="WhatsApp"><i class="fa-brands fa-whatsapp text-sm"></i></a>
                     </div>
                 </div>
 
                 <div data-aos="fade-up">
-                    <h4 class="text-white font-bold text-base mb-6 uppercase tracking-wider">Contact Us</h4>
-                    <ul class="space-y-4 text-sm">
-                        <li class="flex items-start gap-3">
-                            <i class="fa-solid fa-location-dot mt-0.5 text-brandYellow w-4 text-center flex-shrink-0"></i>
-                            <span>91 Sussex St, Mokopane,<br>0601, South Africa</span>
+                    <h4 class="text-white font-bold text-xs uppercase tracking-widest mb-6 border-l-2 border-brandYellow pl-3">Contact Details</h4>
+                    <ul class="space-y-4 text-sm font-medium">
+                        <li class="flex items-start gap-3.5">
+                            <i class="fa-solid fa-location-dot mt-1 text-brandYellow text-base flex-shrink-0"></i>
+                            <span class="text-gray-300 leading-relaxed">91 Sussex St, Mokopane,<br>0601, South Africa</span>
                         </li>
-                        <li class="flex items-center gap-3">
-                            <i class="fa-solid fa-phone text-brandYellow w-4 text-center flex-shrink-0"></i>
-                            <a href="tel:0784870117" class="text-lg font-bold text-white hover:text-brandYellow transition-colors">078 487 0117</a>
+                        <li class="flex items-center gap-3.5 pt-2">
+                            <i class="fa-solid fa-phone text-brandYellow text-base flex-shrink-0"></i>
+                            <a href="tel:0784870117" class="text-xl font-black text-white hover:text-brandYellow transition-colors tracking-tight">078 487 0117</a>
                         </li>
-                        <li class="flex items-center gap-3">
-                            <i class="fa-brands fa-whatsapp text-brandYellow w-4 text-center flex-shrink-0"></i>
-                            <span>WhatsApp us anytime</span>
+                        <li class="flex items-center gap-3.5">
+                            <i class="fa-brands fa-whatsapp text-brandYellow text-base flex-shrink-0"></i>
+                            <span class="text-gray-400">WhatsApp us anytime</span>
                         </li>
                     </ul>
                 </div>
 
-                <div data-aos="fade-left" class="h-52 bg-gray-800 rounded-xl overflow-hidden">
+                <div data-aos="fade-left" class="h-56 bg-gray-900 rounded-2xl overflow-hidden border border-white/5 shadow-2xl p-1 relative group">
                     <iframe
                         src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3655.856262969966!2d29.0063!3d-24.1837!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjTCsDExJzAxLjMiUyAyOcKwMDAnMjIuNyJF!5e0!3m2!1sen!2sza!4v1680000000000!5m2!1sen!2sza"
-                        width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+                        width="100%" height="100%" class="rounded-xl filter grayscale contrast-125 opacity-80 group-hover:opacity-100 group-hover:grayscale-0 transition-all duration-500" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
                     </iframe>
                 </div>
             </div>
 
-            <div class="text-center text-xs text-gray-600 flex flex-col sm:flex-row justify-between items-center gap-2">
+            <div class="flex flex-col sm:flex-row justify-between items-center gap-4 text-xs font-medium text-gray-500">
                 <p>© 2026 Mokopane Truck and Plant Hire. All rights reserved.</p>
-                <p>Suggest an edit · Own this business?</p>
+                <div class="flex gap-4">
+                    <a href="#" class="hover:text-brandYellow transition-colors">Suggest an edit</a>
+                    <span>·</span>
+                    <a href="#" class="hover:text-brandYellow transition-colors">Own this business?</a>
+                </div>
             </div>
         </div>
     </footer>
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-        AOS.init({ once: true, offset: 80, duration: 750 });
+        AOS.init({ once: true, offset: 60, duration: 800, easing: 'ease-out-cubic' });
 
         // ── Navbar scroll effect ──
         const navbar = document.getElementById('navbar');
         window.addEventListener('scroll', () => {
-            navbar.classList.toggle('scrolled', window.scrollY > 60);
+            navbar.classList.toggle('scrolled', window.scrollY > 40);
         });
 
         // ── Mobile menu ──
@@ -789,13 +822,13 @@
         const menuIcon  = document.getElementById('menuIcon');
         menuBtn.addEventListener('click', () => {
             const open = mobileMenu.classList.toggle('open');
-            menuIcon.className = open ? 'fa-solid fa-xmark text-xl' : 'fa-solid fa-bars text-xl';
+            menuIcon.className = open ? 'fa-solid fa-xmark text-lg' : 'fa-solid fa-bars text-lg';
         });
         // close on link click
         mobileMenu.querySelectorAll('a').forEach(a => {
             a.addEventListener('click', () => {
                 mobileMenu.classList.remove('open');
-                menuIcon.className = 'fa-solid fa-bars text-xl';
+                menuIcon.className = 'fa-solid fa-bars text-lg';
             });
         });
     </script>
@@ -844,7 +877,7 @@
         document.getElementById('hireForm').addEventListener('submit', function(e) {
             e.preventDefault();
             const btn = document.getElementById('submitBtn');
-            btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-2"></i>Sending...';
+            btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-2"></i>Sending Request...';
             btn.disabled = true;
 
             database.ref('equipment_requests').push({
@@ -860,11 +893,11 @@
                 document.getElementById('uploadWidgetBtn').innerText = "Upload Reference Image";
                 const msg = document.getElementById('successMsg');
                 msg.classList.remove('hidden');
-                setTimeout(() => msg.classList.add('hidden'), 5000);
+                setTimeout(() => msg.classList.add('hidden'), 6000);
             }).catch(err => {
                 alert("Error saving request: " + err.message);
             }).finally(() => {
-                btn.innerHTML = 'Submit Request <i class="fa-solid fa-paper-plane"></i>';
+                btn.innerHTML = 'Submit Request <i class="fa-solid fa-paper-plane text-xs"></i>';
                 btn.disabled = false;
             });
         });
