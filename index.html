@@ -1,1648 +1,909 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="JFF Plant Shop is a boutique plant retail, café, and horticultural services business in Mokopane, featuring houseplants and a relaxed café experience.">
-    <title>JFF Plant Shop | Mokopane Nursery & Café</title>
+    <title>Mokopane Truck and Plant Hire</title>
+    <meta name="description" content="Premium construction equipment supplier in Mokopane.">
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brandYellow: '#FBBF24',
+                        brandDark: '#111827',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
+        /* ─── CSS Variables ─── */
         :root {
-            /* Monochromatic Green Palette */
-            --bg-deep: #061109;       /* Darkest shade for footer/stats */
-            --bg-dark: #0a1a0f;       /* Primary background shade */
-            --bg-mid: #0e2415;        /* Secondary background shade */
-            --bg-light: #13331e;      /* Elevated elements/cards */
-            --bg-lighter: #1b4a2b;    /* Hover states */
-
-            /* Lighter Green Gradients & Accents */
-            --primary-light: #4ade80;
-            --primary-mid: #22c55e;
-            --primary-dark: #16a34a;
-            --gradient-primary: linear-gradient(135deg, var(--primary-light), var(--primary-dark));
-            --gradient-hover: linear-gradient(135deg, #86efac, var(--primary-mid));
-            
-            --glow: rgba(74, 222, 128, 0.15);
-            --glow-strong: rgba(74, 222, 128, 0.3);
-
-            /* Typography Colors */
-            --text-main: #f0fdf4;
-            --text-soft: #bbf7d0;
-            --text-muted: rgba(187, 247, 208, 0.6);
-            --white: #ffffff;
-            --gold: #facc15;
-            
-            /* Smooth Easing */
-            --smooth: 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-            --snappy: 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+            --yellow: #FBBF24;
+            --dark: #111827;
+            --nav-h: 80px;
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-
+        /* ─── Base ─── */
+        *, *::before, *::after { box-sizing: border-box; }
         html { scroll-behavior: smooth; }
+        body { overflow-x: hidden; }
 
-        body {
-            font-family: 'DM Sans', sans-serif;
-            background-color: var(--bg-dark);
-            color: var(--text-main);
-            overflow-x: hidden;
-            -webkit-font-smoothing: antialiased;
-            text-rendering: optimizeLegibility;
+        /* ─── Navbar ─── */
+        .glass-nav {
+            background: rgba(17, 24, 39, 0.88);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            border-bottom: 1px solid rgba(251,191,36,0.08);
+            transition: background 0.4s ease, box-shadow 0.4s ease;
+        }
+        .glass-nav.scrolled {
+            background: rgba(17, 24, 39, 0.98);
+            box-shadow: 0 4px 30px rgba(0,0,0,0.4);
         }
 
-        /* Loading Screen */
-        .loader {
-            position: fixed;
-            inset: 0;
-            background: var(--bg-deep);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 10000;
-            transition: opacity 0.8s ease, visibility 0.8s ease;
-        }
-
-        .loader.hidden { opacity: 0; visibility: hidden; }
-
-        .loader-content { text-align: center; color: var(--text-main); }
-
-        .loader-leaf {
-            font-size: 3rem;
-            background: var(--gradient-primary);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            animation: loaderSpin 1.5s ease-in-out infinite;
-            display: block;
-            margin-bottom: 1rem;
-        }
-
-        @keyframes loaderSpin {
-            0%, 100% { transform: rotate(-15deg) scale(1); }
-            50% { transform: rotate(15deg) scale(1.1); }
-        }
-
-        .loader-text {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 1.8rem;
-            font-weight: 300;
-            letter-spacing: 0.3em;
-            text-transform: uppercase;
-            animation: loaderFade 1.5s ease-in-out infinite;
-        }
-
-        @keyframes loaderFade {
-            0%, 100% { opacity: 0.4; }
-            50% { opacity: 1; }
-        }
-
-        /* Navigation */
-        header {
-            position: fixed;
-            top: 0; width: 100%;
-            z-index: 1000;
-            padding: 1.5rem 3rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            transition: var(--smooth);
-        }
-
-        header.scrolled {
-            background: rgba(6, 17, 9, 0.85);
-            backdrop-filter: blur(20px);
-            padding: 1rem 3rem;
-            border-bottom: 1px solid rgba(255,255,255,0.05);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-        }
-
-        .logo {
-            transition: var(--snappy);
-            z-index: 2;
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-        }
-
-        /* Logo image styles */
-        .logo-img {
-            height: 56px;
-            width: auto;
-            display: block;
-            filter: brightness(0) invert(1);
-            transition: var(--snappy);
-        }
-
-        header.scrolled .logo-img {
-            filter: brightness(0) saturate(100%) invert(64%) sepia(58%) saturate(460%) hue-rotate(87deg) brightness(99%) contrast(91%);
-        }
-
-        .footer-logo-img {
-            height: 68px;
-            width: auto;
-            display: block;
-            filter: brightness(0) invert(1);
-            margin-bottom: 1.2rem;
-            opacity: 1;
-        }
-
-
-        .nav-links {
-            display: flex;
-            gap: 2.5rem;
-            list-style: none;
-            align-items: center;
-        }
-
-        .nav-links a {
-            font-size: 0.85rem;
-            font-weight: 600;
-            letter-spacing: 0.12em;
-            text-transform: uppercase;
-            text-decoration: none;
-            color: var(--text-soft);
-            transition: var(--snappy);
+        /* ─── Nav link animated underline ─── */
+        .nav-link {
             position: relative;
+            color: #d1d5db;
+            padding: 6px 4px;
+            font-size: 0.875rem;
+            font-weight: 500;
+            text-decoration: none;
+            transition: color 0.3s ease;
         }
-
-        .nav-links a::after {
+        .nav-link::after {
             content: '';
             position: absolute;
-            bottom: -5px; left: 0;
-            width: 0; height: 2px;
-            background: var(--gradient-primary);
-            transition: width var(--snappy);
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--yellow);
             border-radius: 2px;
+            transition: width 0.35s cubic-bezier(0.4,0,0.2,1);
         }
+        .nav-link:hover { color: var(--yellow); }
+        .nav-link:hover::after { width: 100%; }
 
-        .nav-links a:hover::after { width: 100%; }
-        .nav-links a:hover { color: var(--white); }
-
+        /* ─── CTA Nav Button ─── */
         .nav-cta {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255,255,255,0.2);
-            color: var(--white) !important;
-            padding: 0.6rem 1.6rem;
-            border-radius: 100px;
-            font-size: 0.82rem;
-            font-weight: 600;
-            backdrop-filter: blur(5px);
-            transition: var(--snappy);
-        }
-
-        .nav-cta:hover {
-            background: var(--gradient-primary);
-            border-color: transparent;
-            transform: translateY(-2px);
-            box-shadow: 0 10px 20px var(--glow);
-        }
-
-        /* ============ HERO ============ */
-        .hero {
-            height: 100vh;
+            background: var(--yellow);
+            color: var(--dark);
+            font-weight: 700;
+            padding: 8px 20px;
+            border-radius: 6px;
+            font-size: 0.875rem;
+            text-decoration: none;
             position: relative;
             overflow: hidden;
+            display: inline-block;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .nav-cta::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: rgba(255,255,255,0.2);
+            transform: translateX(-110%) skewX(-15deg);
+            transition: transform 0.5s ease;
+        }
+        .nav-cta:hover::before { transform: translateX(110%) skewX(-15deg); }
+        .nav-cta:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(251,191,36,0.5); }
+
+        /* ─── Hero ─── */
+        .hero-section {
+            position: relative;
+            min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
+            overflow: hidden;
         }
-
-        .hero-bg {
+        .hero-bg-img {
             position: absolute;
             inset: 0;
-            background: url('https://images.unsplash.com/photo-1501004318641-b39e6451bec6?auto=format&fit=crop&w=1920&q=80') center/cover;
+            background-image: url('https://images.unsplash.com/photo-1558618666-fcd25c85cd64?ixlib=rb-4.0.3&auto=format&fit=crop&w=2560&q=100');
+            background-size: cover;
+            background-position: center 40%;
             transform: scale(1.08);
-            animation: heroZoom 15s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            animation: heroZoom 12s ease-out forwards;
+            will-change: transform;
         }
-
         @keyframes heroZoom {
-            to { transform: scale(1); }
+            from { transform: scale(1.08); }
+            to   { transform: scale(1.0); }
         }
-
         .hero-overlay {
             position: absolute;
             inset: 0;
             background: linear-gradient(
-                to bottom,
-                rgba(10, 26, 15, 0.5) 0%,
-                rgba(10, 26, 15, 0.7) 60%,
-                var(--bg-dark) 100%
+                135deg,
+                rgba(17,24,39,0.88) 0%,
+                rgba(17,24,39,0.65) 50%,
+                rgba(17,24,39,0.80) 100%
             );
         }
-
-        .hero-content {
-            position: relative;
-            z-index: 2;
-            text-align: center;
-            padding: 0 1.5rem;
-            max-width: 900px;
-            width: 100%;
-        }
-
-        /* Shared animation logic for hero elements */
-        .hero-eyebrow, .hero h1, .hero-sub, .hero-actions {
-            animation: fadeUp 1s var(--smooth) both; /* 'both' ensures it starts hidden and stays visible */
-        }
-
-        .hero-eyebrow {
-            display: inline-block;
-            font-size: 0.78rem;
-            font-weight: 600;
-            letter-spacing: 0.3em;
-            text-transform: uppercase;
-            color: var(--primary-light);
-            margin-bottom: 1.5rem;
-            animation-delay: 0.2s;
-        }
-
-        .hero h1 {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: clamp(3rem, 10vw, 6.5rem);
-            font-weight: 300;
-            line-height: 1.1;
-            color: var(--white);
-            margin-bottom: 1.5rem;
-            text-shadow: 0 10px 30px rgba(0,0,0,0.5); /* Added for readability */
-            animation-delay: 0.4s;
-        }
-
-        .hero h1 em {
-            font-style: italic;
-            background: var(--gradient-primary);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .hero-sub {
-            font-size: clamp(0.95rem, 3vw, 1.15rem);
-            font-weight: 300;
-            color: var(--text-soft);
-            line-height: 1.7;
-            max-width: 650px;
-            margin: 0 auto 2.5rem;
-            animation-delay: 0.6s;
-        }
-
-        .hero-actions {
-            display: flex;
-            gap: 1rem;
-            justify-content: center;
-            flex-wrap: wrap;
-            position: relative;
-            z-index: 10;
-            animation-delay: 0.8s;
-        }
-
-        .btn-primary, .btn-ghost {
-            padding: 0.9rem 2.4rem;
-            border-radius: 100px;
-            font-size: 0.88rem;
-            font-weight: 600;
-            letter-spacing: 0.08em;
-            text-decoration: none;
-            text-transform: uppercase;
-            transition: var(--snappy);
-            display: inline-block;
-            will-change: transform;
-        }
-
-        .btn-primary {
-            background: var(--gradient-primary);
-            color: var(--bg-deep);
-            border: none;
-            box-shadow: 0 4px 15px var(--glow);
-        }
-
-        .btn-primary:hover {
-            background: var(--gradient-hover);
-            transform: translateY(-4px);
-            box-shadow: 0 15px 30px var(--glow-strong);
-        }
-
-        .btn-ghost {
-            background: rgba(255, 255, 255, 0.03);
-            backdrop-filter: blur(10px);
-            color: var(--text-main);
-            border: 1px solid rgba(255,255,255,0.2);
-        }
-
-        .btn-ghost:hover {
-            border-color: var(--primary-light);
-            color: var(--primary-light);
-            background: rgba(74, 222, 128, 0.05);
-            transform: translateY(-4px);
-        }
-
-        .hero-scroll {
+        /* animated diagonal accent line */
+        .hero-accent {
             position: absolute;
-            bottom: 2.5rem;
-            left: 50%;
-            transform: translateX(-50%);
-            z-index: 2;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 0.5rem;
-            color: var(--text-muted);
-            font-size: 0.72rem;
-            letter-spacing: 0.25em;
-            text-transform: uppercase;
-            animation: fadeUp 1s var(--smooth) 1.2s both;
+            bottom: 0; left: 0;
+            width: 100%; height: 6px;
+            background: linear-gradient(90deg, transparent, var(--yellow), transparent);
+            animation: accentSlide 3s ease-in-out infinite;
         }
-
-        .scroll-line {
-            width: 1px;
-            height: 40px;
-            background: rgba(255,255,255,0.1);
-            position: relative;
-            overflow: hidden;
+        @keyframes accentSlide {
+            0%,100% { opacity: 0.4; transform: scaleX(0.6); }
+            50%      { opacity: 1;   transform: scaleX(1); }
         }
+        .hero-content { position: relative; z-index: 2; }
 
-        .scroll-line::after {
-            content: '';
-            position: absolute;
-            top: -100%;
-            width: 100%;
-            height: 100%;
-            background: var(--gradient-primary);
-            animation: scrollDrop 2s cubic-bezier(0.645, 0.045, 0.355, 1) infinite 1.5s;
+        /* ─── Fade-up-stagger for hero text ─── */
+        .hero-line {
+            opacity: 0;
+            transform: translateY(40px);
+            animation: heroFadeUp 0.9s cubic-bezier(0.22,1,0.36,1) forwards;
         }
-
-        @keyframes scrollDrop {
-            0% { top: -100%; }
-            100% { top: 100%; }
-        }
-
-        /* Robust fadeUp animation */
-        @keyframes fadeUp {
-            from { opacity: 0; transform: translateY(30px); }
+        @keyframes heroFadeUp {
             to { opacity: 1; transform: translateY(0); }
         }
+        .hero-line:nth-child(1) { animation-delay: 0.3s; }
+        .hero-line:nth-child(2) { animation-delay: 0.55s; }
+        .hero-line:nth-child(3) { animation-delay: 0.75s; }
+        .hero-line:nth-child(4) { animation-delay: 0.95s; }
 
-        /* ============ ABOUT ============ */
-        .section-wrapper {
-            padding: 8rem 3rem;
-            max-width: 1300px;
-            margin: 0 auto;
-        }
-
-        .about-layout {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 6rem;
-            align-items: center;
-        }
-
-        .about-media {
-            position: relative;
-            padding-bottom: 4rem; /* space for the accent image overhang */
-        }
-
-        .about-main-img {
-            width: 100%;
-            aspect-ratio: 4/3;
-            max-height: 420px;
-            object-fit: cover;
-            border-radius: 12px;
-            display: block;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
-            transition: var(--smooth);
-        }
-
-        .about-media:hover .about-main-img {
-            transform: scale(1.02);
-        }
-
-        .about-accent-img {
-            position: absolute;
-            bottom: 0;
-            right: -2rem;
-            width: 48%;
-            aspect-ratio: 1;
-            object-fit: cover;
-            border-radius: 12px;
-            border: 6px solid var(--bg-dark);
-            box-shadow: 0 30px 60px rgba(0,0,0,0.6);
-            transition: var(--smooth);
-        }
-
-        .about-media:hover .about-accent-img {
-            transform: translate(-8px, -8px) scale(1.05);
-        }
-
-        .about-badge {
-            position: absolute;
-            top: 2rem;
-            left: -2.5rem;
-            background: var(--gradient-primary);
-            color: var(--bg-deep);
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            font-size: 0.7rem;
+        /* ─── Hero buttons ─── */
+        .btn-primary {
+            background: var(--yellow);
+            color: var(--dark);
             font-weight: 700;
-            letter-spacing: 0.05em;
-            text-transform: uppercase;
-            line-height: 1.3;
-            box-shadow: 0 10px 30px var(--glow-strong);
-            animation: badgePulse 4s ease-in-out infinite;
-        }
-
-        @keyframes badgePulse {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
-        }
-
-        .about-badge span {
-            display: block;
-            font-size: 1.6rem;
-            font-weight: 800;
-        }
-
-        .eyebrow {
-            display: inline-block;
-            font-size: 0.75rem;
-            font-weight: 600;
-            letter-spacing: 0.25em;
-            text-transform: uppercase;
-            color: var(--primary-light);
-            margin-bottom: 1rem;
-        }
-
-        .section-heading {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: clamp(2.2rem, 8vw, 3.5rem);
-            font-weight: 300;
-            line-height: 1.15;
-            color: var(--text-main);
-            margin-bottom: 1.5rem;
-        }
-
-        .section-heading em {
-            font-style: italic;
-            background: var(--gradient-primary);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .body-text {
             font-size: 1.05rem;
-            line-height: 1.85;
-            color: var(--text-soft);
-            margin-bottom: 1.2rem;
-            font-weight: 300;
-        }
-
-        .blockquote {
-            border-left: 2px solid var(--primary-light);
-            padding-left: 1.5rem;
-            margin: 2.5rem 0;
-            background: linear-gradient(90deg, rgba(74, 222, 128, 0.05), transparent);
-            padding: 1.5rem;
-            border-radius: 0 8px 8px 0;
-        }
-
-        .blockquote p {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: clamp(1.2rem, 4vw, 1.4rem);
-            font-style: italic;
-            font-weight: 300;
-            color: var(--white);
-            line-height: 1.6;
-        }
-
-        /* ============ STATS STRIP ============ */
-        .stats-strip {
-            background: var(--bg-deep);
-            padding: 5rem 3rem;
-            border-top: 1px solid rgba(255,255,255,0.02);
-            border-bottom: 1px solid rgba(255,255,255,0.02);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .stats-inner {
-            max-width: 1300px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 2rem;
-            text-align: center;
-            position: relative;
-            z-index: 2;
-        }
-
-        .stat-item {
-            padding: 1.5rem;
-            border-right: 1px solid rgba(255,255,255,0.05);
-            transition: var(--snappy);
-        }
-        
-        .stat-item:hover { transform: translateY(-5px); }
-        .stat-item:last-child { border-right: none; }
-
-        .stat-num {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: clamp(3rem, 8vw, 4.5rem);
-            font-weight: 300;
-            background: var(--gradient-primary);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            line-height: 1;
-            margin-bottom: 0.5rem;
-        }
-
-        .stat-label {
-            font-size: 0.8rem;
-            font-weight: 600;
-            letter-spacing: 0.2em;
-            text-transform: uppercase;
-            color: var(--text-muted);
-        }
-
-        /* ============ SERVICES ============ */
-        .services-section {
-            background: var(--bg-mid);
-            padding: 8rem 3rem;
-        }
-
-        .services-inner {
-            max-width: 1300px;
-            margin: 0 auto;
-        }
-
-        .services-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-end;
-            margin-bottom: 4rem;
-        }
-
-        .services-header .section-heading { margin-bottom: 0; }
-
-        .services-desc {
-            max-width: 380px;
-            font-size: 1rem;
-            line-height: 1.75;
-            color: var(--text-soft);
-            font-weight: 300;
-        }
-
-        .cards-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 2rem;
-        }
-
-        .service-card {
-            background: var(--bg-light);
-            border: 1px solid rgba(255,255,255,0.03);
-            border-radius: 12px;
-            overflow: hidden;
-            position: relative;
-            transition: var(--smooth);
-            will-change: transform, box-shadow;
-        }
-
-        .service-card:hover {
-            transform: translateY(-12px);
-            box-shadow: 0 30px 60px rgba(0,0,0,0.5), 0 0 40px var(--glow);
-            border-color: rgba(74, 222, 128, 0.2);
-            background: var(--bg-lighter);
-        }
-
-        .card-img {
-            width: 100%;
-            height: 260px;
-            object-fit: cover;
-            display: block;
-            transition: var(--smooth);
-        }
-
-        .service-card:hover .card-img {
-            transform: scale(1.08);
-            filter: brightness(1.1);
-        }
-
-        .card-img-wrapper { overflow: hidden; }
-
-        .card-body { padding: 2.5rem 2rem; }
-
-        .card-icon {
-            width: 50px;
-            height: 50px;
-            background: rgba(74, 222, 128, 0.1);
-            color: var(--primary-light);
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.2rem;
-            margin-bottom: 1.5rem;
-            transition: var(--snappy);
-        }
-
-        .service-card:hover .card-icon {
-            background: var(--gradient-primary);
-            color: var(--bg-deep);
-            transform: scale(1.1) rotate(5deg);
-        }
-
-        .card-title {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 1.6rem;
-            font-weight: 400;
-            color: var(--white);
-            margin-bottom: 1rem;
-        }
-
-        .card-text {
-            font-size: 0.95rem;
-            line-height: 1.75;
-            color: var(--text-soft);
-            font-weight: 300;
-        }
-
-        .card-link {
+            padding: 14px 34px;
+            border-radius: 8px;
             display: inline-flex;
             align-items: center;
-            gap: 0.5rem;
-            margin-top: 1.5rem;
-            font-size: 0.85rem;
-            font-weight: 600;
-            letter-spacing: 0.1em;
-            text-transform: uppercase;
-            color: var(--primary-light);
+            gap: 10px;
             text-decoration: none;
-            transition: var(--snappy);
-        }
-
-        .card-link:hover { gap: 1rem; color: var(--white); }
-
-        /* ============ MARQUEE ============ */
-        .marquee-section {
-            background: var(--gradient-primary);
-            padding: 1.5rem 0;
+            position: relative;
             overflow: hidden;
-            width: 100vw;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
-
-        .marquee-track {
-            display: flex;
-            gap: 3rem;
-            animation: marquee 20s linear infinite;
-            white-space: nowrap;
+        .btn-primary::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: rgba(0,0,0,0.12);
+            opacity: 0;
+            transition: opacity 0.3s;
         }
+        .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 12px 28px rgba(251,191,36,0.45); }
+        .btn-primary:hover::after { opacity: 1; }
+        .btn-primary i { transition: transform 0.3s ease; }
+        .btn-primary:hover i { transform: translateX(4px); }
 
-        .marquee-item {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            color: var(--bg-deep);
-            font-size: 0.9rem;
+        .btn-outline {
+            background: transparent;
+            border: 2px solid rgba(255,255,255,0.7);
+            color: #fff;
             font-weight: 700;
-            letter-spacing: 0.2em;
-            text-transform: uppercase;
-            flex-shrink: 0;
-        }
-
-        .marquee-item i {
-            color: rgba(6, 17, 9, 0.4);
-            font-size: 0.5rem;
-        }
-
-        @keyframes marquee {
-            from { transform: translateX(0); }
-            to { transform: translateX(-50%); }
-        }
-
-        /* ============ REVIEWS ============ */
-        .reviews-section {
-            padding: 8rem 3rem;
-            max-width: 1300px;
-            margin: 0 auto;
-            background: var(--bg-dark);
-        }
-
-        .reviews-layout {
-            display: grid;
-            grid-template-columns: 1fr 2fr;
-            gap: 6rem;
+            font-size: 1.05rem;
+            padding: 14px 34px;
+            border-radius: 8px;
+            display: inline-flex;
             align-items: center;
-        }
-
-        .review-score-block {
-            text-align: center;
-            padding: 4rem 3rem;
-            background: var(--bg-mid);
-            border-radius: 12px;
-            border: 1px solid rgba(255,255,255,0.03);
-            color: var(--white);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
-            transition: var(--smooth);
-        }
-        
-        .review-score-block:hover {
-            transform: translateY(-5px);
-            border-color: rgba(74, 222, 128, 0.15);
-        }
-
-        .score-number {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: clamp(4rem, 10vw, 6rem);
-            font-weight: 300;
-            line-height: 1;
-            background: var(--gradient-primary);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 0.5rem;
-        }
-
-        .score-stars {
-            color: var(--gold);
-            font-size: 1.4rem;
-            margin-bottom: 1.5rem;
-            letter-spacing: 0.2em;
-            filter: drop-shadow(0 0 10px rgba(250, 204, 21, 0.4));
-        }
-
-        .score-label {
-            font-size: 0.8rem;
-            font-weight: 600;
-            letter-spacing: 0.2em;
-            text-transform: uppercase;
-            color: var(--text-muted);
-        }
-
-        .reviews-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1.5rem;
-        }
-
-        .review-card {
-            background: var(--bg-light);
-            padding: 2rem;
-            border-radius: 12px;
-            border: 1px solid rgba(255,255,255,0.03);
-            transition: var(--smooth);
-            will-change: transform;
-        }
-
-        .review-card:hover {
-            transform: translateY(-8px) scale(1.02);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
-            border-color: rgba(74, 222, 128, 0.15);
-            background: var(--bg-lighter);
-        }
-
-        .review-stars {
-            color: var(--gold);
-            font-size: 0.9rem;
-            letter-spacing: 0.1em;
-            margin-bottom: 1rem;
-        }
-
-        .review-text {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 1.15rem;
-            font-style: italic;
-            color: var(--white);
-            line-height: 1.65;
-            margin-bottom: 1.5rem;
-        }
-
-        .review-author {
-            font-size: 0.8rem;
-            font-weight: 600;
-            letter-spacing: 0.1em;
-            text-transform: uppercase;
-            color: var(--primary-light);
-        }
-
-        /* ============ CONTACT / MAP ============ */
-        .contact-section {
-            background: var(--bg-mid);
-            padding: 8rem 3rem;
-            border-top: 1px solid rgba(255,255,255,0.02);
-        }
-
-        .contact-inner {
-            max-width: 1300px;
-            margin: 0 auto;
-        }
-
-        .contact-layout {
-            display: grid;
-            grid-template-columns: 1fr 1.5fr;
-            gap: 5rem;
-            align-items: start;
-            margin-top: 4rem;
-        }
-
-        .info-blocks {
-            display: flex;
-            flex-direction: column;
-            gap: 2rem;
-        }
-
-        .info-block {
-            display: flex;
-            gap: 1.5rem;
-            align-items: flex-start;
-            padding: 2rem;
-            background: var(--bg-dark);
-            border-radius: 12px;
-            border: 1px solid rgba(255,255,255,0.03);
-            transition: var(--smooth);
-        }
-
-        .info-block:hover { 
-            transform: translateX(10px); 
-            border-color: rgba(74, 222, 128, 0.2);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-        }
-
-        .info-block-icon {
-            width: 48px;
-            height: 48px;
-            background: rgba(74, 222, 128, 0.1);
-            color: var(--primary-light);
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.1rem;
-            flex-shrink: 0;
-            transition: var(--snappy);
-        }
-        
-        .info-block:hover .info-block-icon {
-            background: var(--gradient-primary);
-            color: var(--bg-deep);
-            transform: rotate(10deg) scale(1.1);
-        }
-
-        .info-block-label {
-            font-size: 0.75rem;
-            font-weight: 600;
-            letter-spacing: 0.2em;
-            text-transform: uppercase;
-            color: var(--text-muted);
-            margin-bottom: 0.5rem;
-        }
-
-        .info-block-value {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 1.3rem;
-            color: var(--white);
-            line-height: 1.5;
-        }
-
-        .info-block-value a {
+            gap: 10px;
             text-decoration: none;
-            color: var(--white);
-            transition: var(--snappy);
+            transition: background 0.3s ease, border-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
+        }
+        .btn-outline:hover {
+            background: rgba(255,255,255,0.12);
+            border-color: #fff;
+            transform: translateY(-3px);
         }
 
-        .info-block-value a:hover { color: var(--primary-light); }
+        /* ─── Scroll indicator ─── */
+        .scroll-dot {
+            width: 6px; height: 6px;
+            border-radius: 50%;
+            background: var(--yellow);
+            animation: scrollBounce 1.8s ease-in-out infinite;
+        }
+        @keyframes scrollBounce {
+            0%,100% { transform: translateY(0); opacity: 1; }
+            50%      { transform: translateY(8px); opacity: 0.4; }
+        }
 
-        .hours-note {
-            margin-top: 0.8rem;
-            font-size: 0.85rem;
-            color: var(--primary-light);
-            font-weight: 500;
-            font-family: 'DM Sans', sans-serif;
-            background: rgba(74, 222, 128, 0.1);
+        /* ─── Stat cards ─── */
+        .stat-card {
+            background: #fff;
+            border: 1px solid #f3f4f6;
+            border-radius: 16px;
+            padding: 32px 24px;
+            text-align: center;
+            transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 0; right: 0;
+            height: 3px;
+            background: var(--yellow);
+            transform: scaleX(0);
+            transition: transform 0.4s ease;
+        }
+        .stat-card:hover { transform: translateY(-6px); box-shadow: 0 20px 40px rgba(0,0,0,0.1); border-color: rgba(251,191,36,0.3); }
+        .stat-card:hover::before { transform: scaleX(1); }
+
+        /* ─── Fleet / TLB section ─── */
+        .section-label {
             display: inline-block;
-            padding: 0.3rem 0.8rem;
-            border-radius: 100px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--yellow);
+            background: rgba(251,191,36,0.1);
+            padding: 4px 14px;
+            border-radius: 20px;
+            border: 1px solid rgba(251,191,36,0.25);
+            margin-bottom: 14px;
         }
 
-        .map-wrapper {
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 30px 60px rgba(0,0,0,0.4);
+        .fleet-card {
             position: relative;
-            border: 1px solid rgba(255,255,255,0.05);
+            border-radius: 16px;
+            overflow: hidden;
+            cursor: default;
+            group: true;
         }
-
-        .map-wrapper iframe {
-            display: block;
+        .fleet-img-wrap {
+            position: relative;
             width: 100%;
-            height: 500px;
-            border: none;
-            /* Filter to make map dark & green tinted to match UI */
-            filter: invert(90%) grayscale(30%) sepia(40%) hue-rotate(80deg) brightness(85%);
-            transition: var(--smooth);
-        }
-        
-        .map-wrapper:hover iframe {
-            filter: invert(90%) grayscale(20%) sepia(30%) hue-rotate(80deg) brightness(95%);
-        }
-
-        /* ============ INSTAGRAM / GALLERY STRIP ============ */
-        .gallery-section {
-            padding: 0;
+            height: 220px;
             overflow: hidden;
-            background: var(--bg-deep);
+            background: #1f2937;
         }
-
-        .gallery-strip {
-            display: grid;
-            grid-template-columns: repeat(5, 1fr);
-        }
-
-        .gallery-item {
-            aspect-ratio: 1;
-            overflow: hidden;
-            position: relative;
-        }
-
-        .gallery-item img {
+        .fleet-img-wrap img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: var(--smooth);
-            display: block;
-            opacity: 0.8;
+            transition: transform 0.6s cubic-bezier(0.4,0,0.2,1);
+            filter: brightness(0.9);
         }
-
-        .gallery-item:hover img { 
-            transform: scale(1.1); 
-            opacity: 1;
+        .fleet-card:hover .fleet-img-wrap img {
+            transform: scale(1.08);
+            filter: brightness(1);
         }
-
-        .gallery-overlay {
+        .fleet-badge {
             position: absolute;
-            inset: 0;
-            background: linear-gradient(to top, rgba(10, 26, 15, 0.8), transparent);
-            opacity: 0;
-            transition: var(--snappy);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--primary-light);
-            font-size: 2rem;
-            transform: translateY(20px);
-        }
-
-        .gallery-item:hover .gallery-overlay { 
-            opacity: 1; 
-            transform: translateY(0);
-        }
-
-        /* ============ FOOTER ============ */
-        footer {
-            background: var(--bg-deep);
-            color: var(--text-muted);
-            padding: 5rem 3rem 2rem;
-            border-top: 1px solid rgba(255,255,255,0.02);
-        }
-
-        .footer-inner {
-            max-width: 1300px;
-            margin: 0 auto;
-        }
-
-        .footer-top {
-            display: grid;
-            grid-template-columns: 1.5fr 1fr 1fr;
-            gap: 4rem;
-            padding-bottom: 4rem;
-            border-bottom: 1px solid rgba(255,255,255,0.05);
-            margin-bottom: 2rem;
-        }
-
-        .footer-logo {
-            display: block;
-        }
-
-        .footer-about {
-            font-size: 0.95rem;
-            line-height: 1.8;
-            font-weight: 300;
-            max-width: 300px;
-        }
-
-        .footer-heading {
-            font-size: 0.8rem;
-            font-weight: 600;
-            letter-spacing: 0.2em;
+            top: 12px; left: 12px;
+            background: var(--yellow);
+            color: var(--dark);
+            font-size: 0.7rem;
+            font-weight: 800;
+            letter-spacing: 0.08em;
             text-transform: uppercase;
-            color: var(--primary-light);
-            margin-bottom: 1.5rem;
+            padding: 4px 10px;
+            border-radius: 4px;
+            z-index: 2;
         }
-
-        .footer-links {
-            list-style: none;
+        .fleet-body {
+            background: #fff;
+            padding: 20px;
+            border: 1px solid #f3f4f6;
+            border-top: none;
+            border-radius: 0 0 16px 16px;
+            transition: border-color 0.35s ease;
+        }
+        .fleet-card:hover .fleet-body { border-color: rgba(251,191,36,0.4); }
+        .fleet-body h4 { font-size: 1rem; font-weight: 700; color: var(--dark); margin-bottom: 6px; }
+        .fleet-body p  { font-size: 0.82rem; color: #6b7280; line-height: 1.5; }
+        .fleet-specs {
             display: flex;
-            flex-direction: column;
-            gap: 0.8rem;
-        }
-
-        .footer-links a {
-            text-decoration: none;
-            color: var(--text-muted);
-            font-size: 0.95rem;
-            font-weight: 400;
-            transition: var(--snappy);
-            display: inline-flex;
-            align-items: center;
-        }
-
-        .footer-links a::before {
-            content: '→';
-            margin-right: 8px;
-            color: var(--primary-light);
-            opacity: 0;
-            transform: translateX(-10px);
-            transition: var(--snappy);
-        }
-
-        .footer-links a:hover { color: var(--white); transform: translateX(5px); }
-        .footer-links a:hover::before { opacity: 1; transform: translateX(0); }
-
-        .footer-bottom {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-size: 0.85rem;
-            color: rgba(255,255,255,0.3);
-        }
-
-        /* ============ SCROLL ANIMATIONS ============ */
-        .reveal, .reveal-left, .reveal-right {
-            opacity: 0;
-            transition: var(--smooth);
-            will-change: opacity, transform;
-        }
-
-        .reveal { transform: translateY(40px); }
-        .reveal-left { transform: translateX(-40px); }
-        .reveal-right { transform: translateX(40px); }
-
-        .reveal.visible, .reveal-left.visible, .reveal-right.visible {
-            opacity: 1;
-            transform: translate(0);
-        }
-
-        .delay-1 { transition-delay: 0.1s; }
-        .delay-2 { transition-delay: 0.2s; }
-        .delay-3 { transition-delay: 0.3s; }
-
-        /* ============ HAMBURGER MENU ============ */
-        .hamburger {
-            display: none;
-            flex-direction: column;
+            flex-wrap: wrap;
             gap: 6px;
-            cursor: pointer;
-            background: none;
-            border: none;
-            padding: 4px;
-            z-index: 1100;
-            transition: transform 0.3s ease;
+            margin-top: 12px;
         }
-
-        .hamburger span {
-            display: block;
-            width: 26px;
-            height: 2px;
-            background: var(--white);
-            border-radius: 2px;
-            transition: var(--snappy);
-            transform-origin: center;
-        }
-
-        header.scrolled .hamburger span { background: var(--white); }
-
-        .hamburger.open span:nth-child(1) { transform: translateY(8px) rotate(45deg); background: var(--primary-light); }
-        .hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
-        .hamburger.open span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); background: var(--primary-light); }
-
-        .mobile-nav {
-            display: none;
-            position: fixed;
-            inset: 0;
-            background: rgba(6, 17, 9, 0.98);
-            backdrop-filter: blur(15px);
-            z-index: 1050;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            gap: 0;
-            opacity: 0;
-            visibility: hidden;
-            transition: opacity 0.5s ease, visibility 0.5s ease;
-        }
-
-        .mobile-nav.open {
-            opacity: 1;
-            visibility: visible;
-        }
-
-        .mobile-nav a {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 3rem;
-            font-weight: 300;
-            color: var(--text-soft);
-            text-decoration: none;
-            letter-spacing: 0.04em;
-            padding: 1rem 2rem;
-            display: block;
-            opacity: 0;
-            transform: translateY(30px);
-            transition: var(--snappy);
-        }
-
-        .mobile-nav.open a { opacity: 1; transform: translateY(0); }
-        .mobile-nav.open a:nth-child(1) { transition-delay: 0.1s; }
-        .mobile-nav.open a:nth-child(2) { transition-delay: 0.15s; }
-        .mobile-nav.open a:nth-child(3) { transition-delay: 0.2s; }
-        .mobile-nav.open a:nth-child(4) { transition-delay: 0.25s; }
-        .mobile-nav.open a:nth-child(5) { transition-delay: 0.3s; }
-        
-        .mobile-nav a:hover { 
-            color: var(--white); 
-            transform: scale(1.05);
-        }
-
-        .mobile-nav .mobile-nav-cta {
-            margin-top: 2rem;
-            font-family: 'DM Sans', sans-serif;
-            font-size: 0.9rem !important;
+        .fleet-spec-tag {
+            font-size: 0.7rem;
             font-weight: 600;
-            letter-spacing: 0.15em;
-            text-transform: uppercase;
-            background: var(--gradient-primary);
-            border-radius: 100px;
-            padding: 1rem 3rem;
-            color: var(--bg-deep) !important;
-            box-shadow: 0 10px 30px var(--glow-strong);
+            background: #f9fafb;
+            border: 1px solid #e5e7eb;
+            color: #374151;
+            padding: 3px 9px;
+            border-radius: 4px;
         }
 
-        /* ============ RESPONSIVE (1024px) ============ */
-        @media (max-width: 1024px) {
-            .about-layout { grid-template-columns: 1fr; gap: 4rem; }
-            .about-media { padding-bottom: 3.5rem; }
-            .about-badge { left: 1rem; }
-            .about-accent-img { right: 0; width: 44%; }
-            .services-header { flex-direction: column; align-items: flex-start; gap: 1.5rem; }
-            .cards-grid { grid-template-columns: 1fr 1fr; }
-            .reviews-layout { grid-template-columns: 1fr; gap: 3rem; }
-            .reviews-grid { grid-template-columns: 1fr 1fr; }
-            .contact-layout { grid-template-columns: 1fr; }
-            .footer-top { grid-template-columns: 1fr; gap: 3rem; }
+        /* ─── Section divider ─── */
+        .divider-yellow {
+            width: 56px; height: 4px;
+            background: var(--yellow);
+            border-radius: 2px;
+            margin: 14px 0 28px;
         }
 
-        /* ============ RESPONSIVE (768px Mobile Core) ============ */
-        @media (max-width: 768px) {
-            header { padding: 1.2rem 1.5rem; }
-            header.scrolled { padding: 1rem 1.5rem; }
-
-            .nav-links { display: none; }
-            .hamburger { display: flex; }
-            .mobile-nav { display: flex; }
-
-            .section-wrapper, .services-section, .contact-section, .reviews-section {
-                padding: 5rem 1.5rem; 
-            }
-            
-            .stats-strip { padding: 4rem 1.5rem; }
-
-            .hero-actions { flex-direction: column; align-items: stretch; gap: 1rem; width: 100%; max-width: 320px; margin: 0 auto; }
-            .btn-primary, .btn-ghost { text-align: center; width: 100%; }
-
-            .about-layout { gap: 3rem; }
-            .about-media { padding-bottom: 3rem; }
-            .about-accent-img {
-                width: 50%;
-                bottom: 0;
-                right: 0;
-                border-width: 4px;
-            }
-            .about-badge {
-                left: 0.5rem; top: 1rem;
-                width: 80px; height: 80px;
-                font-size: 0.65rem;
-            }
-            .about-badge span { font-size: 1.3rem; }
-
-            .stats-inner {
-                grid-template-columns: 1fr 1fr;
-                gap: 1.5rem 0;
-            }
-            .stat-item {
-                border-bottom: 1px solid rgba(255,255,255,0.05);
-                padding: 1.5rem 1rem;
-            }
-            .stat-item:nth-child(2) { border-right: none; }
-            .stat-item:last-child {
-                grid-column: span 2;
-                border-bottom: none;
-                border-right: none;
-            }
-
-            .cards-grid { grid-template-columns: 1fr; }
-            .reviews-layout { gap: 2rem; }
-            .reviews-grid { grid-template-columns: 1fr; }
-            .review-score-block { padding: 3rem 1.5rem; }
-
-            .contact-layout { gap: 2.5rem; }
-            .map-wrapper iframe { height: 350px; }
-
-            .gallery-strip {
-                display: flex;
-                overflow-x: auto;
-                scroll-snap-type: x mandatory;
-                scrollbar-width: none;
-            }
-            .gallery-strip::-webkit-scrollbar { display: none; }
-            
-            .gallery-item {
-                flex: 0 0 75%;
-                scroll-snap-align: center;
-                border-right: 2px solid var(--bg-deep);
-            }
-            .gallery-item:last-child { border-right: none; }
-
-            .footer-top { grid-template-columns: 1fr; gap: 2.5rem; padding-bottom: 3rem; }
-            footer { padding: 4rem 1.5rem 2rem; }
-            .footer-bottom { flex-direction: column; gap: 1rem; text-align: center; }
+        /* ─── Form inputs ─── */
+        .form-input {
+            width: 100%;
+            padding: 12px 16px;
+            border: 1.5px solid #e5e7eb;
+            border-radius: 8px;
+            background: #f9fafb;
+            font-size: 0.9rem;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+            outline: none;
+        }
+        .form-input:focus {
+            border-color: var(--yellow);
+            box-shadow: 0 0 0 3px rgba(251,191,36,0.18);
+            background: #fff;
         }
 
-        /* ============ RESPONSIVE (Smallest Phones) ============ */
-        @media (max-width: 400px) {
-            .about-accent-img { width: 52%; right: 0; }
-            .stats-inner { grid-template-columns: 1fr; }
-            .stat-item {
-                border-right: none !important;
-                grid-column: span 1 !important;
-            }
-            .gallery-item { flex: 0 0 85%; }
+        /* ─── General button hover ─── */
+        .btn-hover {
+            transition: all 0.3s cubic-bezier(0.4,0,0.2,1);
         }
+        .btn-hover:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgba(251,191,36,0.4);
+        }
+
+        /* ─── Mobile nav toggle ─── */
+        .mobile-menu {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease, padding 0.3s ease;
+        }
+        .mobile-menu.open { max-height: 400px; }
+
+        /* ─── Pulse ring for icon circles ─── */
+        @keyframes pulseRing {
+            0%   { box-shadow: 0 0 0 0 rgba(251,191,36,0.4); }
+            70%  { box-shadow: 0 0 0 14px rgba(251,191,36,0); }
+            100% { box-shadow: 0 0 0 0 rgba(251,191,36,0); }
+        }
+        .icon-pulse:hover { animation: pulseRing 1.2s ease-out; }
+
+        /* ─── Footer social ─── */
+        .social-btn {
+            width: 40px; height: 40px;
+            border-radius: 50%;
+            background: #1f2937;
+            display: flex; align-items: center; justify-content: center;
+            color: #9ca3af;
+            transition: background 0.3s ease, color 0.3s ease, transform 0.3s ease;
+            text-decoration: none;
+        }
+        .social-btn:hover { background: var(--yellow); color: var(--dark); transform: translateY(-3px); }
+
+        /* ─── Truck icon float animation ─── */
+        @keyframes float {
+            0%,100% { transform: translateY(0); }
+            50%      { transform: translateY(-8px); }
+        }
+        .float-icon { animation: float 3s ease-in-out infinite; }
     </style>
 </head>
-<body>
+<body class="bg-gray-50 text-gray-800 antialiased overflow-x-hidden">
 
-    <!-- Loader -->
-    <div class="loader" id="loader">
-        <div class="loader-content">
-            <span class="loader-leaf"><i class="fa-solid fa-leaf"></i></span>
-            <div class="loader-text">JFF Plant Shop</div>
+    <!-- ═══════════════════════════════════════════
+         NAVIGATION
+    ═══════════════════════════════════════════ -->
+    <nav class="glass-nav fixed w-full z-50" id="navbar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+
+                <!-- Logo -->
+                <a href="#home" class="flex items-center gap-3 text-decoration-none">
+                    <i class="fa-solid fa-truck-moving text-brandYellow text-3xl float-icon"></i>
+                    <span class="text-white font-bold text-xl tracking-wider leading-tight">
+                        MOKOPANE<br><span class="text-brandYellow text-sm font-semibold">TRUCK & PLANT HIRE</span>
+                    </span>
+                </a>
+
+                <!-- Desktop Links -->
+                <div class="hidden md:flex items-center gap-8">
+                    <a href="#home"    class="nav-link">Home</a>
+                    <a href="#about"   class="nav-link">About</a>
+                    <a href="#fleet"   class="nav-link">Our Fleet</a>
+                    <a href="#request" class="nav-link">Request Equipment</a>
+                    <a href="#contact" class="nav-cta"><i class="fa-solid fa-phone mr-2"></i>078 487 0117</a>
+                </div>
+
+                <!-- Hamburger -->
+                <button id="menuBtn" class="md:hidden text-white focus:outline-none p-2" aria-label="Toggle menu">
+                    <i class="fa-solid fa-bars text-xl" id="menuIcon"></i>
+                </button>
+            </div>
         </div>
-    </div>
 
-    <!-- Navigation -->
-    <header id="header">
-        <a href="index.html" class="logo"><img src="https://i.postimg.cc/85Qwwvnj/jff.png" alt="JFF Plant Shop" class="logo-img"></a>
-        <ul class="nav-links">
-            <li><a href="#home">Home</a></li>
-            <li><a href="#about">Our Story</a></li>
-            <li><a href="gallery.html">Gallery</a></li>
-            <li><a href="#contact">Visit Us</a></li>
-            <li><a href="tel:0817684827" class="nav-cta">Call Now</a></li>
-        </ul>
-        <button class="hamburger" id="hamburger" aria-label="Open menu">
-            <span></span><span></span><span></span>
-        </button>
-    </header>
-
-    <!-- Mobile Nav Overlay -->
-    <nav class="mobile-nav" id="mobileNav">
-        <a href="#home" class="mobile-nav-link">Home</a>
-        <a href="#about" class="mobile-nav-link">Our Story</a>
-        <a href="gallery.html" class="mobile-nav-link">Gallery</a>
-        <a href="#contact" class="mobile-nav-link">Visit Us</a>
-        <a href="tel:0817684827" class="mobile-nav-cta">Call Now</a>
+        <!-- Mobile Menu -->
+        <div class="mobile-menu md:hidden bg-gray-900 border-t border-gray-800" id="mobileMenu">
+            <div class="px-4 py-4 space-y-3">
+                <a href="#home"    class="block text-gray-300 hover:text-brandYellow transition-colors py-2">Home</a>
+                <a href="#about"   class="block text-gray-300 hover:text-brandYellow transition-colors py-2">About</a>
+                <a href="#fleet"   class="block text-gray-300 hover:text-brandYellow transition-colors py-2">Our Fleet</a>
+                <a href="#request" class="block text-gray-300 hover:text-brandYellow transition-colors py-2">Request Equipment</a>
+                <a href="tel:0784870117" class="block bg-brandYellow text-brandDark font-bold py-3 px-4 rounded-lg text-center mt-2">
+                    <i class="fa-solid fa-phone mr-2"></i>078 487 0117
+                </a>
+            </div>
+        </div>
     </nav>
 
-    <!-- Hero -->
-    <section id="home" class="hero">
-        <div class="hero-bg"></div>
+    <!-- ═══════════════════════════════════════════
+         HERO SECTION
+    ═══════════════════════════════════════════ -->
+    <section id="home" class="hero-section pt-20">
+        <div class="hero-bg-img"></div>
         <div class="hero-overlay"></div>
-        <div class="hero-content">
-            <span class="hero-eyebrow">Mokopane, South Africa</span>
-            
-            <!-- Updated Heading and Subheading -->
-            <h1>Welcome to <br><em>JFF Plant Shop</em></h1>
-            <p class="hero-sub">Your local sanctuary for boutique plants, artisan coffee, and expert horticultural advice.</p>
-            
-            <div class="hero-actions">
-                <a href="#about" class="btn-primary">Discover Our Space</a>
-                <a href="#contact" class="btn-ghost">Find Us</a>
+        <div class="hero-accent"></div>
+
+        <div class="hero-content text-center px-4 max-w-5xl mx-auto">
+            <!-- Pre-label -->
+            <div class="hero-line">
+                <span class="inline-block text-brandYellow font-semibold text-sm tracking-widest uppercase mb-5 opacity-90">
+                    <i class="fa-solid fa-circle-check mr-2"></i>Mokopane's Premier Equipment Supplier
+                </span>
+            </div>
+
+            <!-- Main heading -->
+            <div class="hero-line">
+                <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold text-white tracking-tight leading-none mb-6">
+                    Heavy Duty Power For Your<br>
+                    <span class="text-brandYellow relative inline-block">Construction Needs</span>
+                </h1>
+            </div>
+
+            <!-- Sub-text -->
+            <div class="hero-line">
+                <p class="text-lg sm:text-xl text-gray-300 mb-10 max-w-2xl mx-auto leading-relaxed">
+                    Reliable, well-maintained trucks and plant equipment ready to tackle any project — from civil works to heavy haulage across Limpopo.
+                </p>
+            </div>
+
+            <!-- CTA Buttons -->
+            <div class="hero-line flex flex-col sm:flex-row justify-center gap-4">
+                <a href="#request" class="btn-primary">
+                    Hire Equipment <i class="fa-solid fa-arrow-right"></i>
+                </a>
+                <a href="#fleet" class="btn-outline">
+                    View Our Fleet <i class="fa-solid fa-truck-ramp-box"></i>
+                </a>
+            </div>
+
+            <!-- Quick stats row -->
+            <div class="hero-line mt-16 flex flex-wrap justify-center gap-8 border-t border-white/10 pt-8">
+                <div class="text-center">
+                    <div class="text-3xl font-extrabold text-white">10+</div>
+                    <div class="text-gray-400 text-sm mt-1">Equipment Units</div>
+                </div>
+                <div class="w-px bg-white/10 hidden sm:block"></div>
+                <div class="text-center">
+                    <div class="text-3xl font-extrabold text-white">24/7</div>
+                    <div class="text-gray-400 text-sm mt-1">Available Support</div>
+                </div>
+                <div class="w-px bg-white/10 hidden sm:block"></div>
+                <div class="text-center">
+                    <div class="text-3xl font-extrabold text-white">Mokopane</div>
+                    <div class="text-gray-400 text-sm mt-1">& Surrounding Areas</div>
+                </div>
             </div>
         </div>
-        <div class="hero-scroll">
-            <div class="scroll-line"></div>
-            <span>Scroll</span>
+
+        <!-- Scroll indicator -->
+        <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 z-10">
+            <span class="text-gray-400 text-xs tracking-widest uppercase">Scroll</span>
+            <div class="scroll-dot"></div>
         </div>
     </section>
 
-    <!-- About -->
-    <section id="about">
-        <div class="section-wrapper">
-            <div class="about-layout">
-                <div class="about-media reveal-left">
-                    <div class="about-badge"><span>5.0</span>Google<br>Rated</div>
-                    <img src="https://i.postimg.cc/3NmSYNMW/Save-Clip-App-654561026-18070907897540137-4062435620548818813-n.jpg" alt="JFF Plant Shop Interior" class="about-main-img" loading="lazy">
-                    <img src="https://i.postimg.cc/rsXtf7h7/Save-Clip-App-641755019-18068658878540137-1871984780433477788-n.jpg" alt="Plants Detail" class="about-accent-img" loading="lazy">
-                </div>
-                <div class="about-text reveal-right">
-                    <span class="eyebrow">Our Green Story</span>
-                    <h2 class="section-heading">A <em>sanctuary</em> where plants and people thrive</h2>
-                    <div class="blockquote">
-                        <p>"When we first imagined JFF Plant Shop, it was never just about opening a store. It was about creating a small green sanctuary."</p>
+    <!-- ═══════════════════════════════════════════
+         ABOUT / STATS
+    ═══════════════════════════════════════════ -->
+    <section id="about" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-14" data-aos="fade-up">
+                <span class="section-label">Why Choose Us</span>
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-gray-900">Trusted. Reliable. Ready.</h2>
+                <div class="divider-yellow mx-auto"></div>
+                <p class="text-gray-500 max-w-xl mx-auto">We keep our equipment in peak condition so your project never stops moving.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="stat-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="w-16 h-16 mx-auto bg-yellow-50 border-2 border-yellow-200 rounded-full flex items-center justify-center mb-5 text-2xl text-brandYellow icon-pulse">
+                        <i class="fa-solid fa-star"></i>
                     </div>
-                    <p class="body-text">We are a boutique business with a strong focus on houseplants, indoor greenery, and creating a relaxed environment. Whether you're looking for the perfect monstera, expert horticultural advice, or just a great cup of coffee surrounded by nature — you'll find it here.</p>
-                    <p class="body-text">Every plant in our collection is handpicked and cared for with intention. We believe that living with plants changes how you feel at home, and we're here to help you find exactly the right one.</p>
+                    <h3 class="text-3xl font-extrabold text-gray-900">3.39<span class="text-brandYellow">★</span></h3>
+                    <p class="text-gray-500 mt-2 text-sm">Google Reviews Rating</p>
+                </div>
+                <div class="stat-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="w-16 h-16 mx-auto bg-yellow-50 border-2 border-yellow-200 rounded-full flex items-center justify-center mb-5 text-2xl text-brandYellow icon-pulse">
+                        <i class="fa-solid fa-clock"></i>
+                    </div>
+                    <h3 class="text-3xl font-extrabold text-gray-900">Open Now</h3>
+                    <p class="text-gray-500 mt-2 text-sm">Ready to dispatch equipment immediately</p>
+                </div>
+                <div class="stat-card" data-aos="fade-up" data-aos-delay="300">
+                    <div class="w-16 h-16 mx-auto bg-yellow-50 border-2 border-yellow-200 rounded-full flex items-center justify-center mb-5 text-2xl text-brandYellow icon-pulse">
+                        <i class="fa-solid fa-helmet-safety"></i>
+                    </div>
+                    <h3 class="text-3xl font-extrabold text-gray-900">Expert</h3>
+                    <p class="text-gray-500 mt-2 text-sm">Trusted supplier in Mokopane, 0601</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Stats Strip -->
-    <div class="stats-strip">
-        <div class="stats-inner">
-            <div class="stat-item reveal delay-1">
-                <div class="stat-num">5.0</div>
-                <div class="stat-label">Google Star Rating</div>
-            </div>
-            <div class="stat-item reveal delay-2">
-                <div class="stat-num">3</div>
-                <div class="stat-label">Unique Experiences</div>
-            </div>
-            <div class="stat-item reveal delay-3">
-                <div class="stat-num">∞</div>
-                <div class="stat-label">Reasons to Visit</div>
-            </div>
-        </div>
-    </div>
+    <!-- ═══════════════════════════════════════════
+         FLEET SECTION — TRUCKS
+    ═══════════════════════════════════════════ -->
+    <section id="fleet" class="py-24 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
-    <!-- Services -->
-    <div id="services" class="services-section">
-        <div class="services-inner">
-            <div class="services-header">
-                <div>
-                    <span class="eyebrow reveal">What We Offer</span>
-                    <h2 class="section-heading reveal delay-1">Three ways to <em>experience</em> JFF</h2>
+            <!-- Trucks -->
+            <div class="mb-20">
+                <div class="text-center mb-14" data-aos="fade-up">
+                    <span class="section-label"><i class="fa-solid fa-truck mr-2"></i>Trucks Available for Hire</span>
+                    <h2 class="text-3xl sm:text-4xl font-extrabold text-gray-900">Our Truck Fleet</h2>
+                    <div class="divider-yellow mx-auto"></div>
+                    <p class="text-gray-500 max-w-xl mx-auto text-sm">From tipper trucks to flatbeds — we have the right vehicle for every job.</p>
                 </div>
-                <p class="services-desc reveal delay-2">From curated plants to artisan coffee and expert care — every visit to JFF is a different kind of delight.</p>
-            </div>
-            <div class="cards-grid">
-                <div class="service-card reveal delay-1">
-                    <div class="card-img-wrapper">
-                        <img src="https://i.postimg.cc/sfbRNs4Q/Save-Clip-App-474544344-18027894827540137-4472927896347318860-n.jpg" alt="Plant Retail" class="card-img" loading="lazy">
-                    </div>
-                    <div class="card-body">
-                        <div class="card-icon"><i class="fa-solid fa-leaf"></i></div>
-                        <h3 class="card-title">Boutique Plant Retail</h3>
-                        <p class="card-text">A curated selection of beautiful, healthy houseplants and indoor greenery to breathe life into your home or office.</p>
-                        <a href="#contact" class="card-link">Visit the shop <i class="fa-solid fa-arrow-right"></i></a>
-                    </div>
-                </div>
-                <div class="service-card reveal delay-2">
-                    <div class="card-img-wrapper">
-                        <img src="https://i.postimg.cc/v8jRLx8v/coffee.jpg" alt="Café" class="card-img" loading="lazy">
-                    </div>
-                    <div class="card-body">
-                        <div class="card-icon"><i class="fa-solid fa-mug-hot"></i></div>
-                        <h3 class="card-title">Relaxed Café</h3>
-                        <p class="card-text">Take a moment to unwind. Enjoy artisanal coffee, teas, and treats right in the middle of our indoor jungle.</p>
-                        <a href="#contact" class="card-link">See the menu <i class="fa-solid fa-arrow-right"></i></a>
-                    </div>
-                </div>
-                <div class="service-card reveal delay-3">
-                    <div class="card-img-wrapper">
-                        <img src="https://i.postimg.cc/63LG1YDJ/Save-Clip-App-575170207-18056799170540137-8763752596037017876-n.jpg" alt="Horticultural Services" class="card-img" loading="lazy">
-                    </div>
-                    <div class="card-body">
-                        <div class="card-icon"><i class="fa-solid fa-seedling"></i></div>
-                        <h3 class="card-title">Horticultural Services</h3>
-                        <p class="card-text">Expert advice, plant care services, and tailored solutions to ensure your greenery thrives year-round.</p>
-                        <a href="#contact" class="card-link">Get advice <i class="fa-solid fa-arrow-right"></i></a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
 
-    <!-- Marquee -->
-    <div class="marquee-section" aria-hidden="true">
-        <div class="marquee-track">
-            <div class="marquee-item">Boutique Plants <i class="fa-solid fa-circle"></i></div>
-            <div class="marquee-item">Artisan Coffee <i class="fa-solid fa-circle"></i></div>
-            <div class="marquee-item">Horticultural Advice <i class="fa-solid fa-circle"></i></div>
-            <div class="marquee-item">Indoor Greenery <i class="fa-solid fa-circle"></i></div>
-            <div class="marquee-item">Mokopane's Green Spot <i class="fa-solid fa-circle"></i></div>
-            <div class="marquee-item">5-Star Rated <i class="fa-solid fa-circle"></i></div>
-            <div class="marquee-item">Boutique Plants <i class="fa-solid fa-circle"></i></div>
-            <div class="marquee-item">Artisan Coffee <i class="fa-solid fa-circle"></i></div>
-            <div class="marquee-item">Horticultural Advice <i class="fa-solid fa-circle"></i></div>
-            <div class="marquee-item">Indoor Greenery <i class="fa-solid fa-circle"></i></div>
-            <div class="marquee-item">Mokopane's Green Spot <i class="fa-solid fa-circle"></i></div>
-            <div class="marquee-item">5-Star Rated <i class="fa-solid fa-circle"></i></div>
-        </div>
-    </div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
 
-    <!-- Reviews -->
-    <div class="reviews-section">
-        <div class="reviews-layout">
-            <div class="review-score-block reveal-left">
-                <div class="score-number">5.0</div>
-                <div class="score-stars">
-                    <i class="fa-solid fa-star"></i>
-                    <i class="fa-solid fa-star"></i>
-                    <i class="fa-solid fa-star"></i>
-                    <i class="fa-solid fa-star"></i>
-                    <i class="fa-solid fa-star"></i>
-                </div>
-                <div class="score-label">Google Reviews<br>Top-Rated in Mokopane</div>
-            </div>
-            <div class="reviews-grid reveal-right">
-                <div class="review-card">
-                    <div class="review-stars">★★★★★</div>
-                    <p class="review-text">"Absolutely love this little sanctuary. The plants are gorgeous and the coffee is even better. My new favourite spot."</p>
-                    <div class="review-author">— Lerato M.</div>
-                </div>
-                <div class="review-card">
-                    <div class="review-stars">★★★★★</div>
-                    <p class="review-text">"Such a unique concept. I came for a plant and left with three and a great latte. Friendly, knowledgeable staff too."</p>
-                    <div class="review-author">— Johan V.</div>
-                </div>
-                <div class="review-card">
-                    <div class="review-stars">★★★★★</div>
-                    <p class="review-text">"The best plant shop in Limpopo, hands down. The care and curation put into every plant is evident."</p>
-                    <div class="review-author">— Nomsa D.</div>
-                </div>
-                <div class="review-card">
-                    <div class="review-stars">★★★★★</div>
-                    <p class="review-text">"A hidden gem in Mokopane. Whether you want plants or just a quiet coffee, this is the place to be."</p>
-                    <div class="review-author">— Chris B.</div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Gallery Strip -->
-    <div class="gallery-section">
-        <div class="gallery-strip">
-            <div class="gallery-item">
-                <img src="https://i.postimg.cc/T3D14tb5/Save-Clip-App-573263792-18056799107540137-4815999829889085051-n.jpg" alt="Plants Gallery" loading="lazy">
-                <div class="gallery-overlay"><i class="fa-brands fa-instagram"></i></div>
-            </div>
-            <div class="gallery-item">
-                <img src="https://i.postimg.cc/N0xg3SfJ/Save-Clip-App-654561026-18070907897540137-4062435620548818813-n.jpg" alt="Coffee Gallery" loading="lazy">
-                <div class="gallery-overlay"><i class="fa-brands fa-instagram"></i></div>
-            </div>
-            <div class="gallery-item">
-                <img src="https://i.postimg.cc/266fP5t6/Save-Clip-App-589903778-18061045292540137-3615443657205864430-n.jpg" alt="Shop View Gallery" loading="lazy">
-                <div class="gallery-overlay"><i class="fa-brands fa-instagram"></i></div>
-            </div>
-            <div class="gallery-item">
-                <img src="https://i.postimg.cc/sfbRNs4Q/Save-Clip-App-474544344-18027894827540137-4472927896347318860-n.jpg" alt="Greenery Gallery" loading="lazy">
-                <div class="gallery-overlay"><i class="fa-brands fa-instagram"></i></div>
-            </div>
-            <div class="gallery-item">
-                <img src="https://i.postimg.cc/KcTZF1zD/Save-Clip-App-623658330-18122671588564178-5225924365465329856-n.jpg" alt="More Plants Gallery" loading="lazy">
-                <div class="gallery-overlay"><i class="fa-brands fa-instagram"></i></div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Contact -->
-    <div id="contact" class="contact-section">
-        <div class="contact-inner">
-            <span class="eyebrow reveal">Visit Us</span>
-            <h2 class="section-heading reveal delay-1">Find your <em>green escape</em><br>in Mokopane</h2>
-            <div class="contact-layout">
-                <div class="info-blocks">
-                    <div class="info-block reveal delay-1">
-                        <div class="info-block-icon"><i class="fa-solid fa-location-dot"></i></div>
-                        <div>
-                            <div class="info-block-label">Address</div>
-                            <div class="info-block-value">46 Hooge St<br>Mokopane, 0601</div>
+                    <!-- Truck 1 -->
+                    <div class="fleet-card" data-aos="fade-up" data-aos-delay="100">
+                        <div class="fleet-img-wrap">
+                            <div class="fleet-badge">Trucks</div>
+                            <img src="https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Tipper Truck">
+                        </div>
+                        <div class="fleet-body">
+                            <h4>10-Ton Tipper Truck</h4>
+                            <p>Ideal for transporting sand, gravel, soil, rubble, and aggregate to and from construction sites.</p>
+                            <div class="fleet-specs">
+                                <span class="fleet-spec-tag">10 Ton</span>
+                                <span class="fleet-spec-tag">Hydraulic Lift</span>
+                                <span class="fleet-spec-tag">Sand / Gravel</span>
+                            </div>
                         </div>
                     </div>
-                    <div class="info-block reveal delay-2">
-                        <div class="info-block-icon"><i class="fa-solid fa-phone"></i></div>
-                        <div>
-                            <div class="info-block-label">Phone</div>
-                            <div class="info-block-value"><a href="tel:0817684827">081 768 4827</a></div>
+
+                    <!-- Truck 2 -->
+                    <div class="fleet-card" data-aos="fade-up" data-aos-delay="200">
+                        <div class="fleet-img-wrap">
+                            <div class="fleet-badge">Trucks</div>
+                            <img src="https://images.unsplash.com/photo-1583267746897-2cf415887172?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Flatbed Truck">
+                        </div>
+                        <div class="fleet-body">
+                            <h4>Flatbed / Lowbed Truck</h4>
+                            <p>Transport heavy machinery, steel structures, construction equipment, and oversized loads safely.</p>
+                            <div class="fleet-specs">
+                                <span class="fleet-spec-tag">Heavy Loads</span>
+                                <span class="fleet-spec-tag">Machinery Transport</span>
+                                <span class="fleet-spec-tag">Wide Deck</span>
+                            </div>
                         </div>
                     </div>
-                    <div class="info-block reveal delay-3">
-                        <div class="info-block-icon"><i class="fa-solid fa-clock"></i></div>
-                        <div>
-                            <div class="info-block-label">Trading Hours</div>
-                            <div class="info-block-value">Monday – Sunday<br>Open until 5:00 PM</div>
-                            <div class="hours-note"><i class="fa-solid fa-circle-info"></i> Usually quiet around 3 PM</div>
+
+                    <!-- Truck 3 -->
+                    <div class="fleet-card" data-aos="fade-up" data-aos-delay="300">
+                        <div class="fleet-img-wrap">
+                            <div class="fleet-badge">Trucks</div>
+                            <img src="https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Water Tanker Truck" style="object-position: right center;">
                         </div>
+                        <div class="fleet-body">
+                            <h4>Water Tanker Truck</h4>
+                            <p>Supply water to remote construction sites, dust suppression on roads, and compaction assistance.</p>
+                            <div class="fleet-specs">
+                                <span class="fleet-spec-tag">10,000 L</span>
+                                <span class="fleet-spec-tag">Dust Suppression</span>
+                                <span class="fleet-spec-tag">Site Delivery</span>
+                            </div>
+                        </div>
+                    </div>
+
+            <!-- TLB Section -->
+            <div>
+                <div class="text-center mb-14" data-aos="fade-up">
+                    <span class="section-label"><i class="fa-solid fa-tractor mr-2"></i>TLB & Plant Equipment</span>
+                    <h2 class="text-3xl sm:text-4xl font-extrabold text-gray-900">TLB & Earthmoving Plant</h2>
+                    <div class="divider-yellow mx-auto"></div>
+                    <p class="text-gray-500 max-w-xl mx-auto text-sm">Versatile, powerful TLBs and plant equipment for every earthmoving requirement.</p>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+
+                    <!-- TLB 1 -->
+                    <div class="fleet-card" data-aos="fade-up" data-aos-delay="100">
+                        <div class="fleet-img-wrap">
+                            <div class="fleet-badge" style="background:#1d4ed8;color:#fff;">TLB</div>
+                            <img src="https://images.unsplash.com/photo-1589939705384-5185137a7f0f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Standard TLB">
+                        </div>
+                        <div class="fleet-body">
+                            <h4>Standard TLB (JCB 3CX)</h4>
+                            <p>The workhorse of construction — dig trenches, load material, and backfill with one versatile machine.</p>
+                            <div class="fleet-specs">
+                                <span class="fleet-spec-tag">Trenching</span>
+                                <span class="fleet-spec-tag">Loading</span>
+                                <span class="fleet-spec-tag">Backfilling</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- TLB 2 -->
+                    <div class="fleet-card" data-aos="fade-up" data-aos-delay="200">
+                        <div class="fleet-img-wrap">
+                            <div class="fleet-badge" style="background:#1d4ed8;color:#fff;">TLB</div>
+                            <img src="https://images.unsplash.com/photo-1580674684081-7617fbf3d745?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Excavator">
+                        </div>
+                        <div class="fleet-body">
+                            <h4>Midi Excavator (5–14 Ton)</h4>
+                            <p>Perfect for confined site excavation, pipeline laying, and foundation work in tight spaces.</p>
+                            <div class="fleet-specs">
+                                <span class="fleet-spec-tag">5–14 Ton</span>
+                                <span class="fleet-spec-tag">Foundations</span>
+                                <span class="fleet-spec-tag">Pipeline</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- TLB 3 -->
+                    <div class="fleet-card" data-aos="fade-up" data-aos-delay="300">
+                        <div class="fleet-img-wrap">
+                            <div class="fleet-badge" style="background:#1d4ed8;color:#fff;">TLB</div>
+                            <img src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Front End Loader">
+                        </div>
+                        <div class="fleet-body">
+                            <h4>Front-End Loader (FEL)</h4>
+                            <p>Move large volumes of bulk material — ideal for stockpile management, loading trucks, and site clearing.</p>
+                            <div class="fleet-specs">
+                                <span class="fleet-spec-tag">Bulk Loading</span>
+                                <span class="fleet-spec-tag">Stockpile</span>
+                                <span class="fleet-spec-tag">Site Clearing</span>
+                            </div>
+                        </div>
+                    </div>
+
+            <!-- CTA Banner -->
+            <div class="mt-16 rounded-2xl bg-brandDark p-10 flex flex-col md:flex-row items-center justify-between gap-6" data-aos="fade-up">
+                <div>
+                    <h3 class="text-2xl font-extrabold text-white mb-2">Don't see what you need?</h3>
+                    <p class="text-gray-400 text-sm">Contact us directly — we'll find the right equipment for your specific project.</p>
+                </div>
+                <a href="#request" class="btn-primary whitespace-nowrap">
+                    Get a Quote <i class="fa-solid fa-arrow-right"></i>
+                </a>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════
+         REQUEST FORM
+    ═══════════════════════════════════════════ -->
+    <section id="request" class="py-24 bg-white">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="bg-white rounded-3xl shadow-2xl overflow-hidden border border-gray-100" data-aos="fade-up">
+                <div class="bg-brandDark px-8 py-8 relative overflow-hidden">
+                    <!-- subtle pattern -->
+                    <div class="absolute inset-0 opacity-5" style="background-image: repeating-linear-gradient(45deg, #FBBF24 0, #FBBF24 1px, transparent 0, transparent 50%); background-size: 12px 12px;"></div>
+                    <div class="relative z-10">
+                        <span class="section-label mb-3">Get Started</span>
+                        <h2 class="text-3xl font-bold text-white">Request Equipment</h2>
+                        <p class="text-gray-400 mt-2 text-sm">Fill out the form below. Upload a reference image of what you need via our secure Cloudinary portal.</p>
                     </div>
                 </div>
-                <div class="map-wrapper reveal-right">
-                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3615.155700769947!2d29.0069!3d-24.185!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjTCsDExJzA2LjAiUyAyOcKwMDAnMjQuOCJF!5e0!3m2!1sen!2sza!4v1620000000000!5m2!1sen!2sza" allowfullscreen="" loading="lazy"></iframe>
+                <div class="p-8">
+                    <form id="hireForm" class="space-y-6">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <label class="block text-sm font-semibold text-gray-700 mb-1">Full Name</label>
+                                <input type="text" id="name" required class="form-input" placeholder="Your full name">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-semibold text-gray-700 mb-1">Phone Number</label>
+                                <input type="tel" id="phone" required class="form-input" placeholder="e.g. 078 123 4567">
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-semibold text-gray-700 mb-1">Equipment Needed</label>
+                            <textarea id="equipment" rows="3" required class="form-input resize-none" placeholder="Describe the equipment or job you need done..."></textarea>
+                        </div>
+
+                        <!-- Cloudinary Upload -->
+                        <div class="border-2 border-dashed border-gray-200 rounded-xl p-6 text-center bg-gray-50 hover:border-yellow-300 transition-colors">
+                            <i class="fa-solid fa-cloud-arrow-up text-4xl text-gray-300 mb-3"></i>
+                            <p class="text-sm text-gray-500 mb-4">Have a picture of the specific machinery you need?</p>
+                            <button type="button" id="uploadWidgetBtn" class="bg-gray-200 text-gray-700 hover:bg-gray-300 font-bold py-2 px-6 rounded-lg transition-colors text-sm">
+                                Upload Reference Image
+                            </button>
+                            <input type="hidden" id="imageUrl" value="">
+                            <div id="imagePreview" class="mt-4 hidden">
+                                <p class="text-green-600 text-sm font-bold mb-2"><i class="fa-solid fa-check-circle mr-1"></i>Image Uploaded Successfully!</p>
+                                <img id="previewImg" src="" alt="Preview" class="max-h-32 mx-auto rounded-lg shadow">
+                            </div>
+                        </div>
+
+                        <button type="submit" id="submitBtn" class="w-full bg-brandYellow text-brandDark font-bold text-lg py-4 rounded-xl btn-hover flex items-center justify-center gap-3">
+                            Submit Request <i class="fa-solid fa-paper-plane"></i>
+                        </button>
+                    </form>
+
+                    <div id="successMsg" class="hidden mt-6 bg-green-50 border-l-4 border-green-500 p-4 rounded-r-xl">
+                        <div class="flex items-center gap-3">
+                            <i class="fa-solid fa-check-circle text-green-500 text-lg"></i>
+                            <p class="text-sm text-green-700 font-medium">Request received! We will contact you shortly on the number provided.</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+    </section>
 
-    <!-- Footer -->
-    <footer>
-        <div class="footer-inner">
-            <div class="footer-top">
-                <div>
-                    <div class="footer-logo"><img src="https://i.postimg.cc/85Qwwvnj/jff.png" alt="JFF Plant Shop" class="footer-logo-img"></div>
-                    <p class="footer-about">A boutique plant sanctuary, café, and horticultural destination in the heart of Mokopane. Where green things grow and good coffee flows.</p>
+    <!-- ═══════════════════════════════════════════
+         FOOTER / CONTACT
+    ═══════════════════════════════════════════ -->
+    <footer id="contact" class="bg-brandDark text-gray-300 pt-20 pb-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-12 mb-14 border-b border-gray-800 pb-14">
+
+                <!-- Brand -->
+                <div data-aos="fade-right">
+                    <div class="flex items-center gap-3 mb-5">
+                        <i class="fa-solid fa-truck-moving text-brandYellow text-2xl"></i>
+                        <span class="text-white font-bold text-xl">Mokopane Truck & Plant</span>
+                    </div>
+                    <p class="text-sm leading-relaxed mb-6 text-gray-400">Providing top-tier construction equipment and reliable service to Mokopane and surrounding areas of Limpopo.</p>
+                    <div class="flex gap-3">
+                        <a href="#" class="social-btn"><i class="fa-brands fa-facebook-f text-sm"></i></a>
+                        <a href="#" class="social-btn"><i class="fa-brands fa-x-twitter text-sm"></i></a>
+                        <a href="#" class="social-btn"><i class="fa-brands fa-instagram text-sm"></i></a>
+                        <a href="#" class="social-btn"><i class="fa-brands fa-whatsapp text-sm"></i></a>
+                    </div>
                 </div>
-                <div>
-                    <div class="footer-heading">Navigate</div>
-                    <ul class="footer-links">
-                        <li><a href="#home">Home</a></li>
-                        <li><a href="#about">Our Story</a></li>
-                        <li><a href="#services">Services</a></li>
-                        <li><a href="#contact">Visit Us</a></li>
+
+                <!-- Contact -->
+                <div data-aos="fade-up">
+                    <h4 class="text-white font-bold text-base mb-6 uppercase tracking-wider">Contact Us</h4>
+                    <ul class="space-y-4 text-sm">
+                        <li class="flex items-start gap-3">
+                            <i class="fa-solid fa-location-dot mt-0.5 text-brandYellow w-4 text-center flex-shrink-0"></i>
+                            <span>91 Sussex St, Mokopane,<br>0601, South Africa</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <i class="fa-solid fa-phone text-brandYellow w-4 text-center flex-shrink-0"></i>
+                            <a href="tel:0784870117" class="text-lg font-bold text-white hover:text-brandYellow transition-colors">078 487 0117</a>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <i class="fa-brands fa-whatsapp text-brandYellow w-4 text-center flex-shrink-0"></i>
+                            <span>WhatsApp us anytime</span>
+                        </li>
                     </ul>
                 </div>
-                <div>
-                    <div class="footer-heading">Contact</div>
-                    <ul class="footer-links">
-                        <li><a href="tel:0817684827">081 768 4827</a></li>
-                        <li><a href="#">46 Hooge St, Mokopane</a></li>
-                        <li><a href="#">Mon–Sun, Until 5 PM</a></li>
-                    </ul>
+
+                <!-- Map -->
+                <div data-aos="fade-left" class="h-52 bg-gray-800 rounded-xl overflow-hidden">
+                    <iframe
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3655.856262969966!2d29.0063!3d-24.1837!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjTCsDExJzAxLjMiUyAyOcKwMDAnMjIuNyJF!5e0!3m2!1sen!2sza!4v1680000000000!5m2!1sen!2sza"
+                        width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+                    </iframe>
                 </div>
             </div>
-            <div class="footer-bottom">
-                <span>&copy; 2026 JFF Plant Shop. All Rights Reserved.</span>
-                <span>46 Hooge St, Mokopane, 0601</span>
+
+            <div class="text-center text-xs text-gray-600 flex flex-col sm:flex-row justify-between items-center gap-2">
+                <p>&copy; 2026 Mokopane Truck and Plant Hire. All rights reserved.</p>
+                <p>Suggest an edit · Own this business?</p>
             </div>
         </div>
     </footer>
 
+    <!-- ═══════════════════════════════════════════
+         SCRIPTS
+    ═══════════════════════════════════════════ -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-        // ── Loader ──
-        window.addEventListener('load', () => {
-            setTimeout(() => {
-                document.getElementById('loader').classList.add('hidden');
-            }, 1000); 
-        });
+        AOS.init({ once: true, offset: 80, duration: 750 });
 
-        // ── Sticky Header ──
-        const header = document.getElementById('header');
+        // ── Navbar scroll effect ──
+        const navbar = document.getElementById('navbar');
         window.addEventListener('scroll', () => {
-            header.classList.toggle('scrolled', window.scrollY > 60);
+            navbar.classList.toggle('scrolled', window.scrollY > 60);
         });
 
-        // ── Hamburger / Mobile Nav ──
-        const hamburger = document.getElementById('hamburger');
-        const mobileNav = document.getElementById('mobileNav');
-
-        function toggleMenu(open) {
-            hamburger.classList.toggle('open', open);
-            mobileNav.classList.toggle('open', open);
-            document.body.style.overflow = open ? 'hidden' : '';
-        }
-
-        hamburger.addEventListener('click', () => {
-            const isOpen = mobileNav.classList.contains('open');
-            toggleMenu(!isOpen);
+        // ── Mobile menu ──
+        const menuBtn  = document.getElementById('menuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const menuIcon = document.getElementById('menuIcon');
+        menuBtn.addEventListener('click', () => {
+            const open = mobileMenu.classList.toggle('open');
+            menuIcon.className = open ? 'fa-solid fa-xmark text-xl' : 'fa-solid fa-bars text-xl';
         });
-
-        mobileNav.querySelectorAll('a').forEach(link => {
-            link.addEventListener('click', () => toggleMenu(false));
-        });
-
-        // ── Scroll Reveal ──
-        const reveals = document.querySelectorAll('.reveal, .reveal-left, .reveal-right');
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                }
+        // close on link click
+        mobileMenu.querySelectorAll('a').forEach(a => {
+            a.addEventListener('click', () => {
+                mobileMenu.classList.remove('open');
+                menuIcon.className = 'fa-solid fa-bars text-xl';
             });
-        }, { threshold: 0.15, rootMargin: "0px 0px -50px 0px" });
+        });
+    </script>
 
-        reveals.forEach(el => observer.observe(el));
+    <!-- Firebase -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-database-compat.js"></script>
 
-        // ── Parallax Hero ──
-        window.addEventListener('scroll', () => {
-            if(window.innerWidth > 768) {
-                const scrolled = window.scrollY;
-                const heroBg = document.querySelector('.hero-bg');
-                if (heroBg && scrolled < window.innerHeight) {
-                    heroBg.style.transform = `translateY(${scrolled * 0.4}px) scale(1.05)`;
-                }
+    <!-- Cloudinary -->
+    <script src="https://widget.cloudinary.com/v2.0/global/all.js" type="text/javascript"></script>
+
+    <script>
+        const firebaseConfig = {
+            apiKey: "YOUR_FIREBASE_API_KEY",
+            authDomain: "your-project-id.firebaseapp.com",
+            databaseURL: "https://your-project-id-default-rtdb.firebaseio.com",
+            projectId: "your-project-id",
+            storageBucket: "your-project-id.appspot.com",
+            messagingSenderId: "YOUR_SENDER_ID",
+            appId: "YOUR_APP_ID"
+        };
+        firebase.initializeApp(firebaseConfig);
+        const database = firebase.database();
+
+        const CLOUDINARY_CLOUD_NAME   = 'YOUR_CLOUD_NAME';
+        const CLOUDINARY_UPLOAD_PRESET = 'YOUR_UNSIGNED_PRESET';
+
+        var myWidget = cloudinary.createUploadWidget({
+            cloudName: CLOUDINARY_CLOUD_NAME,
+            uploadPreset: CLOUDINARY_UPLOAD_PRESET,
+            sources: ['local', 'url', 'camera'],
+            multiple: false, maxFiles: 1, theme: "minimal"
+        }, (error, result) => {
+            if (!error && result && result.event === "success") {
+                document.getElementById('imageUrl').value = result.info.secure_url;
+                document.getElementById('previewImg').src  = result.info.secure_url;
+                document.getElementById('imagePreview').classList.remove('hidden');
+                document.getElementById('uploadWidgetBtn').innerText = "Change Image";
             }
+        });
+
+        document.getElementById("uploadWidgetBtn").addEventListener("click", () => myWidget.open());
+
+        document.getElementById('hireForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const btn = document.getElementById('submitBtn');
+            btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-2"></i>Sending...';
+            btn.disabled = true;
+
+            database.ref('equipment_requests').push({
+                name:            document.getElementById('name').value,
+                phone:           document.getElementById('phone').value,
+                equipment:       document.getElementById('equipment').value,
+                reference_image: document.getElementById('imageUrl').value || "No image uploaded",
+                created_at:      new Date().toISOString()
+            }).then(() => {
+                this.reset();
+                document.getElementById('imagePreview').classList.add('hidden');
+                document.getElementById('imageUrl').value = "";
+                document.getElementById('uploadWidgetBtn').innerText = "Upload Reference Image";
+                const msg = document.getElementById('successMsg');
+                msg.classList.remove('hidden');
+                setTimeout(() => msg.classList.add('hidden'), 5000);
+            }).catch(err => {
+                alert("Error saving request: " + err.message);
+            }).finally(() => {
+                btn.innerHTML = 'Submit Request <i class="fa-solid fa-paper-plane"></i>';
+                btn.disabled = false;
+            });
         });
     </script>
 </body>
